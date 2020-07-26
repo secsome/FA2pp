@@ -44,6 +44,11 @@ public:
 		JMP_STD(0x5518E3);
 	}
 
+	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam) override
+	{
+		JMP_STD(0x5535CC);
+	}
+
 };
 
 class NOVTABLE FA2CWinApp : public CWinApp
