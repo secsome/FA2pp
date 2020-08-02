@@ -2,29 +2,36 @@
 
 #include "FA2PP.h"
 
-
-
-
-
-// INIPair
+// INIPair , CsfPair(?)
 struct CStringPair
 {
     CString Key;
     CString Value;
 
-    __thiscall CStringPair(LPCSTR* pKey, LPCSTR* pValue)
+    __thiscall CStringPair(LPCSTR pKey, LPCSTR pValue)
     {
-        JMP_THIS(0x407D50);
+        Key = pKey;
+        Value = pValue;
     }
 
-    CStringPair(LPCSTR* pKey)
-    {
-        auto lpDefaultValue = reinterpret_cast<LPCSTR>(0x5D4498);
-        CStringPair(pKey, &lpDefaultValue);
-    }
+    CStringPair() {}
 
     __thiscall ~CStringPair()
     {
-        JMP_THIS(0x4032E0);
+        Key.~CString();
+        Value.~CString();
     }
 };
+
+
+// Sample from Basic->EndofGame
+LPCSTR GetValue(DWORD pFileAddress, LPCSTR lpSection, LPCSTR lpKey)
+{
+    CString pSection = lpSection;
+    CString pKey = lpKey;
+
+
+    LPCSTR lpResult = "DEBUG Return";
+    
+    return lpResult;
+}

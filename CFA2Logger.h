@@ -1,30 +1,47 @@
 #pragma once
 
-#include "../FA2Copy.h"
-#include "FA2PP.h"
-#include "../Macro.h"
+// Don't use this one for now...
 
-class NOVTABLE CFA2Logger
+#include "FA2PP.h"
+
+class CFA2Logger
 {
 public:
-    static int WriteLog(const char* pMessage)
+    static bool isInitialized;
+
+/*
+    static int WriteLog(const char* pFormat, ...)
     {
-        if (FA2Copy::isFA2CLoggerInitialized)
-            return WriteLog(firstParam, pMessage);
-        return -1;
+        va_list args;
+        va_start(args, pFormat);
+        char buffer[1024];
+        vsprintf_s(buffer, 1024, pFormat, args);
+        va_end(pFormat);
+        return SafeWriteLog(buffer);
     }
-    static const int firstParam = 6192288;
+*/
 
 private:
     static int __cdecl WriteLog(int pConstant, const char* pMessage)
     {
         JMP_THIS(0x4135B0);
     }
+
+    static int SafeWriteLog(const char* pMessage)
+    {
+        if (isInitialized)
+            return WriteLog(firstParam, pMessage);
+        return -1;
+    }
+
+    static const int firstParam = 6192288;
 };
+
+bool CFA2Logger::isInitialized = false;
 
 DEFINE_HOOK(41F8D1, CFA2Logger_Initialized, 5)
 {
-    FA2Copy::isFA2CLoggerInitialized = TRUE;
+    CFA2Logger::isInitialized = true;
     return 0;
 }
 
