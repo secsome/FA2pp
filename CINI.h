@@ -164,4 +164,66 @@ public:
 	}
 
 private:
+
+public:
+	// Several useful wrappers
+
+	CString Read(const char* pSection, const char* pKey,const char* pDefault = "") {
+		CString res;
+		if (auto const& pEntries = this->GetEntries(pSection))
+			if (auto const& pItem = pEntries->Items.GetItem(pKey))
+				res = pItem->Value;
+		if (res.IsEmpty())
+			return pDefault;
+		return res;
+	}
+
+	int ReadInteger(const char* pSection, const char* pKey, int nDefault = 0) {
+		auto const pStr = this->Read(pSection, pKey);
+		int ret = 0;
+		if (sscanf_s(pStr, "%d", &ret) == 1)
+			return ret;
+		return nDefault;
+	}
+
+	float ReadSingle(const char* pSection, const char* pKey, float nDefault = 0) {
+		auto const pStr = this->Read(pSection, pKey);
+		float ret = 0;
+		if (sscanf_s(pStr, "%f", &ret) == 1)
+			return ret;
+		return nDefault;
+	}
+
+	double ReadDouble(const char* pSection, const char* pKey, double nDefault = 0) {
+		auto const pStr = this->Read(pSection, pKey);
+		double ret = 0;
+		if (sscanf_s(pStr, "%lf", &ret) == 1)
+			return ret;
+		return nDefault;
+	}
+
+	bool ReadBool(const char* pSection, const char* pKey, bool nDefault = false) {
+		auto const pStr = this->Read(pSection, pKey);
+		switch(toupper(static_cast<unsigned char>(*pStr)))
+		{
+			case '1':
+			case 'T':
+			case 'Y':
+				return true;
+			case '0':
+			case 'F':
+			case 'N':
+				return false;
+			default:
+				return nDefault;
+		}
+	}
+};
+
+class INIHeaderClass
+{
+private:
+	int unknown;
+public:
+	INIClass* file;
 };
