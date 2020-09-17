@@ -30,19 +30,7 @@ public:
         static constexpr reference<INIClass, 0x7ECE74> const Desert{}; // desertmd.ini
         static constexpr reference<INIClass, 0x7ED61C> const FAData{}; // FAData.ini
         static constexpr reference<INIClass, 0x7ED504> const FALanguage{}; // FALanguage.ini
-
-        // This one needs a function to parse it
-    private:
-        struct FinalAlertHandlerCDialog : FA2CDialog
-        {
-            INIClass* GetInstance() { JMP_THIS(0x49C260); }
-        };
-        static constexpr reference<FinalAlertHandlerCDialog, 0x72CBF8> const FinalAlertHandle{}; 
-    public:
-        static INIClass* FinalAlert() {// FinalAlert.ini 
-            return INIFiles::FinalAlertHandle.get().GetInstance();
-        }
-
+        static constexpr reference<INIClass, 0x7ACC84> const CurrentDocument{}; // Current map file
     };
 
 
