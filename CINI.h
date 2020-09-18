@@ -168,7 +168,7 @@ private:
 public:
 	// Several useful wrappers
 
-	CString Read(const char* pSection, const char* pKey,const char* pDefault = "") {
+	CString GetString(const char* pSection, const char* pKey,const char* pDefault = "") {
 		CString res;
 		if (auto const& pEntries = this->GetEntries(pSection))
 			if (auto const& pItem = pEntries->Items.GetItem(pKey))
@@ -178,32 +178,32 @@ public:
 		return res;
 	}
 
-	int ReadInteger(const char* pSection, const char* pKey, int nDefault = 0) {
-		auto const pStr = this->Read(pSection, pKey);
+	int GetInteger(const char* pSection, const char* pKey, int nDefault = 0) {
+		auto const pStr = this->GetString(pSection, pKey);
 		int ret = 0;
 		if (sscanf_s(pStr, "%d", &ret) == 1)
 			return ret;
 		return nDefault;
 	}
 
-	float ReadSingle(const char* pSection, const char* pKey, float nDefault = 0) {
-		auto const pStr = this->Read(pSection, pKey);
+	float GetSingle(const char* pSection, const char* pKey, float nDefault = 0) {
+		auto const pStr = this->GetString(pSection, pKey);
 		float ret = 0;
 		if (sscanf_s(pStr, "%f", &ret) == 1)
 			return ret;
 		return nDefault;
 	}
 
-	double ReadDouble(const char* pSection, const char* pKey, double nDefault = 0) {
-		auto const pStr = this->Read(pSection, pKey);
+	double GetDouble(const char* pSection, const char* pKey, double nDefault = 0) {
+		auto const pStr = this->GetString(pSection, pKey);
 		double ret = 0;
 		if (sscanf_s(pStr, "%lf", &ret) == 1)
 			return ret;
 		return nDefault;
 	}
 
-	bool ReadBool(const char* pSection, const char* pKey, bool nDefault = false) {
-		auto const pStr = this->Read(pSection, pKey);
+	bool GetBool(const char* pSection, const char* pKey, bool nDefault = false) {
+		auto const pStr = this->GetString(pSection, pKey);
 		switch(toupper(static_cast<unsigned char>(*pStr)))
 		{
 			case '1':
