@@ -2,6 +2,8 @@
 
 #include "FA2PP.h"
 
+#include <AFXOLE.H>
+
 class NOVTABLE CScriptTypes : public FA2CDialog
 {
 public:

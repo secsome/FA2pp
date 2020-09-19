@@ -22,10 +22,10 @@ public:
         static constexpr reference<INIClass, 0x7ED84C> const Eva{}; // evamd.ini / eva.ini
         static constexpr reference<INIClass, 0x7ED734> const Theme{}; // thememd.ini / theme.ini
         static constexpr reference<INIClass, 0x7EDB94> const Ai{}; // aimd.ini / ai.ini
-        static constexpr reference<INIClass, 0x7ED3EC> const Temperat{}; // temperatmd.ini / temperat.ini
+        static constexpr reference<INIClass, 0x7ED3EC> const Temperate{}; // temperatmd.ini / temperat.ini
         static constexpr reference<INIClass, 0x7ED2D4> const Snow{}; // snowmd.ini / snow.ini
         static constexpr reference<INIClass, 0x7ED1BC> const Urban{}; // urbanmd.ini / urban.ini
-        static constexpr reference<INIClass, 0x7ED0A4> const UrbanN{}; // urbannmd.ini
+        static constexpr reference<INIClass, 0x7ED0A4> const NewUrban{}; // urbannmd.ini
         static constexpr reference<INIClass, 0x7ECF8C> const Lunar{}; // lunarmd.ini
         static constexpr reference<INIClass, 0x7ECE74> const Desert{}; // desertmd.ini
         static constexpr reference<INIClass, 0x7ED61C> const FAData{}; // FAData.ini
