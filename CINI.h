@@ -169,30 +169,33 @@ private:
 
 public:
 	// Several useful wrappers
-	CString GetString(const char* pSection, const char* pKey, const char* pDefault) { // slower , but exactly
-		CString res;
-		if (auto const sectionptr = this->GetSection(pSection))
-		{
-			auto& entryList = sectionptr->Entries;
-			if (auto const entryCount = entryList.Count)
-			{
-				for (int i = 0; i < entryCount; ++i)
-					if (auto pStr = entryList.GetKey(i))
-						if (*reinterpret_cast<CString*>(pStr) == pKey)
-						{
-							res = *entryList.GetValue(i);
-							return res;
-						}
-			}
-		}
-		return pDefault;
-	}
+	//CString GetString(const char* pSection, const char* pKey, const char* pDefault) { // slower , but exactly
+	//	CString res;
+	//	if (auto const sectionptr = this->GetSection(pSection))
+	//	{
+	//		auto& entryList = sectionptr->Entries;
+	//		if (auto const entryCount = entryList.Count)
+	//		{
+	//			for (int i = 0; i < entryCount; ++i)
+	//				if (auto pStr = entryList.GetKey(i))
+	//					if (*reinterpret_cast<CString*>(pStr) == pKey)
+	//					{
+	//						res = *entryList.GetValue(i);
+	//						return res;
+	//					}
+	//		}
+	//	}
+	//	return pDefault;
+	//}
 
-	CString GetString(const char* pSection, const char* pKey) { // return pKey if not found, stupid
+	// Hey! you know what? do not make pKey = pDefault, at no times!
+	CString GetString(const char* pSection, const char* pKey,const char* pDefault = "") {
 		CString res;
 		if (auto const pEntries = this->GetEntries(pSection))
 			if (auto const pItem = pEntries->Items.GetItem(pKey))
 				res = pItem->Value;
+		if (res.IsEmpty() || res == pKey)
+			res = pDefault;
 		return res;
 	}
 
