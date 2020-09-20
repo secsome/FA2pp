@@ -6,6 +6,8 @@
 #include "FAString.h"
 #include "FA2PP.h"
 
+#include "../FA2sp/Logger.h"
+
 // presumed ini section?
 class UnknownA
 {
