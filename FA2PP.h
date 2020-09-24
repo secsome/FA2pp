@@ -31,23 +31,23 @@ public:
 	//CWnd
 	virtual BOOL DestroyWindow() override
 	{
-		JMP_STD(0x552FB5);
+		JMP_THIS(0x552FB5);
 	}
 
 	//CDialog
 	virtual BOOL OnInitDialog() override
 	{
-		JMP_STD(0x5520A8);
+		JMP_THIS(0x5520A8);
 	}
 
 	virtual BOOL PreTranslateMessage(MSG* pMsg) override
 	{
-		JMP_STD(0x5518E3);
+		JMP_THIS(0x5518E3);
 	}
 
 	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam) override
 	{
-		JMP_STD(0x5535CC);
+		JMP_THIS(0x5535CC);
 	}
 
 };

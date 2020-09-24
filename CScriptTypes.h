@@ -17,6 +17,7 @@ public:
 	CString			CString_ScriptName; // 452
 
 public:
+
 	virtual BOOL OnInitDialog() override
 	{
 		JMP_THIS(0x4D8D20);
@@ -37,7 +38,7 @@ public:
 		JMP_THIS(0x4D6770);
 	}
 
-	virtual void OnParamConvert()
+	virtual void OnActionUpdateParams()
 	{
 		JMP_THIS(0x4D6A10);
 	}
