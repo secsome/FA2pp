@@ -1,9 +1,6 @@
 #pragma once
 
-//#include "../FA2.h"
-
 #include "Helpers/ASMMacros.h"
-#include "FAString.h"
 #include "FA2PP.h"
 
 #include "../FA2sp/Logger.h"
@@ -37,9 +34,9 @@ template <typename T>
 class INIClassQuery
 {
 public:
-	INIClassQuery(const FAString& query) : Query(query), Data(T()) {}
+	INIClassQuery(const CString& query) : Query(query), Data(T()) {}
 
-	INIClassQuery(const FAString& query, const T& data) : Query(query), Data(data) {}
+	INIClassQuery(const CString& query, const T& data) : Query(query), Data(data) {}
 
 	~INIClassQuery() {
 		// member destructors called automatically
@@ -50,7 +47,7 @@ public:
 	}
 
 private:
-	FAString Query;
+	CString Query;
 	T Data;
 };
 
@@ -93,14 +90,14 @@ protected:
 class INIEntry {
 public:
 	DWORD unknown_0[4];
-	FAString Value;
+	CString Value;
 };
 
 class INIEntries : private INIClassHelpers
 {
 public:
 	INIEntry* GetItem(const char* const& section) {
-		return Query<INIEntry, FAString, 0x40A010>(section).Value; // GetSectionDescriptor(section).Value;
+		return Query<INIEntry, CString, 0x40A010>(section).Value; // GetSectionDescriptor(section).Value;
 	}
 
 	DWORD unknown_0;
@@ -109,12 +106,12 @@ public:
 class INIEntryList
 {
 public:
-	FAString* GetValue(int index)
+	CString* GetValue(int index)
 	{
 		JMP_THIS(0x453590);
 	}
 
-	FAString* GetKey(int index)
+	CString* GetKey(int index)
 	{
 		JMP_THIS(0x453650);
 	}
@@ -169,6 +166,7 @@ private:
 
 public:
 	// Several useful wrappers
+
 	//CString GetString(const char* pSection, const char* pKey, const char* pDefault) { // slower , but exactly
 	//	CString res;
 	//	if (auto const sectionptr = this->GetSection(pSection))
@@ -188,7 +186,9 @@ public:
 	//	return pDefault;
 	//}
 
-	// Hey! you know what? do not make pKey = pDefault, at no times!
+	// Hey! you know what? do not make pKey = pDefault, never!
+	// Cause this stupid call will give u the result as same as pKey if it's not found!
+	// And we have no idea about how to tell it... for now.
 	CString GetString(const char* pSection, const char* pKey,const char* pDefault = "") {
 		CString res;
 		if (auto const pEntries = this->GetEntries(pSection))
