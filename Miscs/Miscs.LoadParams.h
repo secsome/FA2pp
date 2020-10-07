@@ -78,7 +78,7 @@ namespace Miscs {
         }
 
         void Movies(CComboBox* pComboBox, bool bShowIndex) {
-            Movies(pComboBox, ~bShowIndex, bShowIndex);
+            Movies(pComboBox, !bShowIndex, bShowIndex);
         }
 
         void Houses(CComboBox* pComboBox,

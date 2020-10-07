@@ -1,107 +1,8 @@
-#pragma once
-
-#include "Helpers/ASMMacros.h"
 #include "FA2PP.h"
 
 #include "../FA2sp/Logger.h"
 
-// presumed ini section?
-class UnknownA
-{
-public:
-	UnknownA()
-	{
-		JMP_THIS(0x452880);
-	}
-
-	UnknownA(const UnknownA& other) {
-		*this = other;
-	}
-
-	UnknownA& operator=(const UnknownA& other) {
-		JMP_THIS(0x4021C0);
-	}
-
-	~UnknownA()
-	{
-		JMP_THIS(0x452B20);
-	}
-
-	char unknown_0[36];
-};
-
-template <typename T>
-class INIClassQuery
-{
-public:
-	INIClassQuery(const CString& query) : Query(query), Data(T()) {}
-
-	INIClassQuery(const CString& query, const T& data) : Query(query), Data(data) {}
-
-	~INIClassQuery() {
-		// member destructors called automatically
-	}
-
-	operator const char* const& () {
-		return Query;
-	}
-
-private:
-	CString Query;
-	T Data;
-};
-
-template <typename T>
-struct INIQueryResult
-{
-	INIQueryResult() : Value(nullptr), Found(false) {}
-
-	T* Value;
-	bool Found;
-};
-
-template <typename T>
-class FALink
-{
-public:
-	T unknown_0;
-	T unknown_4;
-	T unknown_8;
-};
-
-class INIClassHelpers
-{
-protected:
-	template <typename T, typename Helper, DWORD FuncAddr>
-	INIQueryResult<T> Query(const char* const& section) {
-		INIQueryResult<T> desc;
-		INIClassQuery<Helper> query(section);
-		return *Query<T, FuncAddr>(desc, query);
-	}
-
-	template <typename T, DWORD FuncAddr>
-	INIQueryResult<T>* Query(INIQueryResult<T>& unk, const char* const& section)
-	{
-		static const DWORD FuncAddr_ = FuncAddr;
-		JMP_THIS(FuncAddr_);
-	}
-};
-
-class INIEntry {
-public:
-	DWORD unknown_0[4];
-	CString Value;
-};
-
-class INIEntries : private INIClassHelpers
-{
-public:
-	INIEntry* GetItem(const char* const& section) {
-		return Query<INIEntry, CString, 0x40A010>(section).Value; // GetSectionDescriptor(section).Value;
-	}
-
-	DWORD unknown_0;
-};
+#include "Structures/FAMap.h"
 
 class INIEntryList
 {
@@ -123,9 +24,10 @@ public:
 	int Count;
 };
 
-class INISection : public FALink<void*>
+class INISection
 {
 public:
+	INISection() : Text("") {}
 	INISection(const char* text) : Text(text) {}
 
 	operator const char* const& () {
@@ -133,70 +35,56 @@ public:
 	}
 
 public:
+	DWORD unknown_0;
+	DWORD unknown_4;
+	DWORD unknown_8;
 	const char* Text;
 	INIEntryList Entries;
 };
 
-class INIUnknown
+struct INIClassQueryPair
 {
-public:
-	DWORD unknown_0[5];
-	INIEntries Items;
+	INIClassQueryPair(const char* text) : Key(text) {}
+
+	const char* Key;
+	INISection Value;
 };
 
-
-
-
-class INIClass : private INIClassHelpers
+struct INIClassReturnPair
 {
-public:
-	INISection* GetSection(const char* const& section) {
-		return Query<INISection, UnknownA, 0x4026D0>(section).Value; /*GetSectionDescriptor(section).Value;*/
-	}
+	INIClassReturnPair* iterator;
+	bool bNotFound;
+};
 
-	bool HasSection(const char* const& section) {
-		return Query<INISection, UnknownA, 0x4026D0>(section).Found; //GetSectionDescriptor(section).Found;
-	}
-
-	INIUnknown* GetEntries(const char* const& section) {
-		return Query<INIUnknown, UnknownA, 0x407DA0>(section).Value; /*XXX(section).Value;*/
-	}
-
+class FAINIClass
+{
 private:
+	std::FAMap<const char*, INISection> data;
 
 public:
-	// Several useful wrappers
+	
 
-	//CString GetString(const char* pSection, const char* pKey, const char* pDefault) { // slower , but exactly
-	//	CString res;
-	//	if (auto const sectionptr = this->GetSection(pSection))
-	//	{
-	//		auto& entryList = sectionptr->Entries;
-	//		if (auto const entryCount = entryList.Count)
-	//		{
-	//			for (int i = 0; i < entryCount; ++i)
-	//				if (auto pStr = entryList.GetKey(i))
-	//					if (*reinterpret_cast<CString*>(pStr) == pKey)
-	//					{
-	//						res = *entryList.GetValue(i);
-	//						return res;
-	//					}
-	//		}
-	//	}
-	//	return pDefault;
-	//}
+};
 
-	// Hey! you know what? do not make pKey = pDefault, never!
-	// Cause this stupid call will give u the result as same as pKey if it's not found!
-	// And we have no idea about how to tell it... for now.
-	CString GetString(const char* pSection, const char* pKey,const char* pDefault = "") {
-		CString res;
-		if (auto const pEntries = this->GetEntries(pSection))
-			if (auto const pItem = pEntries->Items.GetItem(pKey))
-				res = pItem->Value;
-		if (res.IsEmpty() || res == pKey)
-			res = pDefault;
-		return res;
+class INIClass
+{
+private:
+	std::FAMap<const char*, INISection> data;
+
+public:
+	const char* GetString(const char* pSection, const char*pKey, const char* pDefault = "")
+	{
+		Logger::Debug("pSection = %s, pKey = %s, pDefault = %s\n", pSection, pKey, pDefault);
+		auto fndItr = this->data.find(pSection);
+		Logger::Debug("Crash here?\n");
+		if (fndItr->second)	return pDefault;
+		INISection& section = fndItr->second;
+		INIEntryList& entries = section.Entries;
+		int& count = entries.Count;
+		for (int i = 0; i < count; ++i)
+			if (*entries.GetKey(i) == pKey)
+				return *entries.GetValue(i);
+		return pDefault;
 	}
 
 	int GetInteger(const char* pSection, const char* pKey, int nDefault = 0) {
@@ -225,18 +113,19 @@ public:
 
 	bool GetBool(const char* pSection, const char* pKey, bool nDefault = false) {
 		auto const pStr = this->GetString(pSection, pKey, "");
-		switch(toupper(static_cast<unsigned char>(*pStr)))
+		Logger::Debug("pStr = %s\n", pStr);
+		switch (toupper(static_cast<unsigned char>(*pStr)))
 		{
-			case '1':
-			case 'T':
-			case 'Y':
-				return true;
-			case '0':
-			case 'F':
-			case 'N':
-				return false;
-			default:
-				return nDefault;
+		case '1':
+		case 'T':
+		case 'Y':
+			return true;
+		case '0':
+		case 'F':
+		case 'N':
+			return false;
+		default:
+			return nDefault;
 		}
 	}
 };
@@ -244,7 +133,7 @@ public:
 class INIHeaderClass
 {
 private:
-	int unknown;
+	DWORD unknown_0;
 public:
 	INIClass* file;
 };
