@@ -74,13 +74,10 @@ private:
 public:
 	const char* GetString(const char* pSection, const char*pKey, const char* pDefault = "")
 	{
-		Logger::Debug("pSection = %s, pKey = %s, pDefault = %s\n", pSection, pKey, pDefault);
-		auto fndItr = this->data.find(pSection);
-		Logger::Debug("Crash here?\n");
-		if (fndItr->second)	return pDefault;
-		INISection& section = fndItr->second;
+		INISection& section = this->data[pSection];
 		INIEntryList& entries = section.Entries;
 		int& count = entries.Count;
+		Logger::Debug("text = %s, COUNT = %d\n", section.Text ,count);
 		for (int i = 0; i < count; ++i)
 			if (*entries.GetKey(i) == pKey)
 				return *entries.GetValue(i);
@@ -113,7 +110,6 @@ public:
 
 	bool GetBool(const char* pSection, const char* pKey, bool nDefault = false) {
 		auto const pStr = this->GetString(pSection, pKey, "");
-		Logger::Debug("pStr = %s\n", pStr);
 		switch (toupper(static_cast<unsigned char>(*pStr)))
 		{
 		case '1':

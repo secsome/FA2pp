@@ -707,7 +707,7 @@ namespace std {
             _Color(_S) = _Carg;
             return (_S);
         }
-        void _Consval(value_type* _P, const value_type*& _V)
+        void _Consval(value_type* _P, const value_type& _V)
         {
             new ((void*)_P) value_type(_V);
         }
