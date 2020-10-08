@@ -50,6 +50,7 @@ public:
 	std::FAMap<CString, CString> EntriesDictionary;
 	std::FAMap<unsigned int, CString> IndicesDictionary;
 };
+
 class INIClass
 {
 private:
