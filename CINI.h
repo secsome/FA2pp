@@ -4,66 +4,13 @@
 
 #include "Structures/FAMap.h"
 
-class INIEntryList
-{
-public:
-	CString* GetValue(int index)
-	{
-		JMP_THIS(0x453590);
-	}
-
-	CString* GetKey(int index)
-	{
-		JMP_THIS(0x453650);
-	}
-
-	DWORD unknown_0;
-	DWORD unknown_4;
-	DWORD unknown_8;
-	DWORD unknown_C;
-	int Count;
-};
-
 class INISection
 {
 public:
-	INISection() : Text("") {}
-	INISection(const char* text) : Text(text) {}
-
-	operator const char* const& () {
-		return Text;
-	}
-
-public:
-	DWORD unknown_0;
-	DWORD unknown_4;
-	DWORD unknown_8;
-	const char* Text;
-	INIEntryList Entries;
-};
-
-struct INIClassQueryPair
-{
-	INIClassQueryPair(const char* text) : Key(text) {}
-
-	const char* Key;
-	INISection Value;
-};
-
-struct INIClassReturnPair
-{
-	INIClassReturnPair* iterator;
-	bool bNotFound;
-};
-
-class FAINIClass
-{
-private:
-	std::FAMap<const char*, INISection> data;
-
-public:
-	
-
+	~INISection() {}
+	void* __destructor__;
+	std::FAMap<CString, CString> EntriesData;
+	std::FAMap<unsigned int, CString> IndicesData;
 };
 
 class INIClass
@@ -72,20 +19,22 @@ private:
 	std::FAMap<const char*, INISection> data;
 
 public:
-	const char* GetString(const char* pSection, const char*pKey, const char* pDefault = "")
+	CString GetString(const char* pSection, const char* pKey, const char* pDefault = "")
 	{
-		INISection& section = this->data[pSection];
-		INIEntryList& entries = section.Entries;
-		int& count = entries.Count;
-		Logger::Debug("text = %s, COUNT = %d\n", section.Text ,count);
-		for (int i = 0; i < count; ++i)
-			if (*entries.GetKey(i) == pKey)
-				return *entries.GetValue(i);
-		return pDefault;
+		auto& bItr = data.find(pSection);
+		if (bItr == data.end()) {
+			Logger::Debug("SECTION NOT EXISTS\n");
+			return pDefault;
+		}
+		
+		INISection& section = bItr->second;
+		auto& fItr = section.EntriesData.find(pKey);
+		if (fItr == section.EntriesData.end())	return pDefault;
+		return fItr->second;
 	}
 
 	int GetInteger(const char* pSection, const char* pKey, int nDefault = 0) {
-		auto const pStr = this->GetString(pSection, pKey, "");
+		CString& pStr = this->GetString(pSection, pKey, "");
 		int ret = 0;
 		if (sscanf_s(pStr, "%d", &ret) == 1)
 			return ret;
@@ -93,7 +42,7 @@ public:
 	}
 
 	float GetSingle(const char* pSection, const char* pKey, float nDefault = 0) {
-		auto const pStr = this->GetString(pSection, pKey, "");
+		CString& pStr = this->GetString(pSection, pKey, "");
 		float ret = 0;
 		if (sscanf_s(pStr, "%f", &ret) == 1)
 			return ret;
@@ -101,7 +50,7 @@ public:
 	}
 
 	double GetDouble(const char* pSection, const char* pKey, double nDefault = 0) {
-		auto const pStr = this->GetString(pSection, pKey, "");
+		CString& pStr = this->GetString(pSection, pKey, "");
 		double ret = 0;
 		if (sscanf_s(pStr, "%lf", &ret) == 1)
 			return ret;
@@ -109,7 +58,7 @@ public:
 	}
 
 	bool GetBool(const char* pSection, const char* pKey, bool nDefault = false) {
-		auto const pStr = this->GetString(pSection, pKey, "");
+		CString& pStr = this->GetString(pSection, pKey, "");
 		switch (toupper(static_cast<unsigned char>(*pStr)))
 		{
 		case '1':

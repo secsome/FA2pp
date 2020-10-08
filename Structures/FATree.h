@@ -713,11 +713,12 @@ namespace std {
         }
         void _Destval(value_type* _P)
         {
-            _P->~value_type;
+            _P->~value_type();
         }
         void _Freenode(FATreeNode* _S)
         {
-            allocator.deallocate(_S, 1);
+            delete _S;
+            //_Allocator.deallocate(_S, 1);
         }
 
     public:
