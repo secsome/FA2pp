@@ -44,9 +44,9 @@
 //};
 
 class INISection {
-private:
-	void* __DTOR__;
 public:
+	void* __DTOR__;
+
 	std::FAMap<CString, CString> EntriesDictionary;
 	std::FAMap<unsigned int, CString> IndicesDictionary;
 };
@@ -54,6 +54,7 @@ public:
 class INIClass
 {
 private:
+	void* __DTOR__;
 	std::FAMap<const char*, INISection> data;
 
 public:
@@ -100,12 +101,4 @@ public:
 			return nDefault;
 		}
 	}
-};
-
-class INIHeaderClass
-{
-private:
-	DWORD unknown_0;
-public:
-	INIClass* file;
 };

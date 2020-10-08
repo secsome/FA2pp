@@ -15,22 +15,22 @@ public:
     class INIFiles
     {
     public:
-        static constexpr reference<INIClass, 0x7EDDDC> const Rules{}; // rulesmd.ini / rules.ini
-        static constexpr reference<INIClass, 0x7EDCAC> const Art{}; // artmd.ini / art.ini
-        static constexpr reference<INIClass, 0x7ED964> const Turtorial{}; // turtorial.ini
-        static constexpr reference<INIClass, 0x7EDA7C> const Sound{}; // soundmd.ini / sound.ini
-        static constexpr reference<INIClass, 0x7ED84C> const Eva{}; // evamd.ini / eva.ini
-        static constexpr reference<INIClass, 0x7ED734> const Theme{}; // thememd.ini / theme.ini
-        static constexpr reference<INIClass, 0x7EDB94> const Ai{}; // aimd.ini / ai.ini
-        static constexpr reference<INIClass, 0x7ED3EC> const Temperate{}; // temperatmd.ini / temperat.ini
-        static constexpr reference<INIClass, 0x7ED2D4> const Snow{}; // snowmd.ini / snow.ini
-        static constexpr reference<INIClass, 0x7ED1BC> const Urban{}; // urbanmd.ini / urban.ini
-        static constexpr reference<INIClass, 0x7ED0A4> const NewUrban{}; // urbannmd.ini
-        static constexpr reference<INIClass, 0x7ECF8C> const Lunar{}; // lunarmd.ini
-        static constexpr reference<INIClass, 0x7ECE74> const Desert{}; // desertmd.ini
-        static constexpr reference<INIClass, 0x7ED61C> const FAData{}; // FAData.ini
-        static constexpr reference<INIClass, 0x7ED504> const FALanguage{}; // FALanguage.ini
-        static constexpr reference<INIClass, 0x7ACC84> const CurrentDocument{}; // Current map file
+        static constexpr reference<INIClass, 0x7EDDD8> const Rules{}; // rulesmd.ini / rules.ini
+        static constexpr reference<INIClass, 0x7EDCA8> const Art{}; // artmd.ini / art.ini
+        static constexpr reference<INIClass, 0x7ED960> const Turtorial{}; // turtorial.ini
+        static constexpr reference<INIClass, 0x7EDA78> const Sound{}; // soundmd.ini / sound.ini
+        static constexpr reference<INIClass, 0x7ED848> const Eva{}; // evamd.ini / eva.ini
+        static constexpr reference<INIClass, 0x7ED730> const Theme{}; // thememd.ini / theme.ini
+        static constexpr reference<INIClass, 0x7EDB90> const Ai{}; // aimd.ini / ai.ini
+        static constexpr reference<INIClass, 0x7ED3E8> const Temperate{}; // temperatmd.ini / temperat.ini
+        static constexpr reference<INIClass, 0x7ED2D0> const Snow{}; // snowmd.ini / snow.ini
+        static constexpr reference<INIClass, 0x7ED1B8> const Urban{}; // urbanmd.ini / urban.ini
+        static constexpr reference<INIClass, 0x7ED0A0> const NewUrban{}; // urbannmd.ini
+        static constexpr reference<INIClass, 0x7ECF88> const Lunar{}; // lunarmd.ini
+        static constexpr reference<INIClass, 0x7ECE70> const Desert{}; // desertmd.ini
+        static constexpr reference<INIClass, 0x7ED618> const FAData{}; // FAData.ini
+        static constexpr reference<INIClass, 0x7ED500> const FALanguage{}; // FALanguage.ini
+        static constexpr reference<INIClass, 0x7ACC80> const CurrentDocument{}; // Current map file
     };
 
 
