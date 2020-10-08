@@ -4,66 +4,50 @@
 
 #include "Structures/FAMap.h"
 
-class INIEntryList
-{
-public:
-	CString* GetValue(int index)
-	{
-		JMP_THIS(0x453590);
-	}
+//class INIEntryList
+//{
+//public:
+//	CString* GetValue(int index)
+//	{
+//		JMP_THIS(0x453590);
+//	}
+//
+//	CString* GetKey(int index)
+//	{
+//		JMP_THIS(0x453650);
+//	}
+//
+//	DWORD unknown_0;
+//	DWORD unknown_4;
+//	DWORD unknown_8;
+//	DWORD unknown_C;
+//	int Count;
+//};
+//
+//class INISection
+//{
+//public:
+//	INISection() : Text("") {}
+//	INISection(const char* text) : Text(text) {}
+//
+//	operator const char* const& () {
+//		return Text;
+//	}
+//
+//public:
+//	DWORD unknown_0;
+//	DWORD unknown_4;
+//	DWORD unknown_8;
+//	const char* Text;
+//	INIEntryList Entries;
+//};
 
-	CString* GetKey(int index)
-	{
-		JMP_THIS(0x453650);
-	}
-
-	DWORD unknown_0;
-	DWORD unknown_4;
-	DWORD unknown_8;
-	DWORD unknown_C;
-	int Count;
-};
-
-class INISection
-{
-public:
-	INISection() : Text("") {}
-	INISection(const char* text) : Text(text) {}
-
-	operator const char* const& () {
-		return Text;
-	}
-
-public:
-	DWORD unknown_0;
-	DWORD unknown_4;
-	DWORD unknown_8;
-	const char* Text;
-	INIEntryList Entries;
-};
-
-struct INIClassQueryPair
-{
-	INIClassQueryPair(const char* text) : Key(text) {}
-
-	const char* Key;
-	INISection Value;
-};
-
-struct INIClassReturnPair
-{
-	INIClassReturnPair* iterator;
-	bool bNotFound;
-};
-
-class FAINIClass
-{
+class INISection {
 private:
-	std::FAMap<const char*, INISection> data;
-
+	void* __DTOR__;
 public:
-	
-
+	std::FAMap<CString, CString> EntriesDictionary;
+	std::FAMap<unsigned int, CString> IndicesDictionary;
 };
 
 class INIClass
@@ -72,16 +56,27 @@ private:
 	std::FAMap<const char*, INISection> data;
 
 public:
-	const char* GetString(const char* pSection, const char*pKey, const char* pDefault = "")
+	CString GetString(const char* pSection, const char*pKey, const char* pDefault = "")
 	{
-		INISection& section = this->data[pSection];
-		INIEntryList& entries = section.Entries;
-		int& count = entries.Count;
-		Logger::Debug("text = %s, COUNT = %d\n", section.Text ,count);
-		for (int i = 0; i < count; ++i)
-			if (*entries.GetKey(i) == pKey)
-				return *entries.GetValue(i);
-		return pDefault;
+		/*auto pFAData = reinterpret_cast<std::FAMap<const char*, INISection>*>(this);
+		auto x = pFAData->begin();
+		Logger::Debug("first = %s, second owns %d / %d items.\n",
+			x->first,
+			x->second.EntriesDictionary.size(),
+			x->second.IndicesDictionary.size());*/
+
+		auto& itrSection = data.find(pSection);
+		if (itrSection == data.end()) {
+			//NOT FOUND
+			return pDefault;
+		}
+		INISection& section = itrSection->second;
+		auto& itrKey = section.EntriesDictionary.find(pKey);
+		if (itrKey == section.EntriesDictionary.end()) {
+			// NOT FOUND
+			return pDefault;
+		}
+		return itrKey -> second;
 	}
 
 	int GetInteger(const char* pSection, const char* pKey, int nDefault = 0) {
