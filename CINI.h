@@ -4,34 +4,60 @@
 
 #include "Structures/FAMap.h"
 
-class INISection
-{
-public:
-	~INISection() {}
-	void* __destructor__;
-	std::FAMap<CString, CString> EntriesData;
-	std::FAMap<unsigned int, CString> IndicesData;
-};
 
+//class INIEntryList
+//{
+//public:
+//	CString* GetValue(int index)
+//	{
+//		JMP_THIS(0x453590);
+//	}
+//
+//	CString* GetKey(int index)
+//	{
+//		JMP_THIS(0x453650);
+//	}
+//
+//	DWORD unknown_0;
+//	DWORD unknown_4;
+//	DWORD unknown_8;
+//	DWORD unknown_C;
+//	int Count;
+//};
+//
+//class INISection
+//{
+//public:
+//	INISection() : Text("") {}
+//	INISection(const char* text) : Text(text) {}
+//
+//	operator const char* const& () {
+//		return Text;
+//	}
+//
+//public:
+//	DWORD unknown_0;
+//	DWORD unknown_4;
+//	DWORD unknown_8;
+//	const char* Text;
+//	INIEntryList Entries;
+//};
+
+class INISection {
+private:
+	void* __DTOR__;
+public:
+	std::FAMap<CString, CString> EntriesDictionary;
+	std::FAMap<unsigned int, CString> IndicesDictionary;
+};
 class INIClass
 {
 private:
 	std::FAMap<const char*, INISection> data;
 
 public:
-	CString GetString(const char* pSection, const char* pKey, const char* pDefault = "")
-	{
-		auto& bItr = data.find(pSection);
-		if (bItr == data.end()) {
-			Logger::Debug("SECTION NOT EXISTS\n");
-			return pDefault;
-		}
-		
-		INISection& section = bItr->second;
-		auto& fItr = section.EntriesData.find(pKey);
-		if (fItr == section.EntriesData.end())	return pDefault;
-		return fItr->second;
-	}
+	CString GetString(const char* pSection, const char*pKey, const char* pDefault = ""){
+		return pDefault;}
 
 	int GetInteger(const char* pSection, const char* pKey, int nDefault = 0) {
 		CString& pStr = this->GetString(pSection, pKey, "");
