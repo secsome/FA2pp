@@ -164,7 +164,7 @@ namespace std {
             erase(begin(), end());
             _Freenode(_Head);
             _Head = 0, _Size = 0;
-            {_Lockit _Lk;
+            {
             if (--_Nilrefs == 0)
             {
                 _Freenode(_Nil);
