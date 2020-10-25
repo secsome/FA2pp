@@ -19,7 +19,9 @@ namespace std {
         typename value_type,
         typename key_getter_type,
         typename comparator_type,
-        typename allocator_type
+        typename allocator_type,
+        DWORD nil_addr,
+        DWORD nilrefs_addr
     >
         class FATree
     {
@@ -30,7 +32,9 @@ namespace std {
             value_type,
             key_getter_type,
             comparator_type,
-            allocator_type
+            allocator_type,
+            nil_addr,
+            nilrefs_addr
             >;
 
         using Generic_pointer = void*;
@@ -109,7 +113,7 @@ namespace std {
                 if (_Color(_Ptr) == _Red
                     && _Parent(_Parent(_Ptr)) == _Ptr)
                     _Ptr = _Right(_Ptr);
-                else if (_Left(_Ptr) != _Nil)
+                else if (_Left(_Ptr) != *_Nil())
                     _Ptr = _Max(_Left(_Ptr));
                 else
                 {
@@ -122,7 +126,7 @@ namespace std {
             void _Inc()
             {
                 _Lockit _Lk;
-                if (_Right(_Ptr) != _Nil)
+                if (_Right(_Ptr) != *_Nil())
                     _Ptr = _Min(_Right(_Ptr));
                 else
                 {
@@ -175,10 +179,10 @@ namespace std {
             _Head = 0, _Size = 0;
             {
                 _Lockit _Lk;
-            if (--_Nilrefs == 0)
+            if (--*_Nilrefs() == 0)
             {
-                _Freenode(_Nil);
-                _Nil = 0;
+                _Freenode(*_Nil());
+                *_Nil() = 0;
             }}
         }
         _Myt& operator=(const _Myt& _X)
@@ -226,7 +230,7 @@ namespace std {
             bool _Ans = true;
             {
                 _Lockit _Lk;
-            while (_X != _Nil)
+            while (_X != *_Nil())
             {
                 _Y = _X;
                 _Ans = _Comparator(key_getter_type()(_V), _Key(_X));
@@ -259,7 +263,7 @@ namespace std {
             {
                 _Lockit _Lk;
                 if (_Comparator(_Key(_Rmost()), key_getter_type()(_V)))
-                    return (_Insert(_Nil, _Rmost(), _V));
+                    return (_Insert(*_Nil(), _Rmost(), _V));
             }
             else
             {
@@ -268,8 +272,8 @@ namespace std {
                     && _Comparator(key_getter_type()(_V), _Key(_P._Mynode())))
                 {
                     _Lockit _Lk;
-                    if (_Right(_Pb._Mynode()) == _Nil)
-                        return (_Insert(_Nil, _Pb._Mynode(), _V));
+                    if (_Right(_Pb._Mynode()) == *_Nil())
+                        return (_Insert(*_Nil(), _Pb._Mynode(), _V));
                     else
                         return (_Insert(_Head, _P._Mynode(), _V));
                 }
@@ -292,9 +296,9 @@ namespace std {
             FATreeNode* _Y = (_P++)._Mynode();
             FATreeNode* _Z = _Y;
             _Lockit _Lk;
-            if (_Left(_Y) == _Nil)
+            if (_Left(_Y) == *_Nil())
                 _X = _Right(_Y);
-            else if (_Right(_Y) == _Nil)
+            else if (_Right(_Y) == *_Nil())
                 _X = _Left(_Y);
             else
                 _Y = _Min(_Right(_Y)), _X = _Right(_Y);
@@ -332,13 +336,13 @@ namespace std {
                     _Right(_Parent(_Z)) = _X;
                 if (_Lmost() != _Z)
                     ;
-                else if (_Right(_Z) == _Nil)
+                else if (_Right(_Z) == *_Nil())
                     _Lmost() = _Parent(_Z);
                 else
                     _Lmost() = _Min(_X);
                 if (_Rmost() != _Z)
                     ;
-                else if (_Left(_Z) == _Nil)
+                else if (_Left(_Z) == *_Nil())
                     _Rmost() = _Parent(_Z);
                 else
                     _Rmost() = _Max(_X);
@@ -429,7 +433,7 @@ namespace std {
             {
                 _Lockit _Lk;
                 _Erase(_Root());
-                _Root() = _Nil, _Size = 0;
+                _Root() = *_Nil(), _Size = 0;
                 _Lmost() = _Head, _Rmost() = _Head;
                 return (begin());
             }
@@ -499,15 +503,23 @@ namespace std {
         }
 
     protected:
-        static FATreeNode* _Nil;
-        static size_t _Nilrefs;
+        static FATreeNode** _Nil()
+        {
+            return reinterpret_cast<FATreeNode**>(nil_addr);
+        }
+        static size_t* _Nilrefs()
+        {
+            return reinterpret_cast<size_t*>(nilrefs_addr);
+        }
+        //static FATreeNode* _Nil;
+        //static size_t _Nilrefs;
 
         void _Copy(const _Myt& _X)
         {
             _Lockit _Lk;
             _Root() = _Copy(_X._Root(), _Head);
             _Size = _X.size();
-            if (_Root() != _Nil)
+            if (_Root() != *_Nil())
             {
                 _Lmost() = _Min(_Root());
                 _Rmost() = _Max(_Root());
@@ -519,7 +531,7 @@ namespace std {
         {
             _Lockit _Lk;
             FATreeNode* _R = _X;
-            for (; _X != _Nil; _X = _Left(_X))
+            for (; _X != *_Nil(); _X = _Left(_X))
             {
                 FATreeNode* _Y = _Buynode(_P, _Color(_X));
                 if (_R == _X)
@@ -529,13 +541,13 @@ namespace std {
                 _Left(_P) = _Y;
                 _P = _Y;
             }
-            _Left(_P) = _Nil;
+            _Left(_P) = *_Nil();
             return (_R);
         }
         void _Erase(FATreeNode* _X)
         {
             _Lockit _Lk;
-            for (FATreeNode* _Y = _X; _Y != _Nil; _X = _Y)
+            for (FATreeNode* _Y = _X; _Y != *_Nil(); _X = _Y)
             {
                 _Erase(_Right(_Y));
                 _Y = _Left(_Y);
@@ -546,23 +558,23 @@ namespace std {
         void _Init()
         {
             _Lockit _Lk;
-            if (_Nil == 0)
+            if (*_Nil() == 0)
             {
-                _Nil = _Buynode(0, _Black);
-                _Left(_Nil) = 0, _Right(_Nil) = 0;
+                *_Nil() = _Buynode(0, _Black);
+                _Left(*_Nil()) = 0, _Right(*_Nil()) = 0;
             }
-            ++_Nilrefs;
-            _Head = _Buynode(_Nil, _Red), _Size = 0;
+            ++*_Nilrefs();
+            _Head = _Buynode(*_Nil(), _Red), _Size = 0;
             _Lmost() = _Head, _Rmost() = _Head;
         }
         iterator _Insert(FATreeNode* _X, FATreeNode* _Y, const value_type& _V)
         {
             _Lockit _Lk;
             FATreeNode* _Z = _Buynode(_Y, _Red);
-            _Left(_Z) = _Nil, _Right(_Z) = _Nil;
+            _Left(_Z) = *_Nil(), _Right(_Z) = *_Nil();
             _Consval(&_Value(_Z), _V);
             ++_Size;
-            if (_Y == _Head || _X != _Nil
+            if (_Y == _Head || _X != *_Nil()
                 || _Comparator(key_getter_type()(_V), _Key(_Y)))
             {
                 _Left(_Y) = _Z;
@@ -634,7 +646,7 @@ namespace std {
             _Lockit _Lk;
             FATreeNode* _X = _Root();
             FATreeNode* _Y = _Head;
-            while (_X != _Nil)
+            while (_X != *_Nil())
                 if (_Comparator(_Key(_X), _Kv))
                     _X = _Right(_X);
                 else
@@ -654,7 +666,7 @@ namespace std {
             _Lockit _Lk;
             FATreeNode* _Y = _Right(_X);
             _Right(_X) = _Left(_Y);
-            if (_Left(_Y) != _Nil)
+            if (_Left(_Y) != *_Nil())
                 _Parent(_Left(_Y)) = _X;
             _Parent(_Y) = _Parent(_X);
             if (_X == _Root())
@@ -669,14 +681,14 @@ namespace std {
         static FATreeNode* _Max(FATreeNode* _P)
         {
             _Lockit _Lk;
-            while (_Right(_P) != _Nil)
+            while (_Right(_P) != *_Nil())
                 _P = _Right(_P);
             return (_P);
         }
         static FATreeNode* _Min(FATreeNode* _P)
         {
             _Lockit _Lk;
-            while (_Left(_P) != _Nil)
+            while (_Left(_P) != *_Nil())
                 _P = _Left(_P);
             return (_P);
         }
@@ -701,7 +713,7 @@ namespace std {
             _Lockit _Lk;
             FATreeNode* _Y = _Left(_X);
             _Left(_X) = _Right(_Y);
-            if (_Right(_Y) != _Nil)
+            if (_Right(_Y) != *_Nil())
                 _Parent(_Right(_Y)) = _X;
             _Parent(_Y) = _Parent(_X);
             if (_X == _Root())
@@ -718,7 +730,7 @@ namespace std {
             _Lockit _Lk;
             FATreeNode* _X = _Root();
             FATreeNode* _Y = _Head;
-            while (_X != _Nil)
+            while (_X != *_Nil())
                 if (_Comparator(_Kv, _Key(_X)))
                     _Y = _X, _X = _Left(_X);
                 else
@@ -754,31 +766,36 @@ namespace std {
         bool _Multi;
         size_t _Size;
     };
-    template<
+
+    /*template<
         typename key_type,
         typename value_type,
         typename key_getter_type,
         typename comparator_type,
-        typename allocator_type
+        typename allocator_type,
+        DWORD nil_addr,
+        DWORD nilrefs_addr
     >
         typename FATree<typename key_type, typename value_type,
         typename key_getter_type, typename comparator_type,
-        typename allocator_type>::FATreeNode*
+        typename allocator_type, nil_addr, nilrefs_addr >::FATreeNode*
         FATree<typename key_type, typename value_type,
         typename key_getter_type, typename comparator_type,
-        typename allocator_type>::_Nil = nullptr;
+        typename allocator_type, nil_addr, nilrefs_addr>::_Nil = nullptr;
 
     template<
         typename key_type,
         typename value_type,
         typename key_getter_type,
         typename comparator_type,
-        typename allocator_type
+        typename allocator_type,
+        DWORD nil_addr,
+        DWORD nilrefs_addr
     >
         size_t
         FATree<typename key_type, typename value_type,
         typename key_getter_type, typename comparator_type,
-        typename allocator_type>::_Nilrefs = 0;
+        typename allocator_type, nil_addr, nilrefs_addr>::_Nilrefs = 0;*/
 }
 
 #ifdef  _MSC_VER

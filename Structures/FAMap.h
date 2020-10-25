@@ -7,11 +7,11 @@
 #endif  /* _MSC_VER */
 
 namespace std{
-	template<class _K, class _Ty, class _Pr = less<_K>,
-		class _A = allocator<_Ty> >
+	template<class _K, class _Ty, DWORD nil_addr, DWORD nilrefs_addr,
+		class _Pr = less<_K>,class _A = allocator<_Ty> >
 		class FAMap {
 		public:
-			typedef FAMap<_K, _Ty, _Pr, _A> _Myt;
+			typedef FAMap<_K, _Ty, nil_addr, nilrefs_addr, _Pr, _A> _Myt;
 			typedef pair<const _K, _Ty> value_type;
 			struct _Kfn : public unary_function<value_type, _K> {
 				const _K& operator()(const value_type& _X) const
@@ -21,7 +21,7 @@ namespace std{
 			};
 			class value_compare
 				: public binary_function<value_type, value_type, bool> {
-				friend class FAMap<_K, _Ty, _Pr, _A>;
+				friend class FAMap<_K, _Ty, nil_addr, nilrefs_addr, _Pr, _A>;
 			public:
 				bool operator()(const value_type& _X,
 					const value_type& _Y) const
@@ -38,7 +38,7 @@ namespace std{
 			typedef _Pr key_compare;
 			typedef _A allocator_type;
 			typedef _Ty& _Tref;
-			typedef FATree<_K, value_type, _Kfn, _Pr, _A> _Imp;
+			typedef FATree<_K, value_type, _Kfn, _Pr, _A, nil_addr, nilrefs_addr> _Imp;
 			typedef size_t size_type;
 			typedef ptrdiff_t difference_type;
 			typedef value_type& reference;
@@ -156,41 +156,41 @@ namespace std{
 			_Imp _Tr;
 	};
 	// map TEMPLATE OPERATORS
-	template<class _K, class _Ty, class _Pr, class _A> inline
-		bool operator==(const FAMap<_K, _Ty, _Pr, _A>& _X,
-			const FAMap<_K, _Ty, _Pr, _A>& _Y)
+	template<class _K, class _Ty, DWORD nil_addr, DWORD nilrefs_addr, class _Pr, class _A> inline
+		bool operator==(const FAMap<_K, _Ty, nil_addr, nilrefs_addr, _Pr, _A>& _X,
+			const FAMap<_K, _Ty, nil_addr, nilrefs_addr, _Pr, _A>& _Y)
 	{
 		return (_X.size() == _Y.size()
 			&& equal(_X.begin(), _X.end(), _Y.begin()));
 	}
-	template<class _K, class _Ty, class _Pr, class _A> inline
-		bool operator!=(const FAMap<_K, _Ty, _Pr, _A>& _X,
-			const FAMap<_K, _Ty, _Pr, _A>& _Y)
+	template<class _K, class _Ty, DWORD nil_addr, DWORD nilrefs_addr, class _Pr, class _A> inline
+		bool operator!=(const FAMap<_K, _Ty, nil_addr, nilrefs_addr, _Pr, _A>& _X,
+			const FAMap<_K, _Ty, nil_addr, nilrefs_addr, _Pr, _A>& _Y)
 	{
 		return (!(_X == _Y));
 	}
-	template<class _K, class _Ty, class _Pr, class _A> inline
-		bool operator<(const FAMap<_K, _Ty, _Pr, _A>& _X,
-			const FAMap<_K, _Ty, _Pr, _A>& _Y)
+	template<class _K, class _Ty, DWORD nil_addr, DWORD nilrefs_addr, class _Pr, class _A> inline
+		bool operator<(const const FAMap<_K, _Ty, nil_addr, nilrefs_addr, _Pr, _A>& _X,
+			const const FAMap<_K, _Ty, nil_addr, nilrefs_addr, _Pr, _A>& _Y)
 	{
 		return (lexicographical_compare(_X.begin(), _X.end(),
 			_Y.begin(), _Y.end()));
 	}
-	template<class _K, class _Ty, class _Pr, class _A> inline
-		bool operator>(const FAMap<_K, _Ty, _Pr, _A>& _X,
-			const FAMap<_K, _Ty, _Pr, _A>& _Y)
+	template<class _K, class _Ty, DWORD nil_addr, DWORD nilrefs_addr, class _Pr, class _A> inline
+		bool operator>(const const FAMap<_K, _Ty, nil_addr, nilrefs_addr, _Pr, _A>& _X,
+			const const FAMap<_K, _Ty, nil_addr, nilrefs_addr, _Pr, _A>& _Y)
 	{
 		return (_Y < _X);
 	}
-	template<class _K, class _Ty, class _Pr, class _A> inline
-		bool operator<=(const FAMap<_K, _Ty, _Pr, _A>& _X,
-			const FAMap<_K, _Ty, _Pr, _A>& _Y)
+	template<class _K, class _Ty, DWORD nil_addr, DWORD nilrefs_addr, class _Pr, class _A> inline
+		bool operator<=(const const FAMap<_K, _Ty, nil_addr, nilrefs_addr, _Pr, _A>& _X,
+			const const FAMap<_K, _Ty, nil_addr, nilrefs_addr, _Pr, _A>& _Y)
 	{
 		return (!(_Y < _X));
 	}
-	template<class _K, class _Ty, class _Pr, class _A> inline
-		bool operator>=(const FAMap<_K, _Ty, _Pr, _A>& _X,
-			const FAMap<_K, _Ty, _Pr, _A>& _Y)
+	template<class _K, class _Ty, DWORD nil_addr, DWORD nilrefs_addr, class _Pr, class _A> inline
+		bool operator>=(const const FAMap<_K, _Ty, nil_addr, nilrefs_addr, _Pr, _A>& _X,
+			const const FAMap<_K, _Ty, nil_addr, nilrefs_addr, _Pr, _A>& _Y)
 	{
 		return (!(_X < _Y));
 	}
