@@ -23,26 +23,20 @@ class INIClass
 {
 private:
 	void* __DTOR__;
-	std::FAMap<const char*, INISection, 0x5D8CB4, 0> data; // no idea about the nilrefs
+	std::FAMap<CString, INISection, 0x5D8CB4, 0> data; // no idea about the nilrefs
 
 public:
-
-	// Quite dirty for now, cause our find isn't working for now......
+	
+	// TODO : Repair it, probably resulted from lower_bound
 	CString GetString(const char* pSection, const char* pKey, const char* pDefault = "") {
-		//Logger::Debug("GetString Called! %s %s %s\n", pSection, pKey, pDefault);
-		auto x = data.begin();
-		while (strcmp(x->first, pSection) != 0)
-		{
-			if (x == data.end())	return pDefault;
-			++x;
+		auto itrSection = data.find(pSection);
+		if (itrSection != data.end()) {
+			auto pEntries = &itrSection->second.EntriesDictionary;
+			auto itrKey = pEntries->find(pKey);
+			if (itrKey != pEntries->end())
+				return itrKey->second;
 		}
-		auto y = x->second.EntriesDictionary.begin();
-		while (strcmp(y->first, pKey) != 0)
-		{
-			if (y == x->second.EntriesDictionary.end())	return pDefault;
-			++y;
-		}
-		return y->second;
+		return pDefault;
 	}
 
 	int GetInteger(const char* pSection, const char* pKey, int nDefault = 0) {
@@ -84,5 +78,27 @@ public:
 		default:
 			return nDefault;
 		}
+	}
+
+	bool WriteString(const char* pSection, const char* pKey, 
+		const char* pValue, bool bAllowCreate) {
+		
+		bool bExist = false;
+		auto x = data.begin();
+
+		while (strcmp(x->first, pSection) != 0)
+		{
+			if (x == data.end()) {
+				bExist = true;
+				break;
+			}
+			++x;
+		}
+		
+		if (!bExist && !bAllowCreate)
+			return false;
+
+
+
 	}
 };

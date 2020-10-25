@@ -3,6 +3,8 @@
 #include "../Helpers/Macro.h"
 #include "../FAMemory.h"
 
+#include "../../FA2sp/Logger.h"
+
 #include <xmemory>
 
 #ifdef  _MSC_VER
