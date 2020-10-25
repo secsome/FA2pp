@@ -1,5 +1,8 @@
 #pragma once
 
+#include "../Helpers/Macro.h"
+#include "../FAMemory.h"
+
 #include <xmemory>
 
 #ifdef  _MSC_VER
@@ -7,6 +10,10 @@
 #endif  /* _MSC_VER */
 
 namespace std {
+    template<class _Ty, class _D>
+    struct _Bidit : public iterator<bidirectional_iterator_tag,
+        _Ty, _D> {};
+
     template<
         typename key_type,
         typename value_type,
@@ -30,24 +37,24 @@ namespace std {
 
         enum FATreeNodeColor { _Red, _Black };
         struct FATreeNode {
-            Generic_pointer _Left, _Parent, _Right;
+            Generic_pointer* _Left, _Parent, _Right;
             value_type _Value;
             FATreeNodeColor _Color;
         };
         static FATreeNodeColor& _Color(FATreeNode* p) {
-            return (FATreeNodeColor&)p->_Color;
+            return (FATreeNodeColor&)(*p)._Color;
         }
         static FATreeNode*& _Left(FATreeNode* p) {
-            return (FATreeNode*&)p->_Left;
+            return (FATreeNode*&)(*p)._Left;
         }
         static FATreeNode*& _Parent(FATreeNode* p) {
-            return (FATreeNode*&)p->_Parent;
+            return (FATreeNode*&)(*p)._Parent;
         }
         static FATreeNode*& _Right(FATreeNode* p) {
-            return (FATreeNode*&)p->_Right;
+            return (FATreeNode*&)(*p)._Right;
         }
         static value_type& _Value(FATreeNode* p) {
-            return (value_type&)p->_Value;
+            return (value_type&)(*p)._Value;
         }
         static const key_type& _Key(FATreeNode* p) {
             return key_getter_type()(_Value(p));
@@ -56,7 +63,7 @@ namespace std {
     public:
         class iterator;
         friend class iterator;
-        class iterator{
+        class iterator : public _Bidit<value_type, ptrdiff_t> {
         public:
             iterator() {}
             iterator(FATreeNode* p) :_Ptr(p) {}
@@ -98,6 +105,7 @@ namespace std {
             }
             void _Dec()
             {
+                _Lockit _Lk;
                 if (_Color(_Ptr) == _Red
                     && _Parent(_Parent(_Ptr)) == _Ptr)
                     _Ptr = _Right(_Ptr);
@@ -113,6 +121,7 @@ namespace std {
             }
             void _Inc()
             {
+                _Lockit _Lk;
                 if (_Right(_Ptr) != _Nil)
                     _Ptr = _Min(_Right(_Ptr));
                 else
@@ -165,6 +174,7 @@ namespace std {
             _Freenode(_Head);
             _Head = 0, _Size = 0;
             {
+                _Lockit _Lk;
             if (--_Nilrefs == 0)
             {
                 _Freenode(_Nil);
@@ -215,6 +225,7 @@ namespace std {
             FATreeNode* _Y = _Head;
             bool _Ans = true;
             {
+                _Lockit _Lk;
             while (_X != _Nil)
             {
                 _Y = _X;
@@ -246,6 +257,7 @@ namespace std {
             }
             else if (_P == end())
             {
+                _Lockit _Lk;
                 if (_Comparator(_Key(_Rmost()), key_getter_type()(_V)))
                     return (_Insert(_Nil, _Rmost(), _V));
             }
@@ -255,6 +267,7 @@ namespace std {
                 if (_Comparator(_Key((--_Pb)._Mynode()), key_getter_type()(_V))
                     && _Comparator(key_getter_type()(_V), _Key(_P._Mynode())))
                 {
+                    _Lockit _Lk;
                     if (_Right(_Pb._Mynode()) == _Nil)
                         return (_Insert(_Nil, _Pb._Mynode(), _V));
                     else
@@ -278,6 +291,7 @@ namespace std {
             FATreeNode* _X;
             FATreeNode* _Y = (_P++)._Mynode();
             FATreeNode* _Z = _Y;
+            _Lockit _Lk;
             if (_Left(_Y) == _Nil)
                 _X = _Right(_Y);
             else if (_Right(_Y) == _Nil)
@@ -413,6 +427,7 @@ namespace std {
             }
             else
             {
+                _Lockit _Lk;
                 _Erase(_Root());
                 _Root() = _Nil, _Size = 0;
                 _Lmost() = _Head, _Rmost() = _Head;
@@ -489,6 +504,7 @@ namespace std {
 
         void _Copy(const _Myt& _X)
         {
+            _Lockit _Lk;
             _Root() = _Copy(_X._Root(), _Head);
             _Size = _X.size();
             if (_Root() != _Nil)
@@ -501,6 +517,7 @@ namespace std {
         }
         FATreeNode* _Copy(FATreeNode* _X, FATreeNode* _P)
         {
+            _Lockit _Lk;
             FATreeNode* _R = _X;
             for (; _X != _Nil; _X = _Left(_X))
             {
@@ -517,6 +534,7 @@ namespace std {
         }
         void _Erase(FATreeNode* _X)
         {
+            _Lockit _Lk;
             for (FATreeNode* _Y = _X; _Y != _Nil; _X = _Y)
             {
                 _Erase(_Right(_Y));
@@ -527,6 +545,7 @@ namespace std {
         }
         void _Init()
         {
+            _Lockit _Lk;
             if (_Nil == 0)
             {
                 _Nil = _Buynode(0, _Black);
@@ -538,6 +557,7 @@ namespace std {
         }
         iterator _Insert(FATreeNode* _X, FATreeNode* _Y, const value_type& _V)
         {
+            _Lockit _Lk;
             FATreeNode* _Z = _Buynode(_Y, _Red);
             _Left(_Z) = _Nil, _Right(_Z) = _Nil;
             _Consval(&_Value(_Z), _V);
@@ -611,6 +631,7 @@ namespace std {
         }
         FATreeNode* _Lbound(const key_type& _Kv) const
         {
+            _Lockit _Lk;
             FATreeNode* _X = _Root();
             FATreeNode* _Y = _Head;
             while (_X != _Nil)
@@ -630,6 +651,7 @@ namespace std {
         }
         void _Lrotate(FATreeNode* _X)
         {
+            _Lockit _Lk;
             FATreeNode* _Y = _Right(_X);
             _Right(_X) = _Left(_Y);
             if (_Left(_Y) != _Nil)
@@ -646,12 +668,14 @@ namespace std {
         }
         static FATreeNode* _Max(FATreeNode* _P)
         {
+            _Lockit _Lk;
             while (_Right(_P) != _Nil)
                 _P = _Right(_P);
             return (_P);
         }
         static FATreeNode* _Min(FATreeNode* _P)
         {
+            _Lockit _Lk;
             while (_Left(_P) != _Nil)
                 _P = _Left(_P);
             return (_P);
@@ -674,6 +698,7 @@ namespace std {
         }
         void _Rrotate(FATreeNode* _X)
         {
+            _Lockit _Lk;
             FATreeNode* _Y = _Left(_X);
             _Left(_X) = _Right(_Y);
             if (_Right(_Y) != _Nil)
@@ -690,6 +715,7 @@ namespace std {
         }
         FATreeNode* _Ubound(const key_type& _Kv) const
         {
+            _Lockit _Lk;
             FATreeNode* _X = _Root();
             FATreeNode* _Y = _Head;
             while (_X != _Nil)
@@ -709,15 +735,15 @@ namespace std {
         }
         void _Consval(value_type* _P, const value_type& _V)
         {
-            new ((void*)_P) value_type(_V);
+            _P = GameCreate<value_type>(_V);
         }
         void _Destval(value_type* _P)
         {
-            _P->~value_type();
+            GameDelete<value_type>(_P);
         }
         void _Freenode(FATreeNode* _S)
         {
-            delete _S;
+            GameDelete<FATreeNode>(_S);
             //_Allocator.deallocate(_S, 1);
         }
 

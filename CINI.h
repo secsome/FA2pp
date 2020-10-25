@@ -45,6 +45,10 @@
 
 class INISection {
 public:
+	~INISection() {
+		JMP_THIS(0x4023B0);
+	}
+
 	void* __DTOR__;
 
 	std::FAMap<CString, CString> EntriesDictionary;
