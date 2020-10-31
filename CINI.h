@@ -1,3 +1,5 @@
+#pragma once
+
 #include "FA2PP.h"
 
 #include "../FA2sp/Logger.h"
@@ -6,6 +8,20 @@
 
 
 // Remember that we cannot call CTOR or DTOR for any FAMap/FATree
+class CStringCompareHelper
+{
+public:
+	
+	static bool __stdcall __compare(CString* a1, CString* a2)
+	{
+		JMP_STD(0x452230);
+	}
+
+	bool operator()(const CString& s1, const CString& s2) const
+	{
+		return __compare((CString*)&s1, (CString*)&s2);
+	}
+};
 
 class INISection {
 public:
@@ -15,7 +31,7 @@ public:
 
 	void* __DTOR__;
 
-	std::FAMap<CString, CString, 0x5D8CB0, 0x5D8CAC> EntriesDictionary;
+	std::FAMap<CString, CString, 0x5D8CB0, 0x5D8CAC, CStringCompareHelper> EntriesDictionary;
 	std::FAMap<unsigned int, CString, 0x5D8CA8, 0x5D8CA4> IndicesDictionary;
 };
 
@@ -27,7 +43,6 @@ private:
 
 public:
 	
-	// TODO : Repair it, probably resulted from lower_bound
 	CString GetString(const char* pSection, const char* pKey, const char* pDefault = "") {
 		auto itrSection = data.find(pSection);
 		if (itrSection != data.end()) {
