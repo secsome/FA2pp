@@ -6,6 +6,7 @@
 
 #include "Structures/FAMap.h"
 
+#include <fstream>
 
 // Remember that we cannot call CTOR or DTOR for any FAMap/FATree
 class CStringCompareHelper
@@ -24,13 +25,13 @@ public:
 };
 
 class INISection {
-public:
-	~INISection() {
+private:
+	/*~INISection() {
 		JMP_THIS(0x4023B0);
-	}
+	}*/
 
 	void* __DTOR__;
-
+public:
 	std::FAMap<CString, CString, 0x5D8CB0, 0x5D8CAC, CStringCompareHelper> EntriesDictionary;
 	std::FAMap<unsigned int, CString, 0x5D8CA8, 0x5D8CA4> IndicesDictionary;
 };
@@ -42,7 +43,46 @@ private:
 	std::FAMap<CString, INISection, 0x5D8CB4, 0> data; // no idea about the nilrefs
 
 public:
-	
+
+	// Debug function
+	std::FAMap<CString, INISection, 0x5D8CB4, 0>& GetData()
+	{
+		return data;
+	}
+
+	bool DebugToFile(const char* path)
+	{
+		std::ofstream fout;
+		fout.open(path, std::ios::out);
+		if (!fout.is_open())
+			return false;
+		for (auto& itrsec : data)
+		{
+			fout << "[" << itrsec.first << "]\n";
+			for (auto& entries : itrsec.second.EntriesDictionary)
+			{
+				fout << entries.first << "=" << entries.second << "\n";
+			}
+			fout << "\n";
+		}
+		fout.flush();
+		fout.close();
+		return true;
+	}
+
+	bool SectionExists(const char* pSection)
+	{
+		return data.find(pSection) != data.end();
+	}
+
+	INISection& GetSection(const char* pSection)
+	{
+		auto itr = data.find(pSection);
+		if (itr != data.end())
+			return itr->second;
+		return data.begin()->second;
+	}
+
 	CString GetString(const char* pSection, const char* pKey, const char* pDefault = "") {
 		auto itrSection = data.find(pSection);
 		if (itrSection != data.end()) {
