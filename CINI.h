@@ -1,15 +1,20 @@
 #pragma once
 
 #include "FA2PP.h"
-
-#include "../FA2sp/Logger.h"
-
 #include "Structures/FAMap.h"
 
 #include <fstream>
 
+// We can only use C++14 standard for now since our FATree & FAMap
+// was a mess, and higher standards are more strict and we cannot
+// pass the complie for some reason.
+// secsome - 2020/11/3
+
 // Remember that we cannot call CTOR or DTOR for any FAMap/FATree
-class CStringCompareHelper
+// cause nil & nilrefs haven't been analysed yet.
+// Consider to use : auto& iRules = GlobalVars::INIFiles::Rules();
+
+class INISectionEntriesComparator
 {
 public:
 	
@@ -30,22 +35,26 @@ private:
 		JMP_THIS(0x4023B0);
 	}*/
 
-	void* __DTOR__;
+	void* __DTOR__; // for align
 public:
-	std::FAMap<CString, CString, 0x5D8CB0, 0x5D8CAC, CStringCompareHelper> EntriesDictionary;
+	std::FAMap<CString, CString, 0x5D8CB0, 0x5D8CAC, INISectionEntriesComparator> EntriesDictionary;
+
+	// Be careful, better not to use this one for some reason.
+	// Cause I've never tested it.
+	// secsome - 2020/11/3
 	std::FAMap<unsigned int, CString, 0x5D8CA8, 0x5D8CA4> IndicesDictionary;
 };
 
 class INIClass
 {
 private:
-	void* __DTOR__;
+	void* __DTOR__; // for align
 	std::FAMap<CString, INISection, 0x5D8CB4, 0> data; // no idea about the nilrefs
 
 public:
 
 	// Debug function
-	std::FAMap<CString, INISection, 0x5D8CB4, 0>& GetData()
+	std::FAMap<CString, INISection, 0x5D8CB4, 0>& GetMap()
 	{
 		return data;
 	}
@@ -70,11 +79,15 @@ public:
 		return true;
 	}
 
+
 	bool SectionExists(const char* pSection)
 	{
 		return data.find(pSection) != data.end();
 	}
 
+	// use it like this to avoid CTOR and crash:
+	// auto &iSection = iINI.GetSection("E1");
+	// secsome - 2020/11/3
 	INISection& GetSection(const char* pSection)
 	{
 		auto itr = data.find(pSection);
