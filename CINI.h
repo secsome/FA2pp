@@ -14,6 +14,26 @@
 // cause nil & nilrefs haven't been analysed yet.
 // Consider to use : auto& iRules = GlobalVars::INIFiles::Rules();
 
+class INIMapFieldUpdate
+{
+private:
+	static constexpr DWORD _H = 0x72CBF8;
+	struct _S
+	{
+		static void UpdateMapFieldData(int flag)
+		{
+			JMP_THIS(0x49C280);
+		}
+	};
+	
+public:
+	static void UpdateMapFieldData(int flag)
+	{
+		_S* _X = (_S*)_H;
+		_X->UpdateMapFieldData(flag);
+	}
+};
+
 class INISectionEntriesComparator
 {
 public:
@@ -52,6 +72,13 @@ private:
 	std::FAMap<CString, INISection, 0x5D8CB4, 0> data; // no idea about the nilrefs
 
 public:
+
+	static INIClass* GetMapDocument(bool bUpdateMapField = false)
+	{
+		if(bUpdateMapField)
+			INIMapFieldUpdate::UpdateMapFieldData(1);
+		return reinterpret_cast<INIClass*>(0x7ACC80);
+	}
 
 	// Debug function
 	std::FAMap<CString, INISection, 0x5D8CB4, 0>& GetMap()
@@ -146,27 +173,5 @@ public:
 		default:
 			return nDefault;
 		}
-	}
-
-	bool WriteString(const char* pSection, const char* pKey, 
-		const char* pValue, bool bAllowCreate) {
-		
-		bool bExist = false;
-		auto x = data.begin();
-
-		while (strcmp(x->first, pSection) != 0)
-		{
-			if (x == data.end()) {
-				bExist = true;
-				break;
-			}
-			++x;
-		}
-		
-		if (!bExist && !bAllowCreate)
-			return false;
-
-
-
 	}
 };

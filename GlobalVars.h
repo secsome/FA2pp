@@ -30,7 +30,7 @@ public:
         static constexpr reference<INIClass, 0x7ECE70> const Desert{}; // desertmd.ini
         static constexpr reference<INIClass, 0x7ED618> const FAData{}; // FAData.ini
         static constexpr reference<INIClass, 0x7ED500> const FALanguage{}; // FALanguage.ini
-        static constexpr reference<INIClass, 0x7ACC80> const CurrentDocument{}; // Current map file
+        static constexpr reference<INIClass, 0x7ACC80> const CurrentDocument{}; // Current map file, without update
     };
 
 
