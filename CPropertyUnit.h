@@ -13,7 +13,7 @@ public:
 	CString			CString_Direction; // 156
 	CString			CString_VeteranLevel; // 160
 	CString			CString_Group; // 164
-	CStatic			CString_House; // 168
+	CString			CString_House; // 168
 	CString			CString_OnBridge; // 172
 	CString			CString_FollowerID; // 176
 	CString			CString_AutoCreateNoRecruitable; // 180

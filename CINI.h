@@ -14,6 +14,16 @@
 // cause nil & nilrefs haven't been analysed yet.
 // Consider to use : auto& iRules = GlobalVars::INIFiles::Rules();
 
+// Forward Definations
+class INISection;
+class INISectionEntriesComparator;
+
+// type definations
+using CSFDict = FAMap<CString, const char*, 0x5E7C20, 0>;
+using INIDict = FAMap<CString, INISection, 0x5D8CB4, 0>;
+using INIStringDict = FAMap<CString, CString, 0x5D8CB0, 0x5D8CAC, INISectionEntriesComparator>;
+using INIIndiceDict = FAMap<unsigned int, CString, 0x5D8CA8, 0x5D8CA4>;
+
 class INIMapFieldUpdate
 {
 private:
@@ -57,19 +67,22 @@ private:
 
 	void* __DTOR__; // for align
 public:
-	std::FAMap<CString, CString, 0x5D8CB0, 0x5D8CAC, INISectionEntriesComparator> EntriesDictionary;
+	INIStringDict EntriesDictionary;
 
 	// Be careful, better not to use this one for some reason.
 	// Cause I've never tested it.
 	// secsome - 2020/11/3
-	std::FAMap<unsigned int, CString, 0x5D8CA8, 0x5D8CA4> IndicesDictionary;
+	INIIndiceDict IndicesDictionary;
 };
 
 class INIClass
 {
 private:
+	/*~INIClass() {
+		JMP_THIS(0x452B20);
+	}*/
 	void* __DTOR__; // for align
-	std::FAMap<CString, INISection, 0x5D8CB4, 0> data; // no idea about the nilrefs
+	INIDict data; // no idea about the nilrefs
 
 public:
 
@@ -81,7 +94,7 @@ public:
 	}
 
 	// Debug function
-	std::FAMap<CString, INISection, 0x5D8CB4, 0>& GetMap()
+	INIDict& GetMap()
 	{
 		return data;
 	}
@@ -106,6 +119,21 @@ public:
 		return true;
 	}
 
+	int GetKeyCount(const char* pSection)
+	{
+		auto itr = data.find(pSection);
+		if (itr != data.end())
+			return itr->second.EntriesDictionary.size();
+		return 0;
+	}
+
+	CString GetKeyName(const char* pSection, int nIndex)
+	{
+		auto itr = data.find(pSection);
+		if (itr != data.end())
+			return itr->second.IndicesDictionary[nIndex];
+		return "";
+	}
 
 	bool SectionExists(const char* pSection)
 	{

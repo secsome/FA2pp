@@ -6,21 +6,21 @@
 #pragma pack(push,8)
 #endif  /* _MSC_VER */
 
-namespace std{
+//namespace std{
 	template<class _K, class _Ty, DWORD nil_addr, DWORD nilrefs_addr,
-		class _Pr = less<_K>,class _A = allocator<_Ty> >
+		class _Pr = std::less<_K>,class _A = std::allocator<_Ty> >
 		class FAMap {
 		public:
 			typedef FAMap<_K, _Ty, nil_addr, nilrefs_addr, _Pr, _A> _Myt;
-			typedef pair<const _K, _Ty> value_type;
-			struct _Kfn : public unary_function<value_type, _K> {
+			typedef std::pair<const _K, _Ty> value_type;
+			struct _Kfn : public std::unary_function<value_type, _K> {
 				const _K& operator()(const value_type& _X) const
 				{
 					return (_X.first);
 				}
 			};
 			class value_compare
-				: public binary_function<value_type, value_type, bool> {
+				: public std::binary_function<value_type, value_type, bool> {
 				friend class FAMap<_K, _Ty, nil_addr, nilrefs_addr, _Pr, _A>;
 			public:
 				bool operator()(const value_type& _X,
@@ -44,8 +44,8 @@ namespace std{
 			typedef value_type& reference;
 			typedef const value_type& const_reference;
 			typedef typename _Imp::iterator iterator;
-			typedef pair<iterator, bool> _Pairib;
-			typedef pair<iterator, iterator> _Pairii;
+			typedef std::pair<iterator, bool> _Pairib;
+			typedef std::pair<iterator, iterator> _Pairii;
 			explicit FAMap(const _Pr& _Pred = _Pr(), const _A& _Al = _A())
 				: _Tr(_Pred, false, _Al) {}
 			typedef const value_type* _It;
@@ -194,7 +194,7 @@ namespace std{
 	{
 		return (!(_X < _Y));
 	}
-}
+//}
 
 #ifdef  _MSC_VER
 #pragma pack(pop)
