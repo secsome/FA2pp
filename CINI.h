@@ -19,7 +19,7 @@ class INISection;
 class INISectionEntriesComparator;
 
 // type definations
-using CSFDict = FAMap<CString, const char*, 0x5E7C20, 0>;
+using CSFDict = FAMap<CString, const char*, 0x5E7C20, 0x5E7C1C>;
 using INIDict = FAMap<CString, INISection, 0x5D8CB4, 0>;
 using INIStringDict = FAMap<CString, CString, 0x5D8CB0, 0x5D8CAC, INISectionEntriesComparator>;
 using INIIndiceDict = FAMap<unsigned int, CString, 0x5D8CA8, 0x5D8CA4>;
@@ -131,7 +131,18 @@ public:
 	{
 		auto itr = data.find(pSection);
 		if (itr != data.end())
-			return itr->second.IndicesDictionary[nIndex];
+		{
+			auto& EntriesMap = itr->second.EntriesDictionary;
+			auto result = EntriesMap.begin();
+			int idx = 0;
+			while (result != EntriesMap.end())
+			{
+				if (idx == nIndex)
+					return result->first;
+				++idx;
+				++result;
+			}
+		}
 		return "";
 	}
 

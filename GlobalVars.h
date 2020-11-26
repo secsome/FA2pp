@@ -8,9 +8,9 @@
 class GlobalVars
 {
 public:
-    static constexpr reference<char*, 0x72A738, 260> const ExePath{}; // Where FA2.exe locates
-    static constexpr reference<char*, 0x72A530, 260> const MapPath{}; // Where current map locates 
-    static constexpr reference<char*, 0x72A634, 260> const FilePath{}; // Where mix files locates
+    static constexpr reference<char, 0x72A738, 260> const ExePath{}; // Where FA2.exe locates
+    static constexpr reference<char, 0x72A530, 260> const MapPath{}; // Where current map locates 
+    static constexpr reference<char, 0x72A634, 260> const FilePath{}; // Where mix files locates
     
     class INIFiles
     {
