@@ -1,6 +1,7 @@
 #pragma once
 
 #include "FA2PP.h"
+#include "FAString.h"
 #include "Structures/FAMap.h"
 
 #include <fstream>
@@ -17,6 +18,7 @@
 // Forward Definations
 class INISection;
 class INISectionEntriesComparator;
+class INIClass;
 
 // type definations
 using CSFDict = FAMap<CString, const char*, 0x5E7C20, 0x5E7C1C>;
@@ -37,10 +39,11 @@ private:
 	};
 	
 public:
-	static void UpdateMapFieldData(int flag)
+	static INIClass* UpdateMapFieldData(int flag)
 	{
 		_S* _X = (_S*)_H;
 		_X->UpdateMapFieldData(flag);
+		return reinterpret_cast<INIClass*>(0x7ACC80);
 	}
 };
 
@@ -149,6 +152,17 @@ public:
 	bool SectionExists(const char* pSection)
 	{
 		return data.find(pSection) != data.end();
+	}
+
+	bool WriteString(const char* pSection, const char* pKey, const char* pValue)
+	{
+		auto itr = data.find(pSection);
+		if (itr == data.end())	return false;
+		auto& dict = itr->second.EntriesDictionary;
+		auto ret = dict.insert(std::make_pair<CString, CString>(pKey, pValue));
+		if (!ret.second)
+			((FAString*)(&ret.first->second))->AssignCopy(strlen(pValue) + 1, pValue);
+		return true;
 	}
 
 	// use it like this to avoid CTOR and crash:
