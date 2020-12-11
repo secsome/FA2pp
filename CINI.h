@@ -21,7 +21,7 @@ class INISectionEntriesComparator;
 class INIClass;
 
 // type definations
-using CSFDict = FAMap<CString, const char*, 0x5E7C20, 0x5E7C1C>;
+using CSFDict = FAMap<CString, const char*, 0x5E7C28, 0x5E7C20>;
 using INIDict = FAMap<CString, INISection, 0x5D8CB4, 0>;
 using INIStringDict = FAMap<CString, CString, 0x5D8CB0, 0x5D8CAC, INISectionEntriesComparator>;
 using INIIndiceDict = FAMap<unsigned int, CString, 0x5D8CA8, 0x5D8CA4>;
