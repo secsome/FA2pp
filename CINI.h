@@ -153,6 +153,14 @@ public:
 	{
 		return data.find(pSection) != data.end();
 	}
+	
+	bool KeyExists(const char* pSection, const char* pKey)
+	{
+		if (!SectionExists(pSection))
+			return false;
+		auto& section = GetSection(pSection).EntriesDictionary;
+		return section.find(pKey) != section.end();
+	}
 
 	bool WriteString(const char* pSection, const char* pKey, const char* pValue)
 	{
