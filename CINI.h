@@ -21,10 +21,37 @@ class INISectionEntriesComparator;
 class INIClass;
 
 // type definations
-using CSFDict = FAMap<CString, const char*, 0x5E7C28, 0x5E7C20>;
 using INIDict = FAMap<CString, INISection, 0x5D8CB4, 0>;
 using INIStringDict = FAMap<CString, CString, 0x5D8CB0, 0x5D8CAC, INISectionEntriesComparator>;
 using INIIndiceDict = FAMap<unsigned int, CString, 0x5D8CA8, 0x5D8CA4>;
+
+class CSFQuery 
+{
+private:
+	static constexpr DWORD _H = 0x72CBF8;
+	struct _S
+	{
+		const wchar_t* QueryUIName(const char* pRegName) {
+			JMP_THIS(0x4B2610);
+		}
+	};
+
+public:
+	static CString GetUIName(const char* pRegName)
+	{
+		_S* _X = (_S*)_H;
+		auto wstr = _X->QueryUIName(pRegName);
+		char* value = nullptr;
+		auto len = wcslen(wstr);
+		int valueBufferSize = WideCharToMultiByte(CP_ACP, NULL, wstr, len, value, 0, NULL, NULL) + 1;
+		value = new char[valueBufferSize];
+		WideCharToMultiByte(CP_ACP, NULL, wstr, len, value, valueBufferSize, NULL, NULL);
+		value[valueBufferSize - 1] = '\0';
+		CString ret = value;
+		delete[] value;
+		return ret;
+	}
+};
 
 class INIMapFieldUpdate
 {
