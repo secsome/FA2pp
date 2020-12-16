@@ -97,7 +97,7 @@ private:
 
 	void* __DTOR__; // for align
 public:
-	INIStringDict EntriesDictionary;
+	INIStringDict EntitiesDictionary;
 
 	// Be careful, better not to use this one for some reason.
 	// Cause I've never tested it.
@@ -129,7 +129,7 @@ public:
 		return data;
 	}
 
-	bool DebugToFile(const char* path)
+	bool DebugEntitiesToFile(const char* path)
 	{
 		std::ofstream fout;
 		fout.open(path, std::ios::out);
@@ -138,7 +138,7 @@ public:
 		for (auto& itrsec : data)
 		{
 			fout << "[" << itrsec.first << "]\n";
-			for (auto& entries : itrsec.second.EntriesDictionary)
+			for (auto& entries : itrsec.second.EntitiesDictionary)
 			{
 				fout << entries.first << "=" << entries.second << "\n";
 			}
@@ -153,7 +153,7 @@ public:
 	{
 		auto itr = data.find(pSection);
 		if (itr != data.end())
-			return itr->second.EntriesDictionary.size();
+			return itr->second.EntitiesDictionary.size();
 		return 0;
 	}
 
@@ -162,7 +162,7 @@ public:
 		auto itr = data.find(pSection);
 		if (itr != data.end())
 		{
-			auto& EntriesMap = itr->second.EntriesDictionary;
+			auto& EntriesMap = itr->second.EntitiesDictionary;
 			auto result = EntriesMap.begin();
 			int idx = 0;
 			while (result != EntriesMap.end())
@@ -185,7 +185,7 @@ public:
 	{
 		if (!SectionExists(pSection))
 			return false;
-		auto& section = GetSection(pSection).EntriesDictionary;
+		auto& section = GetSection(pSection).EntitiesDictionary;
 		return section.find(pKey) != section.end();
 	}
 
@@ -193,7 +193,7 @@ public:
 	{
 		auto itr = data.find(pSection);
 		if (itr == data.end())	return false;
-		auto& dict = itr->second.EntriesDictionary;
+		auto& dict = itr->second.EntitiesDictionary;
 		auto ret = dict.insert(std::make_pair<CString, CString>(pKey, pValue));
 		if (!ret.second)
 			((FAString*)(&ret.first->second))->AssignCopy(strlen(pValue) + 1, pValue);
@@ -214,7 +214,7 @@ public:
 	CString GetString(const char* pSection, const char* pKey, const char* pDefault = "") {
 		auto itrSection = data.find(pSection);
 		if (itrSection != data.end()) {
-			auto pEntries = &itrSection->second.EntriesDictionary;
+			auto pEntries = &itrSection->second.EntitiesDictionary;
 			auto itrKey = pEntries->find(pKey);
 			if (itrKey != pEntries->end())
 				return itrKey->second;
