@@ -19,7 +19,7 @@ public:
 	BOOL		BOOL_Full; // 236
 	CString		CString_Group; // 240
 	BOOL		BOOL_GuardSlower; // 244
-	CString		CString_House; // 248
+	CString		CString_House; // 248 Country infact
 	BOOL		BOOL_IonImmune; // 252 Useless
 	BOOL		BOOL_IsBaseDefense; // 256
 	BOOL		BOOL_Loadable; // 260

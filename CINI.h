@@ -91,11 +91,16 @@ public:
 
 class INISection {
 private:
-	/*~INISection() {
-		JMP_THIS(0x4023B0);
+	/*INISection()
+	{
+		JMP_THIS(0x452880);
+	}
+
+	~INISection() {
+		JMP_THIS(0x452B20);
 	}*/
 
-	void* __DTOR__; // for align
+	void* vftable_align; // for align
 public:
 	INIStringDict EntitiesDictionary;
 

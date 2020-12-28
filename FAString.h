@@ -17,6 +17,11 @@ public:
         JMP_THIS(0x555FCF);
     }
 
+    void DTOR()
+    {
+        JMP_THIS(0x555F0F);
+    }
+
     static int Format(char* buffer, const char* format, ...)
     {
         JMP_STD(0x534B56);
