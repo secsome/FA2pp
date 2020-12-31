@@ -4,7 +4,8 @@
 #include "FAString.h"
 #include "Structures/FAMap.h"
 
-#include <fstream>
+#include <vector>
+#include <map>
 
 // We can only use C++14 standard for now since our FATree & FAMap
 // was a mess, and higher standards are more strict and we cannot
@@ -23,7 +24,7 @@ class INIClass;
 // type definations
 using INIDict = FAMap<CString, INISection, 0x5D8CB4, 0>;
 using INIStringDict = FAMap<CString, CString, 0x5D8CB0, 0x5D8CAC, INISectionEntriesComparator>;
-using INIIndiceDict = FAMap<unsigned int, CString, 0x5D8CA8, 0x5D8CA4>;
+using INIIndiceDict = FAMap<CString, unsigned int, 0x5D8CA8, 0x5D8CA4, INISectionEntriesComparator>;
 
 class CSFQuery 
 {
@@ -103,10 +104,6 @@ private:
 	void* vftable_align; // for align
 public:
 	INIStringDict EntitiesDictionary;
-
-	// Be careful, better not to use this one for some reason.
-	// Cause I've never tested it.
-	// secsome - 2020/11/3
 	INIIndiceDict IndicesDictionary;
 };
 
@@ -128,31 +125,31 @@ public:
 		return reinterpret_cast<INIClass*>(0x7ACC80);
 	}
 
-	// Debug function
-	INIDict& GetMap()
-	{
-		return data;
-	}
+	//// Debug function
+	//INIDict& GetMap()
+	//{
+	//	return data;
+	//}
 
-	bool DebugEntitiesToFile(const char* path)
-	{
-		std::ofstream fout;
-		fout.open(path, std::ios::out);
-		if (!fout.is_open())
-			return false;
-		for (auto& itrsec : data)
-		{
-			fout << "[" << itrsec.first << "]\n";
-			for (auto& entries : itrsec.second.EntitiesDictionary)
-			{
-				fout << entries.first << "=" << entries.second << "\n";
-			}
-			fout << "\n";
-		}
-		fout.flush();
-		fout.close();
-		return true;
-	}
+	//bool DebugEntitiesToFile(const char* path)
+	//{
+	//	std::ofstream fout;
+	//	fout.open(path, std::ios::out);
+	//	if (!fout.is_open())
+	//		return false;
+	//	for (auto& itrsec : data)
+	//	{
+	//		fout << "[" << itrsec.first << "]\n";
+	//		for (auto& entries : itrsec.second.EntitiesDictionary)
+	//		{
+	//			fout << entries.first << "=" << entries.second << "\n";
+	//		}
+	//		fout << "\n";
+	//	}
+	//	fout.flush();
+	//	fout.close();
+	//	return true;
+	//}
 
 	int GetKeyCount(const char* pSection)
 	{
@@ -266,5 +263,58 @@ public:
 		default:
 			return nDefault;
 		}
+	}
+
+	std::vector<CString> ParseIndicies(const char* pSection)
+	{
+		std::vector<CString> ret;
+		auto& section = data.find(pSection);
+		if (section == data.end())
+			return ret;
+
+		std::map<unsigned int, CString> tmp;
+		for (auto& ent : section->second.EntitiesDictionary)
+		{
+			auto& indexDict = section->second.IndicesDictionary;
+			auto& idxitr = indexDict.find(ent.second);
+			if (idxitr != indexDict.end())
+				tmp[idxitr->second] = idxitr->first;
+		}
+
+		ret.resize(tmp.size());
+		for (auto& x : tmp)
+			ret.push_back(x.second);
+		return ret;
+	}
+
+	std::map<unsigned int, CString> ParseIndiciesData(const char* pSection)
+	{
+		std::map<unsigned int, CString> ret;
+		auto& section = data.find(pSection);
+		if (section == data.end())
+			return ret;
+		std::map<unsigned int, CString> tmp;
+		for (auto& ent : section->second.EntitiesDictionary)
+		{
+			auto& indexDict = section->second.IndicesDictionary;
+			auto& idxitr = indexDict.find(ent.first);
+			if (idxitr != indexDict.end())
+				tmp[idxitr->second] = idxitr->first;
+		}
+		size_t idx = 0;
+		for (auto& x : tmp)
+			ret[idx++] = x.second;
+
+		return ret;
+	}
+
+	void ParseKeys(const char* pSection, std::vector<CString>& vector)
+	{
+		std::vector<CString> ret;
+		auto& section = data.find(pSection);
+		if (section == data.end())
+			return;
+		for (auto& x : vector)
+			x = GetString(pSection, x, x);
 	}
 };
