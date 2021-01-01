@@ -76,3 +76,8 @@ public:
 		JMP_STD(0x55304D);
 	}
 };
+
+class NOVTABLE FA2CControlBar : public FA2CWnd
+{
+	
+};

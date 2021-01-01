@@ -49,4 +49,14 @@ public:
 	{
 		JMP_STD(0x5971EC);
 	}
+
+	void OnBNNewTeamClicked()
+	{
+		JMP_THIS(0x4EEA50);
+	}
+	void OnCBCurrentTeamSelectedChanged()
+	{
+		JMP_THIS(0x4E7900);
+	}
+
 };

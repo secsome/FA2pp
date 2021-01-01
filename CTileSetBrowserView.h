@@ -15,7 +15,4 @@ public:
 	int field_7c;
 	PROTECTED_PROPERTY(char, gap_7C[4]);
 	int unknown_84;
-	DWORD unknown_88;
-	char field_88;
-	PROTECTED_PROPERTY(char, gap_89[3]);
 };

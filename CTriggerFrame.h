@@ -2,14 +2,22 @@
 
 #include "FA2PP.h"
 
+#include "CTriggerOption.h"
+#include "CTriggerEvent.h"
+#include "CTriggerAction.h"
+
 class NOVTABLE CTriggerFrame : public FA2CDialog
 {
 public:
 	CTriggerFrame() = default;
 
 	//member properties
-	BYTE				Unknown_92[8]; // ;/ Fill 92 - 100
-	CComboBox	CCBTriggerList; // 100
+	CTriggerAction TriggerAction;
+	CTriggerEvent TriggerEvent;
+	CTriggerOption TriggerOption;
+	char gap[148];
+	CTabCtrl TabCtrl;
+
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
 	{
