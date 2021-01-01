@@ -54,6 +54,6 @@ public:
 	CMapD MapD;
 	INIClass INIMap;
 	char gap[260];
-	CTabCtrl ObjectBrowserView;
+	ObjectBrowserControl ObjectBrowserView;
 	HICON hIcon;
 };
