@@ -13,7 +13,7 @@
 #include "CTaskforce.h"
 #include "CTeamTypes.h"
 #include "CHouses.h"
-#include "UnknownFrameWnd.h"
+#include "CMyViewFrame.h"
 #include "CSpecialFlags.h"
 #include "CLighting.h"
 #include "CINIEditor.h"
@@ -46,7 +46,7 @@ public:
 	CTeamTypes TeamTypes;
 	CHouses Houses;
 	CSplitterWnd SplitterWnd;
-	UnknownFrameWnd MainWnd;
+	CMyViewFrame MyViewFrame;
 	CSpecialFlags SpecialFlags;
 	CLighting Lighting;
 	CINIEditor INIEditor;
