@@ -2,7 +2,7 @@
 
 #include "FA2PP.h"
 
-#include "CTileSetBrowerFrame.h"
+#include "CTileSetBrowserFrame.h"
 #include "CBrushSize.h"
 #include "CSingleplayerSettings.h"
 #include "CAITriggerTypes.h"

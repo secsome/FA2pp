@@ -2,7 +2,7 @@
 #include "FA2PP.h"
 
 // CScorllView Size 140
-class NOVTABLE CTileSetBrowserView : CScrollView
+class NOVTABLE CTileSetBrowserView : public FA2CScrollView
 {
 	virtual void OnDraw(CDC* pDC) {};
 

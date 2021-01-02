@@ -23,6 +23,10 @@ private:
 class NOVTABLE FA2CWnd : public CWnd
 {
 public:
+	virtual BOOL PreTransateMessage(MSG* pMsg)
+	{
+		JMP_STD(0x55304D);
+	}
 };
 
 class NOVTABLE FA2CDialog : public CDialog
@@ -61,10 +65,7 @@ class NOVTABLE FA2CScrollView : public CScrollView
 {
 public:
 	// Cwnd
-	virtual BOOL PreTransateMessage(MSG* pMsg)
-	{
-		JMP_STD(0x55304D);
-	}
+	
 };
 
 class NOVTABLE FA2CView : public CView
@@ -77,7 +78,10 @@ public:
 	}
 };
 
-class NOVTABLE FA2CControlBar : public FA2CWnd
+class NOVTABLE FA2CFrameWnd : public CFrameWnd
 {
-	
+	virtual BOOL PreTransateMessage(MSG* pMsg)
+	{
+		JMP_STD(0x5618F4);
+	}
 };
