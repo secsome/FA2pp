@@ -12,9 +12,20 @@ public:
         JMP_THIS(0x55601B);
     }
 
+    static void Assignment(CString& des, const char* src)
+    {
+        FAString* ptr = (FAString*)&des;
+        ptr->AssignCopy(strlen(src) + 1, src);
+    }
+
     FAString(LPCWSTR lpWideCharStr)
     {
         JMP_THIS(0x555FCF);
+    }
+
+    FAString(LPCSTR lpCharStr)
+    {
+        JMP_THIS(0x555F7D);
     }
 
     void DTOR()

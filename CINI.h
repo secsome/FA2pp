@@ -198,7 +198,7 @@ public:
 		auto& dict = itr->second.EntitiesDictionary;
 		auto ret = dict.insert(std::make_pair<CString, CString>(pKey, pValue));
 		if (!ret.second)
-			((FAString*)(&ret.first->second))->AssignCopy(strlen(pValue) + 1, pValue);
+			FAString::Assignment(ret.first->second, pValue);
 		return true;
 	}
 

@@ -38,6 +38,11 @@ public:
 		JMP_THIS(0x552FB5);
 	}
 
+	virtual BOOL UpdateData(BOOL bSaveAndValidate = TRUE)
+	{
+		JMP_THIS(0x554A08);
+	}
+
 	//CDialog
 	virtual BOOL OnInitDialog() override
 	{

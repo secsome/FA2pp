@@ -13,9 +13,9 @@ public:
 	BOOL		BOOL_Aggressive; // 212
 	BOOL		BOOL_Annoyance; // 216
 	BOOL		BOOL_AreTeamMembersRecruitable; // 220
-	BOOL		BOOL_AutoCreate; // 224
+	BOOL		BOOL_Autocreate; // 224
 	BOOL		BOOL_AvoidThreats; // 228
-	BOOL		BOOL_cargoPlane; // 232
+	BOOL		BOOL_CargoPlane; // 232
 	BOOL		BOOL_Full; // 236
 	CString		CString_Group; // 240
 	BOOL		BOOL_GuardSlower; // 244
@@ -23,7 +23,7 @@ public:
 	BOOL		BOOL_IonImmune; // 252 Useless
 	BOOL		BOOL_IsBaseDefense; // 256
 	BOOL		BOOL_Loadable; // 260
-	BOOL		BOOL_loseRecruit; // 264
+	BOOL		BOOL_LooseRecruit; // 264
 	CString		CString_Max; // 268
 	CString		CString_Name; // 272
 	BOOL		BOOL_OnlyTargetHouseEnemy; // 276
