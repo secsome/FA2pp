@@ -15,12 +15,16 @@ public:
 	CTriggerAction TriggerAction;
 	CTriggerEvent TriggerEvent;
 	CTriggerOption TriggerOption;
-	char gap[148];
+	char gap[60];
 	CTabCtrl TabCtrl;
 
+	BOOL OnInitDialog() override
+	{
+		JMP_THIS(0x4FA250);
+	}
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
 	{
-		JMP_STD(0x4CEAE0);
+		JMP_STD(0x4FA1F0);
 	}
 };

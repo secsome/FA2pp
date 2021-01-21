@@ -17,6 +17,12 @@ public:
 	CEdit		CETName; // 396
 	CComboBox	CCBHouse; // 456
 	CComboBox	CCBAttachedTag; // 516
+	CToolTipCtrl CTTCHouse;
+
+	BOOL OnInitDialog() override
+	{
+		JMP_THIS(0x502DC0);
+	}
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
 	{
