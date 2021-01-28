@@ -36,6 +36,7 @@ virtual void alla(double malla) RX;
 
 #define NOVTABLE __declspec(novtable)
 
+#define elif else if
 #define SAFE_RELEASE(ptr) {if(!ptr) delete[] ptr;}
 
 struct noinit_t final {};

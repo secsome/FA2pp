@@ -8,7 +8,7 @@ public:
 	CSearchWaypoint() = default;
 
 	//member properties
-	BYTE			Unknown_92[4]; // Fill 92 - 96
+	INT			INT_SelectedWaypoint; // 92
 	CString		CString_Waypoint; // 96
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
