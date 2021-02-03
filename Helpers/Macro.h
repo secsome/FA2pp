@@ -3,9 +3,7 @@
 #include "Syringe.h"
 #include "ASMMacros.h"
 
-// In this file: Alternatives to CTRL + H...
-
-// macros DCoder uses and pd dislikes :)
+// Syringe stuffs
 
 #define GET(clsname, var, reg) \
 	clsname var = R->reg<clsname>();
@@ -28,16 +26,7 @@
 #define STACK_OFFS(cur_offset, wanted_offset) \
 		(cur_offset - wanted_offset)
 
-
-// swizzle shorthand
-//shifted to Ares stuff
-//new location : Misc\Stream.h
-/*#define SWIZZLE(var) \
-	SwizzleManagerClass::Instance.Swizzle((void **)&var);
-
-#define HERE_I_AM(oldVar,NewVar) \
-	SwizzleManagerClass::Instance.Here_I_Am(oldVar,NewVar);*/
-
+// math stuffs
 
 #include <cmath>
 	// float cmp
@@ -46,3 +35,14 @@
 
 #define LESS_EQUAL(x, y) \
 	((x - y) <= 0.001)
+
+// FA2 stuffs
+
+#define GET_COORD_X(coord) \
+	(coord / 1000)
+
+#define GET_COORD_Y(coord) \
+	(coord % 1000)
+
+#define XY_TO_COORD(x, y) \
+	(y + x * 1000)

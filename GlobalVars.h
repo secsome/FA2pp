@@ -12,6 +12,8 @@ public:
     static constexpr reference<char, 0x72A530, 260> const MapPath{}; // Where current map locates 
     static constexpr reference<char, 0x72A634, 260> const FilePath{}; // Where mix files locates
     
+    static constexpr reference<int, 0x72CC00> const CurrentMapWidthPlusHeight{}; // duh
+
     class INIFiles
     {
     public:
