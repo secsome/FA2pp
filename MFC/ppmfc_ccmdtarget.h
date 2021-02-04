@@ -22,9 +22,6 @@ public:
         AFX_CMDHANDLERINFO * pHandlerInfo)
         _PPMFC_THISCALL(0x5558BD);
 
-    virtual void OnFinalRelease()
-        _PPMFC_THISCALL(0x555A1C);
-
     virtual HRESULT GetTypeLib(LCID lcid, LPTYPELIB * ppTypeLib)
         _PPMFC_THISCALL(0x5559D2);
 

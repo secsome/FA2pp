@@ -78,7 +78,7 @@ public:
     void Release()
         _PPMFC_THISCALL(0x555E46);
 
-    static void Release(CStringData* pStringData)
+    static void _PPMFC_API Release(CStringData* pStringData)
         _PPMFC_STDCALL(0x555E77);
 
     void Empty()
@@ -108,14 +108,14 @@ public:
     void ConcatCopy(int nSrc1Len, LPCTSTR lpszSrc1Data, int nSrc2Len, LPCTSTR lpszSrc2Data)
         _PPMFC_THISCALL(0x556100);
 
-    friend CString operator+(const CString& string1,
+    friend CString _PPMFC_API operator+(const CString& string1,
         const CString& string2)
         _PPMFC_STDCALL(0x55613E);
 
-    friend CString operator+(const CString& string, LPCTSTR lpsz)
+    friend CString _PPMFC_API operator+(const CString& string, LPCTSTR lpsz)
         _PPMFC_STDCALL(0x5561A4);
 
-    friend CString operator+(LPCTSTR lpsz, const CString& string)
+    friend CString _PPMFC_API operator+(LPCTSTR lpsz, const CString& string)
         _PPMFC_STDCALL(0x556218);
 
     void ConcatInPlace(int nSrcLen, LPCTSTR lpszSrcData)
@@ -157,26 +157,32 @@ public:
     BOOL LoadString(UINT nID)          // load from string resource, 255 chars max
         _PPMFC_THISCALL(0x556507);
 
+    operator const char*()
+        { return m_pchData; }
+
+    operator LPTSTR ()
+        { return m_pchData; }
+
 private:
     LPTSTR m_pchData;   // pointer to ref counted string data
 };
 
-BOOL AfxExtractSubString(CString& rString, LPCTSTR lpszFullString,
+BOOL _PPMFC_API AfxExtractSubString(CString& rString, LPCTSTR lpszFullString,
     int iSubString, TCHAR chSep = '\n')
     _PPMFC_STDCALL(0x5565B2);
 
-void AfxFormatStrings(CString& rString, UINT nIDS,
+void _PPMFC_API AfxFormatStrings(CString& rString, UINT nIDS,
     LPCTSTR const* rglpsz, int nString)
     _PPMFC_STDCALL(0x55FBB7);
 
-void AfxFormatStrings(CString& rString, LPCTSTR lpszFormat,
+void _PPMFC_API AfxFormatStrings(CString& rString, LPCTSTR lpszFormat,
     LPCTSTR const* rglpsz, int nString)
     _PPMFC_STDCALL(0x55FBF1);
 
-void AfxFormatString1(CString& rString, UINT nIDS, LPCTSTR lpsz1)
+void _PPMFC_API AfxFormatString1(CString& rString, UINT nIDS, LPCTSTR lpsz1)
     _PPMFC_STDCALL(0x55FCF0);
 
-void AfxFormatString2(CString& rString, UINT nIDS,
+void _PPMFC_API AfxFormatString2(CString& rString, UINT nIDS,
     LPCTSTR lpsz1, LPCTSTR lpsz2)
     _PPMFC_STDCALL(0x55FD07);
 

@@ -1,14 +1,16 @@
 #pragma once
 
 #include <Windows.h>
+#include <CommCtrl.h>
+
 #include "../FA2PPCore.h"
 
 #ifndef _PPMFC
-#define _PPMFC namespace ppmfc
+#define _PPMFC ppmfc
 #endif // _PPMFC
 
 #ifndef _PPMFC_BEGIN
-#define _PPMFC_BEGIN _PPMFC {
+#define _PPMFC_BEGIN namespace _PPMFC {
 #endif // __PPMFC_BEGIN
 
 #ifndef _PPMFC_END
@@ -35,6 +37,10 @@
 #define _PPMFC_STDCALL(addr) { JMP_STD(addr); }
 #endif // _PPMFC_STDCALL
 
+#ifndef _PPMFC_API
+#define _PPMFC_API __stdcall
+#endif // _PPMFC_API
+
 _PPMFC_BEGIN
 
 _PPMFC_CLASS(CObject)
@@ -42,6 +48,12 @@ _PPMFC_CLASS(CObject)
 private:
 public:
     void* vfptr;
+};
+
+_PPMFC_CLASS(CPoint) _PPMFC_INHERIT(tagPOINT)
+{
+public:
+    CPoint(DWORD dwPoint) _PPMFC_THISCALL(0x5338A9);
 };
 
 _PPMFC_STRUCT(XDispatch)
