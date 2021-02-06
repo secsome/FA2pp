@@ -265,28 +265,6 @@ public:
 		}
 	}
 
-	std::vector<CString> ParseIndicies(const char* pSection)
-	{
-		std::vector<CString> ret;
-		auto& section = data.find(pSection);
-		if (section == data.end())
-			return ret;
-
-		std::map<unsigned int, CString> tmp;
-		for (auto& ent : section->second.EntitiesDictionary)
-		{
-			auto& indexDict = section->second.IndicesDictionary;
-			auto& idxitr = indexDict.find(ent.second);
-			if (idxitr != indexDict.end())
-				tmp[idxitr->second] = idxitr->first;
-		}
-
-		ret.resize(tmp.size());
-		for (auto& x : tmp)
-			ret.push_back(x.second);
-		return ret;
-	}
-
 	std::map<unsigned int, CString> ParseIndiciesData(const char* pSection)
 	{
 		std::map<unsigned int, CString> ret;
@@ -306,15 +284,5 @@ public:
 			ret[idx++] = x.second;
 
 		return ret;
-	}
-
-	void ParseKeys(const char* pSection, std::vector<CString>& vector)
-	{
-		std::vector<CString> ret;
-		auto& section = data.find(pSection);
-		if (section == data.end())
-			return;
-		for (auto& x : vector)
-			x = GetString(pSection, x, x);
 	}
 };
