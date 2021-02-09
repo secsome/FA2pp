@@ -4,6 +4,8 @@
 #include "FAString.h"
 #include "Structures/FAMap.h"
 
+#include "MFC/ppmfc_cstring.h"
+
 #include <vector>
 #include <map>
 
@@ -18,13 +20,42 @@
 
 // Forward Definations
 class INISection;
-class INISectionEntriesComparator;
 class INIClass;
+
+class INISectionEntriesComparator
+{
+public:
+	static bool __stdcall __compare(CString* a1, CString* a2) { JMP_STD(0x452230); }
+
+	bool operator()(const CString& s1, const CString& s2) const
+	{
+		return __compare((CString*)&s1, (CString*)&s2);
+	}
+};
 
 // type definations
 using INIDict = FAMap<CString, INISection, 0x5D8CB4, 0>;
-using INIStringDict = FAMap<CString, CString, 0x5D8CB0, 0x5D8CAC, INISectionEntriesComparator>;
-using INIIndiceDict = FAMap<CString, unsigned int, 0x5D8CA8, 0x5D8CA4, INISectionEntriesComparator>;
+using INIStringDict = FAMap<const char*, const char*, 0x5D8CB0, 0x5D8CAC, INISectionEntriesComparator>;
+using INIIndiceDict = FAMap<const char*, unsigned int, 0x5D8CA8, 0x5D8CA4, INISectionEntriesComparator>;
+
+struct FAINIMap
+{
+public:
+	std::pair<INIDict::iterator, bool>*
+		insert(std::pair<INIDict::iterator, bool>* ret, std::pair<CString, INISection>* section)
+	{
+		JMP_THIS(0x4026D0);
+	}
+};
+struct FAINIEntriesMap
+{
+public:
+	std::pair<INIStringDict::iterator, bool>*
+		insert(std::pair<INIStringDict::iterator, bool>* ret, std::pair<const char*, const char*>* pair)
+	{
+		JMP_THIS(0x40A010);
+	}
+};
 
 class CSFQuery 
 {
@@ -61,9 +92,7 @@ private:
 	struct _S
 	{
 		static void UpdateMapFieldData(int flag)
-		{
-			JMP_THIS(0x49C280);
-		}
+			{ JMP_THIS(0x49C280); }
 	};
 	
 public:
@@ -75,32 +104,15 @@ public:
 	}
 };
 
-class INISectionEntriesComparator
-{
-public:
-	
-	static bool __stdcall __compare(CString* a1, CString* a2)
-	{
-		JMP_STD(0x452230);
-	}
 
-	bool operator()(const CString& s1, const CString& s2) const
-	{
-		return __compare((CString*)&s1, (CString*)&s2);
-	}
-};
 
 class INISection {
+public:
+	INISection() { JMP_THIS(0x452880); }
+	INISection(INISection& another) { JMP_THIS(0x4021C0); }
+	~INISection() { JMP_THIS(0x452B20); }
+
 private:
-	/*INISection()
-	{
-		JMP_THIS(0x452880);
-	}
-
-	~INISection() {
-		JMP_THIS(0x452B20);
-	}*/
-
 	void* vftable_align; // for align
 public:
 	INIStringDict EntitiesDictionary;
@@ -116,7 +128,44 @@ private:
 	void* __DTOR__; // for align
 	INIDict data; // no idea about the nilrefs
 
+	static ppmfc::CString* GetAvailableIndex(ppmfc::CString* ret)
+		{ JMP_STD(0x446520); }
+
+	static ppmfc::CString* GetAvailableKey(ppmfc::CString* ret,const char* pSection)
+		{ JMP_STD(0x499E80); }
+
 public:
+	std::pair<INIDict::iterator, bool> InsertSection(CString pSection, INISection& section)
+	{
+		std::pair<CString, INISection> ins = std::make_pair(pSection, section);
+		std::pair<INIDict::iterator, bool> ret;
+		FAINIMap* mapptr = reinterpret_cast<FAINIMap*>(&data);
+		mapptr->insert(&ret, &ins);
+		return ret;
+	}
+
+	std::pair<INIStringDict::iterator, bool> InsertPair(INIStringDict& dict, const char* pKey, const char* pValue)
+	{
+		FAINIEntriesMap* ptrmap = reinterpret_cast<FAINIEntriesMap*>(&dict);
+		std::pair<const char*, const char*> ins = std::make_pair(pKey, pValue);
+		std::pair<INIStringDict::iterator, bool> ret;
+		ptrmap->insert(&ret, &ins);
+		return ret;
+	}
+
+	static ppmfc::CString GetAvailableIndex()
+	{
+		ppmfc::CString ret;
+		GetAvailableIndex(&ret);
+		return ret;
+	}
+
+	static ppmfc::CString GetAvailableKey(const char* pSection)
+	{
+		ppmfc::CString ret;
+		GetAvailableKey(&ret, pSection);
+		return ret;
+	}
 
 	static INIClass* GetMapDocument(bool bUpdateMapField = false)
 	{
@@ -124,32 +173,6 @@ public:
 			INIMapFieldUpdate::UpdateMapFieldData(1);
 		return reinterpret_cast<INIClass*>(0x7ACC80);
 	}
-
-	//// Debug function
-	//INIDict& GetMap()
-	//{
-	//	return data;
-	//}
-
-	//bool DebugEntitiesToFile(const char* path)
-	//{
-	//	std::ofstream fout;
-	//	fout.open(path, std::ios::out);
-	//	if (!fout.is_open())
-	//		return false;
-	//	for (auto& itrsec : data)
-	//	{
-	//		fout << "[" << itrsec.first << "]\n";
-	//		for (auto& entries : itrsec.second.EntitiesDictionary)
-	//		{
-	//			fout << entries.first << "=" << entries.second << "\n";
-	//		}
-	//		fout << "\n";
-	//	}
-	//	fout.flush();
-	//	fout.close();
-	//	return true;
-	//}
 
 	int GetKeyCount(const char* pSection)
 	{
@@ -196,15 +219,12 @@ public:
 		auto itr = data.find(pSection);
 		if (itr == data.end())	return false;
 		auto& dict = itr->second.EntitiesDictionary;
-		auto ret = dict.insert(std::make_pair<CString, CString>(pKey, pValue));
-		if (!ret.second)
-			FAString::Assignment(ret.first->second, pValue);
+		auto pair = InsertPair(dict, pKey, pValue);
+		if (!pair.second)
+			((ppmfc::CString*) & pair.first->second)->AssignCopy(strlen(pValue), pValue);
 		return true;
 	}
 
-	// use it like this to avoid CTOR and crash:
-	// auto &iSection = iINI.GetSection("E1");
-	// secsome - 2020/11/3
 	INISection& GetSection(const char* pSection)
 	{
 		auto itr = data.find(pSection);
@@ -285,4 +305,6 @@ public:
 
 		return ret;
 	}
+
+	
 };

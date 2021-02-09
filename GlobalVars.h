@@ -36,5 +36,4 @@ public:
         static constexpr reference<INIClass, 0x7ACC80> const CurrentDocument{}; // Current map file, without update
     };
 
-
 };

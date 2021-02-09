@@ -21,13 +21,23 @@
 #include "CMapD.h"
 #include "CINI.h"
 
+#include "GlobalVars.h"
+
 using ObjectBrowserControl = CTreeCtrl;
 
 class NOVTABLE CFinalSunDlg : public FA2CDialog
 {
+protected:
+	void UpdateDialogs_(int a2, int a3)
+		{ JMP_THIS(0x4261E0); }
 public:
-	CFinalSunDlg() = default;
+	static void UpdateDialogs(int a2, int a3)
+	{
+		CFinalSunDlg* dlg = reinterpret_cast<CFinalSunDlg*>(0x7EDF24);
+		dlg->UpdateDialogs_(a2, a2);
+	}
 
+public:
 	//member properties
 	CTileSetBrowserFrame TileSetBrowserFrame;
 	CToolBar ToolBar1;

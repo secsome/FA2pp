@@ -18,71 +18,76 @@ public:
 
 public:
 
-	virtual BOOL OnInitDialog() override
+	BOOL OnInitDialog() override
 	{
 		JMP_THIS(0x4D8D20);
 	}
 
-	virtual void DoDataExchange(CDataExchange* pDX)
+	void DoDataExchange(CDataExchange* pDX)
 	{
 		JMP_THIS(0x4D5BE0);
+	}
+
+	void UpdateDialog()
+	{
+		JMP_THIS(0x4262C6);
 	}
 
 	//
 	// Controls
 	//
 
-	virtual void OnCBCurrentScriptSelectChanged()
+	void OnCBCurrentScriptSelectChanged()
 	{
 		JMP_THIS(0x4D61B0);
 	}
 
-	virtual void OnLBScriptActionsSelectChanged()
+	void OnLBScriptActionsSelectChanged()
 	{
 		JMP_THIS(0x4D6500);
 	}
 
-	virtual void OnETScriptNameChanged()
+	void OnETScriptNameChanged()
 	{
 		JMP_THIS(0x4D6770);
 	}
 
-	virtual void OnCBCurrentActionEditChanged()
+	void OnCBCurrentActionEditChanged()
 	{
 		JMP_THIS(0x4D6A10);
 	}
 
-	virtual void OnCBCurrentActionSelectChanged()
+	void OnCBCurrentActionSelectChanged()
 	{
 		JMP_THIS(0x4D75D0);
 	}
 
-	virtual void OnCBScriptParameterEditChanged()
+	void OnCBScriptParameterEditChanged()
 	{
 		JMP_THIS(0x4D7670);
 	}
 
-	virtual void OnCBScriptParameterSelectChanged()
+	void OnCBScriptParameterSelectChanged()
 	{
 		JMP_THIS(0x4D7A50);
 	}
 
-	virtual void OnBNAddActionClicked()
+	void OnBNAddActionClicked()
 	{
 		JMP_THIS(0x4D7AC0);
 	}
 
-	virtual void OnBNDeleteActionClicked()
+	void OnBNDeleteActionClicked()
 	{
 		JMP_THIS(0x4D7DD0);
 	}
 
-	virtual void OnBNAddScriptClicked()
+	void OnBNAddScriptClicked()
 	{
 		JMP_THIS(0x4D8390);
 	}
 
-	virtual void OnBNDeleteScriptClicked()
+	void OnBNDeleteScriptClicked()
 	{
 		JMP_THIS(0x4D8730);
 	}

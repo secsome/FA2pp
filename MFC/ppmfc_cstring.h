@@ -167,23 +167,23 @@ private:
     LPTSTR m_pchData;   // pointer to ref counted string data
 };
 
-BOOL _PPMFC_API AfxExtractSubString(CString& rString, LPCTSTR lpszFullString,
-    int iSubString, TCHAR chSep = '\n')
-    _PPMFC_STDCALL(0x5565B2);
-
-void _PPMFC_API AfxFormatStrings(CString& rString, UINT nIDS,
-    LPCTSTR const* rglpsz, int nString)
-    _PPMFC_STDCALL(0x55FBB7);
-
-void _PPMFC_API AfxFormatStrings(CString& rString, LPCTSTR lpszFormat,
-    LPCTSTR const* rglpsz, int nString)
-    _PPMFC_STDCALL(0x55FBF1);
-
-void _PPMFC_API AfxFormatString1(CString& rString, UINT nIDS, LPCTSTR lpsz1)
-    _PPMFC_STDCALL(0x55FCF0);
-
-void _PPMFC_API AfxFormatString2(CString& rString, UINT nIDS,
-    LPCTSTR lpsz1, LPCTSTR lpsz2)
-    _PPMFC_STDCALL(0x55FD07);
+//BOOL _PPMFC_API AfxExtractSubString(CString& rString, LPCTSTR lpszFullString,
+//    int iSubString, TCHAR chSep = '\n')
+//    _PPMFC_STDCALL(0x5565B2);
+//
+//void _PPMFC_API AfxFormatStrings(CString& rString, UINT nIDS,
+//    LPCTSTR const* rglpsz, int nString)
+//    _PPMFC_STDCALL(0x55FBB7);
+//
+//void _PPMFC_API AfxFormatStrings(CString& rString, LPCTSTR lpszFormat,
+//    LPCTSTR const* rglpsz, int nString)
+//    _PPMFC_STDCALL(0x55FBF1);
+//
+//void _PPMFC_API AfxFormatString1(CString& rString, UINT nIDS, LPCTSTR lpsz1)
+//    _PPMFC_STDCALL(0x55FCF0);
+//
+//void _PPMFC_API AfxFormatString2(CString& rString, UINT nIDS,
+//    LPCTSTR lpsz1, LPCTSTR lpsz2)
+//    _PPMFC_STDCALL(0x55FD07);
 
 _PPMFC_END
