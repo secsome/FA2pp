@@ -104,8 +104,6 @@ public:
 	}
 };
 
-
-
 class INISection {
 public:
 	INISection() { JMP_THIS(0x452880); }
@@ -147,9 +145,9 @@ public:
 	std::pair<INIStringDict::iterator, bool> InsertPair(INIStringDict& dict, const char* pKey, const char* pValue)
 	{
 		FAINIEntriesMap* ptrmap = reinterpret_cast<FAINIEntriesMap*>(&dict);
-		std::pair<const char*, const char*> ins = std::make_pair(pKey, pValue);
+		std::pair<ppmfc::CString, ppmfc::CString> ins = std::make_pair(pKey, pValue);
 		std::pair<INIStringDict::iterator, bool> ret;
-		ptrmap->insert(&ret, &ins);
+		ptrmap->insert(&ret, reinterpret_cast<std::pair<const char*, const char*>*>(&ins));
 		return ret;
 	}
 
@@ -214,6 +212,9 @@ public:
 		return section.find(pKey) != section.end();
 	}
 
+	// Something is wrong.
+	// Might blow FA2 up (for most times kek)
+	// I might remake it some times later
 	bool WriteString(const char* pSection, const char* pKey, const char* pValue)
 	{
 		auto itr = data.find(pSection);
