@@ -63,7 +63,7 @@ public:
 	CBasic Basic;
 	CMapD MapD;
 	INIClass INIMap;
-	char gap[260];
+	char pSomePath[MAX_PATH]; // 260 just fits it
 	ObjectBrowserControl ObjectBrowserView;
 	HICON hIcon;
 };

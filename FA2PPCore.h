@@ -1,8 +1,11 @@
 #pragma once
 
-typedef unsigned char BYTE;
-typedef unsigned short WORD;
-typedef unsigned long DWORD;
+using BYTE = unsigned char;
+using WORD = unsigned short;
+using DWORD = unsigned long;
+using byte = BYTE;
+using word = WORD;
+using dword = DWORD;
 
 //Assembly macros
 #include "Helpers/ASMMacros.h"
@@ -39,4 +42,5 @@ virtual void alla(double malla) RX;
 #define elif else if
 #define SAFE_RELEASE(ptr) {if(!ptr) delete[] ptr;}
 
-struct noinit_t final {};
+ // use SOMECTOR() = delete instead of this
+ struct noinit_t final {};

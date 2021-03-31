@@ -2,6 +2,7 @@
 
 #include "Syringe.h"
 #include "ASMMacros.h"
+#include "../FA2PPCore.h"
 
 // Syringe stuffs
 

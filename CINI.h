@@ -120,10 +120,11 @@ public:
 class INIClass
 {
 private:
-	/*~INIClass() {
-		JMP_THIS(0x452B20);
-	}*/
-	void* __DTOR__; // for align
+	// ~INIClass() { JMP_THIS(0x4527E0); }
+
+private:
+	void* vftable_align; // for align
+public:
 	INIDict data; // no idea about the nilrefs
 
 	static ppmfc::CString* GetAvailableIndex(ppmfc::CString* ret)
@@ -206,10 +207,9 @@ public:
 	
 	bool KeyExists(const char* pSection, const char* pKey)
 	{
-		if (!SectionExists(pSection))
-			return false;
-		auto& section = GetSection(pSection).EntitiesDictionary;
-		return section.find(pKey) != section.end();
+		if (auto section = GetSection(pSection))
+			return section->EntitiesDictionary.find(pKey) != section->EntitiesDictionary.end();
+		return false;
 	}
 
 	// Something is wrong.
@@ -226,12 +226,12 @@ public:
 		return true;
 	}
 
-	INISection& GetSection(const char* pSection)
+	INISection* GetSection(const char* pSection)
 	{
 		auto itr = data.find(pSection);
 		if (itr != data.end())
-			return itr->second;
-		return data.begin()->second;
+			return &itr->second;
+		return nullptr;
 	}
 
 	CString GetString(const char* pSection, const char* pKey, const char* pDefault = "") {
@@ -306,6 +306,4 @@ public:
 
 		return ret;
 	}
-
-	
 };
