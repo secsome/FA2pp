@@ -8,10 +8,16 @@ class INIClass;
 class NOVTABLE CLoading : public FA2CDialog
 {
 public:
-	CLoading() = default;
+	CLoading(FA2CWnd* pParentWnd)
+	{
+		JMP_THIS(0x479A40);
+	}
+
+	static CLoading* const Instance;
 
 	//member properties
-	INT			Unknown_92; // Fill 92 - 96
+	char		TheaterIdentifier; // T, A(SNOW), U, N, D, L
+	char		gap_93[3];
 	CStatic		CSCVersion; // 96
 	CStatic		CSCBuiltby; // 156
 	CStatic		CSCLoading; // 216
@@ -31,3 +37,5 @@ public:
 	}
 
 };
+
+CLoading* const CLoading::Instance = reinterpret_cast<CLoading*>(0x7EE030);
