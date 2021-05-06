@@ -157,11 +157,14 @@ public:
     BOOL LoadString(UINT nID)          // load from string resource, 255 chars max
         _PPMFC_THISCALL(0x556507);
 
-    operator const char*()
+    operator const char*() const
         { return m_pchData; }
 
-    operator LPTSTR ()
+    operator LPTSTR () const
         { return m_pchData; }
+
+    bool operator< (const CString& another) const
+        { return strcmp(this->m_pchData, another) < 0; }
 
 private:
     LPTSTR m_pchData;   // pointer to ref counted string data

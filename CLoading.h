@@ -2,18 +2,22 @@
 
 #include "FA2PP.h"
 
+// #include "Helpers/CompileTime.h"
+
 // Forward Definations
 class INIClass;
 
 class NOVTABLE CLoading : public FA2CDialog
 {
 public:
+	CLoading() = default;
+
+	// static constexpr constant_ptr<CLoading, 0x7EE030> Instance{};
+
 	CLoading(FA2CWnd* pParentWnd)
 	{
 		JMP_THIS(0x479A40);
 	}
-
-	static CLoading* const Instance;
 
 	//member properties
 	char		TheaterIdentifier; // T, A(SNOW), U, N, D, L
@@ -37,5 +41,3 @@ public:
 	}
 
 };
-
-CLoading* const CLoading::Instance = reinterpret_cast<CLoading*>(0x7EE030);
