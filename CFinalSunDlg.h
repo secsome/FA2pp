@@ -23,8 +23,6 @@
 
 #include "GlobalVars.h"
 
-using ObjectBrowserControl = CTreeCtrl;
-
 class NOVTABLE CFinalSunDlg : public FA2CDialog
 {
 protected:
@@ -44,7 +42,7 @@ public:
 	CToolBar ToolBar2;
 	CToolBar ToolBar3;
 	CBrushSize BrushSize;
-	CWnd unknown_cwnd_2;
+	CWnd Unknown_CWnd;
 	CSingleplayerSettings SingleplayerSettings;
 	CAITriggerTypes AITriggerTypes;
 	CAITriggerTypesEnable AITriggerTypesEnable;
@@ -63,7 +61,7 @@ public:
 	CBasic Basic;
 	CMapD MapD;
 	INIClass INIMap;
-	char pSomePath[MAX_PATH]; // 260 just fits it
+	char gap[256];
 	ObjectBrowserControl ObjectBrowserView;
 	HICON hIcon;
 };

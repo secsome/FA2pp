@@ -3,16 +3,30 @@
 #include "FA2PP.h"
 
 #include "CWndView.h"
+#include "CIsoView.h"
 
-// For Temperory Use
-class CMyViewFrame : CFrameWnd
+using ObjectBrowserControl = CTreeCtrl;
+
+// Don't know what it should be called.
+class CMyRightView : FA2CWnd
+{
+    char gap[128];
+    CSplitterWnd CSplitter;
+};
+
+class CMyViewFrame : FA2CFrameWnd
 {
 public:
-    CWndView WndView;
+    CWndView Minimap;
     CStatusBar StatusBar;
-    DWORD unknown_A;
-    DWORD unknown_B;
+    ObjectBrowserControl* pObjectBrowserControl;
+    CIsoView* pIsoView;
     CSplitterWnd SplitterWnd;
-    DWORD unknown_C;
-    DWORD unknown_D;
+    CTileSetBrowserView* pTileSetBrowserView;
+    CMyRightView* pMyRightView;
+
+    BOOL OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
+    {
+        JMP_THIS(0x4D2680);
+    }
 };
