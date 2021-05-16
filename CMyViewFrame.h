@@ -8,13 +8,13 @@
 using ObjectBrowserControl = CTreeCtrl;
 
 // Don't know what it should be called.
-class CMyRightView : FA2CWnd
+class CMyRightView : public FA2CWnd
 {
     char gap[128];
     CSplitterWnd CSplitter;
 };
 
-class CMyViewFrame : FA2CFrameWnd
+class CMyViewFrame : public FA2CFrameWnd
 {
 public:
     CWndView Minimap;

@@ -5,7 +5,7 @@
 // Forward declarations
 class CMyViewFrame;
 
-class CIsoView : FA2CView
+class CIsoView : public FA2CView
 {
 public:
     char gap_1[24];
