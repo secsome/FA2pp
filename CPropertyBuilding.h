@@ -8,7 +8,8 @@ public:
 	CPropertyBuilding() = default;
 
 	//member properties
-	BYTE				Unknown_92[8]; // ;/ Fill 92 - 100
+	CString			CString_Unknown_92; // ;/ Fill 92 - 100
+	CString			CString_Unknown_96;
 	CSliderCtrl		CSCStrength;// 100
 	CString			CString_Direction; // 160
 	CString			CString_House; // 164

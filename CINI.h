@@ -125,7 +125,8 @@ private:
 private:
 	void* vftable_align; // for align
 public:
-	INIDict data; // no idea about the nilrefs
+	INIDict Dict; // no idea about the nilrefs
+	char Path[MAX_PATH];
 
 	static ppmfc::CString* GetAvailableIndex(ppmfc::CString* ret)
 		{ JMP_STD(0x446520); }
@@ -138,7 +139,7 @@ public:
 	{
 		std::pair<CString, INISection> ins = std::make_pair(pSection, section);
 		std::pair<INIDict::iterator, bool> ret;
-		FAINIMap* mapptr = reinterpret_cast<FAINIMap*>(&data);
+		FAINIMap* mapptr = reinterpret_cast<FAINIMap*>(&Dict);
 		mapptr->insert(&ret, &ins);
 		return ret;
 	}
@@ -175,16 +176,16 @@ public:
 
 	int GetKeyCount(const char* pSection)
 	{
-		auto itr = data.find(pSection);
-		if (itr != data.end())
+		auto itr = Dict.find(pSection);
+		if (itr != Dict.end())
 			return itr->second.EntitiesDictionary.size();
 		return 0;
 	}
 
 	CString GetKeyName(const char* pSection, int nIndex)
 	{
-		auto itr = data.find(pSection);
-		if (itr != data.end())
+		auto itr = Dict.find(pSection);
+		if (itr != Dict.end())
 		{
 			auto& EntriesMap = itr->second.EntitiesDictionary;
 			auto result = EntriesMap.begin();
@@ -202,7 +203,7 @@ public:
 
 	bool SectionExists(const char* pSection)
 	{
-		return data.find(pSection) != data.end();
+		return Dict.find(pSection) != Dict.end();
 	}
 	
 	bool KeyExists(const char* pSection, const char* pKey)
@@ -217,8 +218,8 @@ public:
 	// I might remake it some times later
 	bool WriteString(const char* pSection, const char* pKey, const char* pValue)
 	{
-		auto itr = data.find(pSection);
-		if (itr == data.end())	return false;
+		auto itr = Dict.find(pSection);
+		if (itr == Dict.end())	return false;
 		auto& dict = itr->second.EntitiesDictionary;
 		auto pair = InsertPair(dict, pKey, pValue);
 		if (!pair.second)
@@ -228,15 +229,15 @@ public:
 
 	INISection* GetSection(const char* pSection)
 	{
-		auto itr = data.find(pSection);
-		if (itr != data.end())
+		auto itr = Dict.find(pSection);
+		if (itr != Dict.end())
 			return &itr->second;
 		return nullptr;
 	}
 
 	CString GetString(const char* pSection, const char* pKey, const char* pDefault = "") {
-		auto itrSection = data.find(pSection);
-		if (itrSection != data.end()) {
+		auto itrSection = Dict.find(pSection);
+		if (itrSection != Dict.end()) {
 			auto pEntries = &itrSection->second.EntitiesDictionary;
 			auto itrKey = pEntries->find(pKey);
 			if (itrKey != pEntries->end())
@@ -286,11 +287,20 @@ public:
 		}
 	}
 
+	COLORREF GetColor(const char* pSection, const char* pKey, COLORREF nDefault = 0xFFFFFF) {
+		CString& pStr = this->GetString(pSection, pKey, "");
+		struct { byte R, G, B, Zero; } ret;
+		ret.Zero = 0;
+		if (sscanf_s(pStr, "%hhu,%hhu,%hhu", &ret.R, &ret.G, &ret.B) == 3)
+			return *reinterpret_cast<COLORREF*>(&ret);
+		return nDefault;
+	}
+
 	std::map<unsigned int, CString> ParseIndiciesData(const char* pSection)
 	{
 		std::map<unsigned int, CString> ret;
-		auto& section = data.find(pSection);
-		if (section == data.end())
+		auto& section = Dict.find(pSection);
+		if (section == Dict.end())
 			return ret;
 		std::map<unsigned int, CString> tmp;
 		for (auto& ent : section->second.EntitiesDictionary)

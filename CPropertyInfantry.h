@@ -8,7 +8,7 @@ public:
 	CPropertyInfantry() = default;
 
 	//member properties
-	INT				Unknown_92; // ;/ Fill 92 - 96
+	CString			CString_Unknown; // ;/ Fill 92 - 96
 	CSliderCtrl		CSCStrength; // 96
 	CString			CString_Direction; // 156
 	CString			CString_House; // 160
