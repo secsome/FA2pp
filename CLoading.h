@@ -1,59 +1,58 @@
 #pragma once
 
+// #include "Helpers/CompileTime.h"
 #include "FA2PP.h"
 
 // #include "CMixFile.h"
 
-// #include "Helpers/CompileTime.h"
-
 // Forward Definations
 class INIClass;
-class Palette;
-class CMixFile;
+struct t_palet_entry;
+class Cmix_file;
+
 struct MixesStruct
 {
-	CMixFile* Mix0;
-	CMixFile* Mix1;
-	CMixFile* Mix2;
-	CMixFile* Mix3;
-	CMixFile* Mix4;
-	CMixFile* Mix5;
-	CMixFile* Mix6;
-	CMixFile* Mix7;
-	CMixFile* Mix8;
-	CMixFile* Mix9;
-	CMixFile* Mix10;
-	CMixFile* Mix11;
-	CMixFile* Mix12;
-	CMixFile* Mix13;
-	CMixFile* Mix14;
-	CMixFile* Mix15;
-	CMixFile* Mix16;
-	CMixFile* Mix17;
-	CMixFile* Mix18;
-	CMixFile* Mix19;
-	CMixFile* Mix20;
-	CMixFile* Mix21;
-	CMixFile* Mix22;
-	CMixFile* Mix23;
-	CMixFile* Mix24;
-	CMixFile* Mix25;
-	CMixFile* Mix26;
-	CMixFile* Mix27;
-	CMixFile* Mix28;
-	CMixFile* Mix29;
+	Cmix_file* Mix0;
+	Cmix_file* Mix1;
+	Cmix_file* Mix2;
+	Cmix_file* Mix3;
+	Cmix_file* Mix4;
+	Cmix_file* Mix5;
+	Cmix_file* Mix6;
+	Cmix_file* Mix7;
+	Cmix_file* Mix8;
+	Cmix_file* Mix9;
+	Cmix_file* Mix10;
+	Cmix_file* Mix11;
+	Cmix_file* Mix12;
+	Cmix_file* Mix13;
+	Cmix_file* Mix14;
+	Cmix_file* Mix15;
+	Cmix_file* Mix16;
+	Cmix_file* Mix17;
+	Cmix_file* Mix18;
+	Cmix_file* Mix19;
+	Cmix_file* Mix20;
+	Cmix_file* Mix21;
+	Cmix_file* Mix22;
+	Cmix_file* Mix23;
+	Cmix_file* Mix24;
+	Cmix_file* Mix25;
+	Cmix_file* Mix26;
+	Cmix_file* Mix27;
+	Cmix_file* Mix28;
+	Cmix_file* Mix29;
 };
+
 class NOVTABLE CLoading : public FA2CDialog
 {
 public:
 	CLoading() = default;
 
-	// static constexpr constant_ptr<CLoading, 0x7EE030> Instance{};
+	CLoading(CWnd* pParentWnd) { JMP_THIS(0x479A40) }
 
-	CLoading(FA2CWnd* pParentWnd)
-	{
-		JMP_THIS(0x479A40);
-	}
+	Cmix_file* SearchFile(const char* pName, char* pUnk = nullptr) { JMP_THIS(0x48A650) }
+	void LoadTSINI(const char* pFile, INIClass* pINI, BOOL bMerge) { JMP_THIS(0x47FFB0); }
 
 	//member properties
 	char TheaterIdentifier; // T, A(SNOW), U, N, D, L
@@ -64,64 +63,59 @@ public:
 	CProgressCtrl CPCProgress;
 	int Unknown_150;
 	int Unknown_154;
-	Palette* PAL_ISOTEM;
-	Palette* PAL_ISOSNO;
-	Palette* PAL_ISOURB;
-	Palette* PAL_UNITTEM;
-	Palette* PAL_UNITSNO;
-	Palette* PAL_UNITURB;
-	Palette* PAL_TEMPERAT;
-	Palette* PAL_SNOW;
-	Palette* PAL_URBAN;
-	Palette* PAL_LIB_ID2124019542;
-	Palette* PAL_LUNAR;
-	Palette* PAL_DESERT;
-	Palette* PAL_URBANN;
-	Palette* PAL_ISOLUN;
-	Palette* PAL_ISODES;
-	Palette* PAL_ISOUBN;
-	Palette* PAL_UNITLUN;
-	Palette* PAL_UNITDES;
-	Palette* PAL_UNITUBN;
-	CMixFile* MIX_LOCAL;
-	CMixFile* MIX_SNO;
-	CMixFile* MIX_TEM;
-	CMixFile* MIX_URB;
-	CMixFile* MIX_LUN;
-	CMixFile* MIX_DES;
-	CMixFile* MIX_UBN;
-	CMixFile* MIX_RA2;
-	CMixFile* MIX_GENERIC;
+	t_palet_entry* PAL_ISOTEM;
+	t_palet_entry* PAL_ISOSNO;
+	t_palet_entry* PAL_ISOURB;
+	t_palet_entry* PAL_UNITTEM;
+	t_palet_entry* PAL_UNITSNO;
+	t_palet_entry* PAL_UNITURB;
+	t_palet_entry* PAL_TEMPERAT;
+	t_palet_entry* PAL_SNOW;
+	t_palet_entry* PAL_URBAN;
+	t_palet_entry* PAL_LIB_ID2124019542;
+	t_palet_entry* PAL_LUNAR;
+	t_palet_entry* PAL_DESERT;
+	t_palet_entry* PAL_URBANN;
+	t_palet_entry* PAL_ISOLUN;
+	t_palet_entry* PAL_ISODES;
+	t_palet_entry* PAL_ISOUBN;
+	t_palet_entry* PAL_UNITLUN;
+	t_palet_entry* PAL_UNITDES;
+	t_palet_entry* PAL_UNITUBN;
+	Cmix_file* MIX_LOCAL;
+	Cmix_file* MIX_SNO;
+	Cmix_file* MIX_TEM;
+	Cmix_file* MIX_URB;
+	Cmix_file* MIX_LUN;
+	Cmix_file* MIX_DES;
+	Cmix_file* MIX_UBN;
+	Cmix_file* MIX_RA2;
+	Cmix_file* MIX_GENERIC;
 	MixesStruct xccfield_1C8[101];
-	CMixFile* ECacheMixes[100];
-	CMixFile* MIX_ISOTEM;
-	CMixFile* MIX_ISOSNO;
-	CMixFile* MIX_ISOURB;
-	CMixFile* MIX_ISOGEN;
-	CMixFile* MIX_ISOLUN;
-	CMixFile* MIX_ISODES;
-	CMixFile* MIX_ISOUBN;
-	CMixFile* MIX_TEMPRAT;
-	CMixFile* MIX_SNOW;
-	CMixFile* MIX_URBAN;
-	CMixFile* MIX_URBANN;
-	CMixFile* MIX_LUNAR;
-	CMixFile* MIX_DESERT;
-	CMixFile* MIX_CACHE;
-	CMixFile* MIX_CONQUER;
-	CMixFile* MIX_LANGUAGE;
-	CMixFile* MIX_LANGMD;
-	CMixFile* MIX_MARBLE;
+	Cmix_file* ECacheMixes[100];
+	Cmix_file* MIX_ISOTEM;
+	Cmix_file* MIX_ISOSNO;
+	Cmix_file* MIX_ISOURB;
+	Cmix_file* MIX_ISOGEN;
+	Cmix_file* MIX_ISOLUN;
+	Cmix_file* MIX_ISODES;
+	Cmix_file* MIX_ISOUBN;
+	Cmix_file* MIX_TEMPRAT;
+	Cmix_file* MIX_SNOW;
+	Cmix_file* MIX_URBAN;
+	Cmix_file* MIX_URBANN;
+	Cmix_file* MIX_LUNAR;
+	Cmix_file* MIX_DESERT;
+	Cmix_file* MIX_CACHE;
+	Cmix_file* MIX_CONQUER;
+	Cmix_file* MIX_LANGUAGE;
+	Cmix_file* MIX_LANGMD;
+	Cmix_file* MIX_MARBLE;
 	int Unknown_32F8;
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
 	{
 		JMP_STD(0x479C70);
-	}
-
-	void LoadTSINI(const char* pFile, INIClass* pINI, BOOL bMerge)
-	{
-		JMP_THIS(0x47FFB0);
 	}
 
 };

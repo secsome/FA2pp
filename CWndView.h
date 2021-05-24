@@ -2,8 +2,8 @@
 
 #include "FA2PP.h"
 
-// For Temperory Use
-class CWndView : public CView
+// CMinimap
+class CWndView : public FA2CView
 {
 protected:
     virtual void OnDraw(CDC* pDC) override
