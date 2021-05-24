@@ -49,8 +49,8 @@ void apply_rp(byte* d, int cb_d, const byte* rp);
 void convert_image_8_to_24(const byte* s, byte* d, int cx, int cy, const t_palet palet);
 void convert_image_24_to_8(const byte* s, byte* d, int cx, int cy, const byte* rp);
 void convert_image_24_to_8(const byte* s, byte* d, int cx, int cy, const t_palet palet);
-void convert_palet_18_to_24(const t_palet s, t_palet d);
-void convert_palet_18_to_24(t_palet palet);
+void convert_palet_18_to_24(const t_palet s, t_palet d) { JMP_STD(0x52D370) }
+void convert_palet_18_to_24(t_palet palet) { JMP_STD(0x52D400) }
 void convert_palet_24_to_18(const t_palet s, t_palet d);
 void convert_palet_24_to_18(t_palet palet);
 void create_downsample_table(const t_palet palet, byte* rp);

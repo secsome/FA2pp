@@ -52,7 +52,7 @@ public:
 	CLoading(CWnd* pParentWnd) { JMP_THIS(0x479A40) }
 
 	Cmix_file* SearchFile(const char* pName, char* pUnk = nullptr) { JMP_THIS(0x48A650) }
-	void LoadTSINI(const char* pFile, INIClass* pINI, BOOL bMerge) { JMP_THIS(0x47FFB0); }
+	void LoadTSINI(const char* pFile, INIClass* pINI, BOOL bMerge) { JMP_THIS(0x47FFB0) }
 
 	//member properties
 	char TheaterIdentifier; // T, A(SNOW), U, N, D, L
