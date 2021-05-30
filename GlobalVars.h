@@ -17,7 +17,7 @@ public:
     
     static constexpr reference<int, 0x72CC00> const CurrentMapWidthPlusHeight{}; // duh
 
-    static constexpr reference<CMapData*, 0x72CBF8> const CMapData{};
+    static constexpr reference<CMapData, 0x72CBF8> const CMapData{};
 
     class Dialogs
     {

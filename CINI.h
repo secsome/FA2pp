@@ -57,34 +57,6 @@ public:
 	}
 };
 
-class CSFQuery 
-{
-private:
-	static constexpr DWORD _H = 0x72CBF8;
-	struct _S
-	{
-		const wchar_t* QueryUIName(const char* pRegName) {
-			JMP_THIS(0x4B2610);
-		}
-	};
-
-public:
-	static ppmfc::CString GetUIName(const char* pRegName)
-	{
-		_S* _X = (_S*)_H;
-		auto wstr = _X->QueryUIName(pRegName);
-		char* value = nullptr;
-		auto len = wcslen(wstr);
-		int valueBufferSize = WideCharToMultiByte(CP_ACP, NULL, wstr, len, value, 0, NULL, NULL) + 1;
-		value = new char[valueBufferSize];
-		WideCharToMultiByte(CP_ACP, NULL, wstr, len, value, valueBufferSize, NULL, NULL);
-		value[valueBufferSize - 1] = '\0';
-		ppmfc::CString ret = value;
-		delete[] value;
-		return ret;
-	}
-};
-
 class INISection {
 public:
 	INISection() { JMP_THIS(0x452880); }
@@ -206,6 +178,17 @@ public:
 		auto itr = Dict.find(pSection);
 		if (itr != Dict.end())
 			return &itr->second;
+		return nullptr;
+	}
+
+	ppmfc::CString* TryGetString(const char* pSection, const char* pKey) {
+		auto itrSection = Dict.find(pSection);
+		if (itrSection != Dict.end()) {
+			auto pEntries = &itrSection->second.EntitiesDictionary;
+			auto itrKey = pEntries->find(pKey);
+			if (itrKey != pEntries->end())
+				return (ppmfc::CString*)(&itrKey->second);
+		}
 		return nullptr;
 	}
 

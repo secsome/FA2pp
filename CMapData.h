@@ -12,9 +12,12 @@ public:
     static INIClass* GetMapDocument(bool bUpdateMapField = false)
     {
         if (bUpdateMapField)
-            GlobalVars::CMapData()->UpdateMapFieldData(1);
-        return &GlobalVars::CMapData()->INI;
+            GlobalVars::CMapData().UpdateMapFieldData(1);
+        return &GlobalVars::CMapData().INI;
     }
+
+    const wchar_t* QueryUIName(const char* pRegName) { JMP_THIS(0x4B2610); }
+    static ppmfc::CString GetUIName(const char* pRegName) { return ppmfc::CString(GlobalVars::CMapData().QueryUIName(pRegName)); }
 
     ppmfc::CString StringBuffer;
     int unknown_4;

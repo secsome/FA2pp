@@ -172,7 +172,6 @@ public:
     bool operator< (const CString& another) const
         { return strcmp(this->m_pchData, another) < 0; }
 
-private:
     LPTSTR m_pchData;   // pointer to ref counted string data
 
 

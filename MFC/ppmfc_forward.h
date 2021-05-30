@@ -48,7 +48,7 @@ _PPMFC_CLASS(CObject)
 {
 private:
 public:
-    void* vfptr;
+    virtual ~CObject() {}
 };
 
 _PPMFC_CLASS(CPoint) _PPMFC_INHERIT(tagPOINT)
