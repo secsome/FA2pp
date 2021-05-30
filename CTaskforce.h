@@ -58,7 +58,7 @@ public:
 	CComboBox		CCBMemberType;
 	CListBox		CLBMembers;
 	CComboBox		CCBCurrentTaskforce;
-	CString			CString_Group;
-	CString			CString_Name;
-	CString			CString_Num;
+	ppmfc::CString			CString_Group;
+	ppmfc::CString			CString_Name;
+	ppmfc::CString			CString_Num;
 };

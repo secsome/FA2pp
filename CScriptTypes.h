@@ -10,11 +10,11 @@ public:
 	//member properties
 	CEdit				CETDescription; // 92
 	CStatic			CSTParameterOfSection; // 152
-	CComboBox	CCBCurrentAction; // 212
-	CComboBox	CCBCurrentScript; // 272
-	CComboBox	CCBScriptParameter; // 332
+	ppmfc::CComboBox	CCBCurrentAction; // 212
+	ppmfc::CComboBox	CCBCurrentScript; // 272
+	ppmfc::CComboBox	CCBScriptParameter; // 332
 	CListBox		CLBScriptActions; // 392
-	CString			CString_ScriptName; // 452
+	ppmfc::CString			CString_ScriptName; // 452
 
 public:
 

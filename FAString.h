@@ -12,7 +12,7 @@ public:
         JMP_THIS(0x55601B);
     }
 
-    static void Assignment(CString& des, const char* src)
+    static void Assignment(ppmfc::CString& des, const char* src)
     {
         FAString* ptr = (FAString*)&des;
         ptr->AssignCopy(strlen(src) + 1, src);
@@ -38,7 +38,7 @@ public:
         JMP_STD(0x534B56);
     }
 
-    operator CString()
+    operator ppmfc::CString()
     {
         return real;
     }
@@ -49,5 +49,5 @@ public:
     }
 
 private:
-    CString real;
+    ppmfc::CString real;
 };

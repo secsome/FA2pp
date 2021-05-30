@@ -39,7 +39,7 @@ public:
 	CButton		CBNPreviewImage; // 92
 	CListBox	CLBUsed; // 152
 	CListBox	CLBAvailable; // 212
-	CString		CString_Terrain; // 272
+	ppmfc::CString		CString_Terrain; // 272
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
 	{

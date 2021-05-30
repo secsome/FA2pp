@@ -1,5 +1,7 @@
 #pragma once
 
+#include <WinUser.h>
+
 #include "ppmfc_ccmdtarget.h"
 
 _PPMFC_BEGIN
@@ -19,6 +21,9 @@ public:
     CWnd() _PPMFC_THISCALL(0x55231D);
     CWnd(HWND hWnd) _PPMFC_THISCALL(0x55235B);
     ~CWnd() _PPMFC_THISCALL(0x552DF7);
+
+    LRESULT PASCAL SendMessage(UINT Msg, WPARAM wParam, LPARAM lParam) const
+        { return ::SendMessage(this->m_hWnd, Msg, wParam, lParam); }
 
     CWnd* GetOwner() const
         _PPMFC_THISCALL(0x5336A0);

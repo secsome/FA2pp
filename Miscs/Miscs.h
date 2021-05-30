@@ -3,7 +3,7 @@
 #include "../FA2PP.h"
 
 namespace Miscs {
-    void TrimIndex(CString& string) {
+    void TrimIndex(ppmfc::CString& string) {
         string.TrimLeft();
         string.TrimRight();
         int spaceIndex = string.Find(' ');

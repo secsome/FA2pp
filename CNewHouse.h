@@ -8,7 +8,7 @@ public:
 	CNewHouse() = default;
 
 	//member properties
-	CString		CString_House; // 92
+	ppmfc::CString		CString_House; // 92
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
 	{

@@ -8,8 +8,8 @@ public:
 	CCreateMap3A() = default;
 
 	//member properties
-	CString			CString_Height; // 92
-	CString			CString_Width; // 96
+	ppmfc::CString			CString_Height; // 92
+	ppmfc::CString			CString_Width; // 96
 	INT				INT_StartingHeight; // 100
 	INT				INT_TheaterIndex; // 104
 

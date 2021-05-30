@@ -8,22 +8,22 @@ public:
 	CPropertyBuilding() = default;
 
 	//member properties
-	CString			CString_Unknown_92; // ;/ Fill 92 - 100
-	CString			CString_Unknown_96;
+	ppmfc::CString			CString_Unknown_92; // ;/ Fill 92 - 100
+	ppmfc::CString			CString_Unknown_96;
 	CSliderCtrl		CSCStrength;// 100
-	CString			CString_Direction; // 160
-	CString			CString_House; // 164
-	CString			CString_Sellable; // 168
-	CString			CString_Rebuildable; // 172
-	CString			CString_EnergySupport; // 176
-	CString			CString_Spotlight; // 180
-	CString			CString_UpgradeCount; // 184
-	CString			CString_Upgrade1; // 188
-	CString			CString_Upgrade2;  // 192
-	CString			CString_Upgrade3;  // 196
-	CString			CString_AIRepairs; // 200
-	CString			CString_ShowName; // 204
-	CString			CString_Tag; // 208
+	ppmfc::CString			CString_Direction; // 160
+	ppmfc::CString			CString_House; // 164
+	ppmfc::CString			CString_Sellable; // 168
+	ppmfc::CString			CString_Rebuildable; // 172
+	ppmfc::CString			CString_EnergySupport; // 176
+	ppmfc::CString			CString_Spotlight; // 180
+	ppmfc::CString			CString_UpgradeCount; // 184
+	ppmfc::CString			CString_Upgrade1; // 188
+	ppmfc::CString			CString_Upgrade2;  // 192
+	ppmfc::CString			CString_Upgrade3;  // 196
+	ppmfc::CString			CString_AIRepairs; // 200
+	ppmfc::CString			CString_ShowName; // 204
+	ppmfc::CString			CString_Tag; // 208
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
 	{

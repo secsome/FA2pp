@@ -25,16 +25,16 @@ class INIClass;
 class INISectionEntriesComparator
 {
 public:
-	static bool __stdcall __compare(CString* a1, CString* a2) { JMP_STD(0x452230); }
+	static bool __stdcall __compare(ppmfc::CString* a1, ppmfc::CString* a2) { JMP_STD(0x452230); }
 
-	bool operator()(const CString& s1, const CString& s2) const
+	bool operator()(const ppmfc::CString& s1, const ppmfc::CString& s2) const
 	{
-		return __compare((CString*)&s1, (CString*)&s2);
+		return __compare((ppmfc::CString*)&s1, (ppmfc::CString*)&s2);
 	}
 };
 
 // type definations
-using INIDict = FAMap<CString, INISection, 0x5D8CB4, 0>;
+using INIDict = FAMap<ppmfc::CString, INISection, 0x5D8CB4, 0>;
 using INIStringDict = FAMap<const char*, const char*, 0x5D8CB0, 0x5D8CAC, INISectionEntriesComparator>;
 using INIIndiceDict = FAMap<const char*, unsigned int, 0x5D8CA8, 0x5D8CA4, INISectionEntriesComparator>;
 
@@ -42,7 +42,7 @@ struct FAINIMap
 {
 public:
 	std::pair<INIDict::iterator, bool>*
-		insert(std::pair<INIDict::iterator, bool>* ret, std::pair<CString, INISection>* section)
+		insert(std::pair<INIDict::iterator, bool>* ret, std::pair<ppmfc::CString, INISection>* section)
 	{
 		JMP_THIS(0x4026D0);
 	}
@@ -69,7 +69,7 @@ private:
 	};
 
 public:
-	static CString GetUIName(const char* pRegName)
+	static ppmfc::CString GetUIName(const char* pRegName)
 	{
 		_S* _X = (_S*)_H;
 		auto wstr = _X->QueryUIName(pRegName);
@@ -79,7 +79,7 @@ public:
 		value = new char[valueBufferSize];
 		WideCharToMultiByte(CP_ACP, NULL, wstr, len, value, valueBufferSize, NULL, NULL);
 		value[valueBufferSize - 1] = '\0';
-		CString ret = value;
+		ppmfc::CString ret = value;
 		delete[] value;
 		return ret;
 	}
@@ -116,9 +116,9 @@ public:
 		{ JMP_STD(0x499E80); }
 
 public:
-	std::pair<INIDict::iterator, bool> InsertSection(CString pSection, INISection& section)
+	std::pair<INIDict::iterator, bool> InsertSection(ppmfc::CString pSection, INISection& section)
 	{
-		std::pair<CString, INISection> ins = std::make_pair(pSection, section);
+		std::pair<ppmfc::CString, INISection> ins = std::make_pair(pSection, section);
 		std::pair<INIDict::iterator, bool> ret;
 		FAINIMap* mapptr = reinterpret_cast<FAINIMap*>(&Dict);
 		mapptr->insert(&ret, &ins);
@@ -156,7 +156,7 @@ public:
 		return 0;
 	}
 
-	CString GetKeyName(const char* pSection, int nIndex)
+	ppmfc::CString GetKeyName(const char* pSection, int nIndex)
 	{
 		auto itr = Dict.find(pSection);
 		if (itr != Dict.end())
@@ -209,7 +209,7 @@ public:
 		return nullptr;
 	}
 
-	CString GetString(const char* pSection, const char* pKey, const char* pDefault = "") {
+	ppmfc::CString GetString(const char* pSection, const char* pKey, const char* pDefault = "") {
 		auto itrSection = Dict.find(pSection);
 		if (itrSection != Dict.end()) {
 			auto pEntries = &itrSection->second.EntitiesDictionary;
@@ -221,7 +221,7 @@ public:
 	}
 
 	int GetInteger(const char* pSection, const char* pKey, int nDefault = 0) {
-		CString& pStr = this->GetString(pSection, pKey, "");
+		ppmfc::CString& pStr = this->GetString(pSection, pKey, "");
 		int ret = 0;
 		if (sscanf_s(pStr, "%d", &ret) == 1)
 			return ret;
@@ -229,7 +229,7 @@ public:
 	}
 
 	float GetSingle(const char* pSection, const char* pKey, float nDefault = 0) {
-		CString& pStr = this->GetString(pSection, pKey, "");
+		ppmfc::CString& pStr = this->GetString(pSection, pKey, "");
 		float ret = 0;
 		if (sscanf_s(pStr, "%f", &ret) == 1)
 			return ret;
@@ -237,7 +237,7 @@ public:
 	}
 
 	double GetDouble(const char* pSection, const char* pKey, double nDefault = 0) {
-		CString& pStr = this->GetString(pSection, pKey, "");
+		ppmfc::CString& pStr = this->GetString(pSection, pKey, "");
 		double ret = 0;
 		if (sscanf_s(pStr, "%lf", &ret) == 1)
 			return ret;
@@ -245,7 +245,7 @@ public:
 	}
 
 	bool GetBool(const char* pSection, const char* pKey, bool nDefault = false) {
-		CString& pStr = this->GetString(pSection, pKey, "");
+		ppmfc::CString& pStr = this->GetString(pSection, pKey, "");
 		switch (toupper(static_cast<unsigned char>(*pStr)))
 		{
 		case '1':
@@ -262,7 +262,7 @@ public:
 	}
 
 	COLORREF GetColor(const char* pSection, const char* pKey, COLORREF nDefault = 0xFFFFFF) {
-		CString& pStr = this->GetString(pSection, pKey, "");
+		ppmfc::CString& pStr = this->GetString(pSection, pKey, "");
 		struct { byte R, G, B, Zero; } ret;
 		ret.Zero = 0;
 		if (sscanf_s(pStr, "%hhu,%hhu,%hhu", &ret.R, &ret.G, &ret.B) == 3)
@@ -270,13 +270,13 @@ public:
 		return nDefault;
 	}
 
-	std::map<unsigned int, CString> ParseIndiciesData(const char* pSection)
+	std::map<unsigned int, ppmfc::CString> ParseIndiciesData(const char* pSection)
 	{
-		std::map<unsigned int, CString> ret;
+		std::map<unsigned int, ppmfc::CString> ret;
 		auto& section = Dict.find(pSection);
 		if (section == Dict.end())
 			return ret;
-		std::map<unsigned int, CString> tmp;
+		std::map<unsigned int, ppmfc::CString> tmp;
 		for (auto& ent : section->second.EntitiesDictionary)
 		{
 			auto& indexDict = section->second.IndicesDictionary;

@@ -16,7 +16,7 @@ public:
         return &GlobalVars::CMapData()->INI;
     }
 
-    CString StringBuffer;
+    ppmfc::CString StringBuffer;
     int unknown_4;
     int MapWidthPlusHeight;
     char gap_huge[524412];

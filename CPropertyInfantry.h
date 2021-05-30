@@ -8,17 +8,17 @@ public:
 	CPropertyInfantry() = default;
 
 	//member properties
-	CString			CString_Unknown; // ;/ Fill 92 - 96
+	ppmfc::CString			CString_Unknown; // ;/ Fill 92 - 96
 	CSliderCtrl		CSCStrength; // 96
-	CString			CString_Direction; // 156
-	CString			CString_House; // 160
-	CString			CString_VerteranStatus; // 164
-	CString			CString_Group; // 168
-	CString			CString_OnBridge; // 172
-	CString			CString_AutocreateNoRecruitable; // 176
-	CString			CString_State; // 180
-	CString			CString_Tag; // 184
-	CString			CString_AutocreateYesRecruitable;  // 188
+	ppmfc::CString			CString_Direction; // 156
+	ppmfc::CString			CString_House; // 160
+	ppmfc::CString			CString_VerteranStatus; // 164
+	ppmfc::CString			CString_Group; // 168
+	ppmfc::CString			CString_OnBridge; // 172
+	ppmfc::CString			CString_AutocreateNoRecruitable; // 176
+	ppmfc::CString			CString_State; // 180
+	ppmfc::CString			CString_Tag; // 184
+	ppmfc::CString			CString_AutocreateYesRecruitable;  // 188
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
 	{

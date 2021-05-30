@@ -10,7 +10,7 @@ public:
 	//member properties
 	BOOL		BOOL_CompressMap; // 92 , Useless
 	INT			INT_CreateNewPreviewWithMinimap; // 96
-	CString		CString_MapName; // 100
+	ppmfc::CString		CString_MapName; // 100
 	BOOL		BOOL_Airwar; // 104
 	BOOL		BOOL_Cooperative; // 108
 	BOOL		BOOL_LandRush; // 112

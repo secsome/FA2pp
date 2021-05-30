@@ -9,7 +9,7 @@ public:
 
 	//member properties
 	INT			INT_SelectedWaypoint; // 92
-	CString		CString_Waypoint; // 96
+	ppmfc::CString		CString_Waypoint; // 96
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
 	{

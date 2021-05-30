@@ -8,7 +8,7 @@ public:
 	CCreateMap3B() = default;
 
 	//member properties
-	CString			CString_FilePath; // 92
+	ppmfc::CString			CString_FilePath; // 92
 	BOOL			BOOL_ImportOverlay; // 96
 	BOOL			BOOL_ImportTrees; // 100
 	BOOL			BOOL_ImportUnitsAndBuildings; // 104

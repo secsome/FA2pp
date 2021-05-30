@@ -20,8 +20,8 @@ public:
 	CEdit				CETPercentageNormal; // 632
 	CComboBox  CCBAITriggerList; // 692
 	INT				Unknown_752; // As u see, there should be nothing :/ Fill 752 - 756
-	CString			CString_MinDiff; // 756 Useless
-	CString			CString_Name; // 760
+	ppmfc::CString			CString_MinDiff; // 756 Useless
+	ppmfc::CString			CString_Name; // 760
 	BYTE				Unknown_764[16]; // As u see, there should be nothing :/ Fill 764 - 780
 	BOOL			BOOL_Allowed; // 780
 	INT				INT_CCBComparator_Index; // 784
@@ -32,5 +32,5 @@ public:
 	BOOL			BOOL_BaseDefense; // 804
 	BOOL			BOOL_AvailableInSkirmish; // 808
 	INT				Unknown_812; // As u see, there should be nothing :/ Fill 812 - 816
-	CString			CString_MultiHouse; // 816
+	ppmfc::CString			CString_MultiHouse; // 816
 };

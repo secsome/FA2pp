@@ -11,7 +11,7 @@ public:
 	CComboBox	CCBRepeat; // 92
 	CComboBox	CCBTagList; // 152
 	CComboBox	CCBTrigger; // 212
-	CString			CString_Name; // 272
+	ppmfc::CString			CString_Name; // 272
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
 	{

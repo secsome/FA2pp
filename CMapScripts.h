@@ -8,8 +8,8 @@ public:
 	CMapScripts() = default;
 
 	//member properties
-	CString	CString_CurrentScript; // 92
-	CString	CString_Report; // 96
+	ppmfc::CString	CString_CurrentScript; // 92
+	ppmfc::CString	CString_Report; // 96
 	
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
 	{

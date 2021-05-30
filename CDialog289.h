@@ -16,8 +16,8 @@ public:
 	int Unknown_104;
 	int Unknown_108;
 	int Unknown_112;
-	CString CString_Captain; // 116
-	CString CString_Combo; // 120
+	ppmfc::CString CString_Captain; // 116
+	ppmfc::CString CString_Combo; // 120
 
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override

@@ -5,14 +5,14 @@
 class FALanguage
 {
 public:
-    CString* GetTranslationItem(CString* name)
+    ppmfc::CString* GetTranslationItem(ppmfc::CString* name)
     {
-        CString tmp;
+        ppmfc::CString tmp;
         return GetTranslationItem(&tmp, name);
     }
 
 private:
-    CString* _cdecl GetTranslationItem(CString* a33, CString* name)
+    ppmfc::CString* _cdecl GetTranslationItem(ppmfc::CString* a33, ppmfc::CString* name)
     {
         JMP_THIS(0x43DA80);
     }

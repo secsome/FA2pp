@@ -27,6 +27,15 @@ public:
     CString(LPCWSTR lpsz) _PPMFC_THISCALL(0x555FCF);
     ~CString() _PPMFC_THISCALL(0x555F0F);
 
+    CStringData* CString::GetData() const
+        { ASSERT(m_pchData != NULL); return ((CStringData*)m_pchData) - 1; }
+    int CString::GetLength() const
+        { return GetData()->nDataLength; }
+    int CString::GetAllocLength() const
+        { return GetData()->nAllocLength; }
+    BOOL CString::IsEmpty() const
+        { return GetData()->nDataLength == 0; }
+
     const CString& operator=(TCHAR ch)
         _PPMFC_THISCALL(0x54F5CC);
 
@@ -160,14 +169,67 @@ public:
     operator const char*() const
         { return m_pchData; }
 
-    operator LPTSTR () const
-        { return m_pchData; }
-
     bool operator< (const CString& another) const
         { return strcmp(this->m_pchData, another) < 0; }
 
 private:
     LPTSTR m_pchData;   // pointer to ref counted string data
+
+
+public:
+    // Extra implements not contained in FA2
+
+    CString CString::Mid(int nFirst) const
+    {
+        return Mid(nFirst, GetData()->nDataLength - nFirst);
+    }
+
+    CString CString::Mid(int nFirst, int nCount) const
+    {
+        // out-of-bounds requests return sensible things
+        if (nFirst < 0)
+            nFirst = 0;
+        if (nCount < 0)
+            nCount = 0;
+
+        if (nFirst + nCount > GetData()->nDataLength)
+            nCount = GetData()->nDataLength - nFirst;
+        if (nFirst > GetData()->nDataLength)
+            nCount = 0;
+
+        CString dest;
+        AllocCopy(dest, nCount, nFirst, 0);
+        return dest;
+    }
+
+    void CString::FormatV(LPCTSTR lpszFormat, va_list argList)
+    {
+        const auto size = vsnprintf(nullptr, 0, lpszFormat, argList);
+        if (size)
+            vsnprintf(GetBufferSetLength(size + 1), size + 1, lpszFormat, argList);
+    }
+
+    void AFX_CDECL CString::Format(LPCTSTR lpszFormat, ...)
+    {
+        ASSERT(AfxIsValidString(lpszFormat, FALSE));
+
+        va_list argList;
+        va_start(argList, lpszFormat);
+        FormatV(lpszFormat, argList);
+        va_end(argList);
+    }
+
+    void AFX_CDECL CString::Format(UINT nFormatID, ...)
+    {
+        CString strFormat;
+        VERIFY(strFormat.LoadString(nFormatID) != 0);
+
+        va_list argList;
+        va_start(argList, nFormatID);
+        FormatV(strFormat, argList);
+        va_end(argList);
+    }
+
 };
 
 //BOOL _PPMFC_API AfxExtractSubString(CString& rString, LPCTSTR lpszFullString,

@@ -5,6 +5,8 @@
 #include <AFXEXT.H>
 #include "FA2PPCore.h"
 
+#include "MFC/ppmfc_include.h"
+
 class NOVTABLE FA2PP
 {
 public:
@@ -20,7 +22,7 @@ private:
 	}
 };
 
-class NOVTABLE FA2CWnd : public CWnd
+class NOVTABLE FA2CWnd : public ppmfc::CWnd
 {
 public:
 	virtual BOOL PreTransateMessage(MSG* pMsg)

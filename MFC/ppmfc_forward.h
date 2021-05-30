@@ -1,6 +1,7 @@
 #pragma once
 
-//#include <Windows.h>
+#include <WinNT.h>
+#include <WinDef.h>
 #include <CommCtrl.h>
 
 #include "../FA2PPCore.h"
