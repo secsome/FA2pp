@@ -1,9 +1,12 @@
 #pragma once
 
 #include "FA2PP.h"
-#include "CINI.h"
 
 #include "Helpers/CompileTime.h"
+
+class INIClass;
+class CLoading;
+class CMapData;
 
 class GlobalVars
 {
@@ -13,6 +16,14 @@ public:
     static constexpr reference<char, 0x72A634, 260> const FilePath{}; // Where mix files locates
     
     static constexpr reference<int, 0x72CC00> const CurrentMapWidthPlusHeight{}; // duh
+
+    static constexpr reference<CMapData*, 0x72CBF8> const CMapData{};
+
+    class Dialogs
+    {
+    public:
+        static constexpr reference<CLoading*, 0x7EE030> const CLoading{};
+    };
 
     class INIFiles
     {
