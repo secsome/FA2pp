@@ -85,25 +85,6 @@ public:
 	}
 };
 
-class INIMapFieldUpdate
-{
-private:
-	static constexpr DWORD _H = 0x72CBF8;
-	struct _S
-	{
-		static void UpdateMapFieldData(int flag)
-			{ JMP_THIS(0x49C280); }
-	};
-	
-public:
-	static INIClass* UpdateMapFieldData(int flag)
-	{
-		_S* _X = (_S*)_H;
-		_X->UpdateMapFieldData(flag);
-		return reinterpret_cast<INIClass*>(0x7ACC80);
-	}
-};
-
 class INISection {
 public:
 	INISection() { JMP_THIS(0x452880); }
@@ -165,13 +146,6 @@ public:
 		ppmfc::CString ret;
 		GetAvailableKey(&ret, pSection);
 		return ret;
-	}
-
-	static INIClass* GetMapDocument(bool bUpdateMapField = false)
-	{
-		if(bUpdateMapField)
-			INIMapFieldUpdate::UpdateMapFieldData(1);
-		return reinterpret_cast<INIClass*>(0x7ACC80);
 	}
 
 	int GetKeyCount(const char* pSection)
