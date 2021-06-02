@@ -9,28 +9,15 @@
 #include <vector>
 #include <map>
 
-// We can only use C++14 standard for now since our FATree & FAMap
-// was a mess, and higher standards are more strict and we cannot
-// pass the complie for some reason.
-// secsome - 2020/11/3
-
-// Remember that we cannot call CTOR or DTOR for any FAMap/FATree
-// cause nil & nilrefs haven't been analysed yet.
 // Consider to use : auto& iRules = GlobalVars::INIFiles::Rules();
 
 // Forward Definations
 class INISection;
 class INIClass;
 
-class INISectionEntriesComparator
-{
-public:
-	static bool __stdcall __compare(ppmfc::CString* a1, ppmfc::CString* a2) { JMP_STD(0x452230); }
-
-	bool operator()(const ppmfc::CString& s1, const ppmfc::CString& s2) const
-	{
-		return __compare((ppmfc::CString*)&s1, (ppmfc::CString*)&s2);
-	}
+struct INISectionEntriesComparator 
+{ 
+	bool operator()(const ppmfc::CString& s1, const ppmfc::CString& s2) const { JMP_STD(0x452230); } 
 };
 
 // type definations
@@ -42,7 +29,7 @@ struct FAINIMap
 {
 public:
 	std::pair<INIDict::iterator, bool>*
-		insert(std::pair<INIDict::iterator, bool>* ret, std::pair<ppmfc::CString, INISection>* section)
+		insert(std::pair<INIDict::iterator, bool>& ret, std::pair<ppmfc::CString, INISection>& section)
 	{
 		JMP_THIS(0x4026D0);
 	}
@@ -51,7 +38,7 @@ struct FAINIEntriesMap
 {
 public:
 	std::pair<INIStringDict::iterator, bool>*
-		insert(std::pair<INIStringDict::iterator, bool>* ret, std::pair<const char*, const char*>* pair)
+		insert(std::pair<INIStringDict::iterator, bool>& ret, std::pair<ppmfc::CString, ppmfc::CString>& pair)
 	{
 		JMP_THIS(0x40A010);
 	}
@@ -93,7 +80,7 @@ public:
 		std::pair<ppmfc::CString, INISection> ins = std::make_pair(pSection, section);
 		std::pair<INIDict::iterator, bool> ret;
 		FAINIMap* mapptr = reinterpret_cast<FAINIMap*>(&Dict);
-		mapptr->insert(&ret, &ins);
+		mapptr->insert(ret, ins);
 		return ret;
 	}
 
@@ -102,7 +89,7 @@ public:
 		FAINIEntriesMap* ptrmap = reinterpret_cast<FAINIEntriesMap*>(&dict);
 		std::pair<ppmfc::CString, ppmfc::CString> ins = std::make_pair(pKey, pValue);
 		std::pair<INIStringDict::iterator, bool> ret;
-		ptrmap->insert(&ret, reinterpret_cast<std::pair<const char*, const char*>*>(&ins));
+		ptrmap->insert(ret, ins);
 		return ret;
 	}
 

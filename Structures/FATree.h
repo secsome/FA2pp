@@ -10,9 +10,9 @@
 #endif  /* _MSC_VER */
 
 //namespace std {
-    template<class _Ty, class _D>
+    /*template<class _Ty, class _D>
     struct _Bidit : public std::iterator<std::bidirectional_iterator_tag,
-        _Ty, _D> {};
+        _Ty, _D> {};*/
 
     template<
         typename key_type,
@@ -67,7 +67,7 @@
     public:
         class iterator;
         friend class iterator;
-        class iterator : public _Bidit<value_type, ptrdiff_t> {
+        class iterator /* : public _Bidit<value_type, ptrdiff_t> */{
         public:
             iterator() {}
             iterator(FATreeNode* p) :_Ptr(p) {}

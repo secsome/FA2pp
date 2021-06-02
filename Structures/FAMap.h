@@ -7,20 +7,34 @@
 #endif  /* _MSC_VER */
 
 //namespace std{
+
+template<class _A, class _R>
+struct unary_function {
+	typedef _A argument_type;
+	typedef _R result_type;
+};
+// TEMPLATE STRUCT binary_function
+template<class _A1, class _A2, class _R>
+struct binary_function {
+	typedef _A1 first_argument_type;
+	typedef _A2 second_argument_type;
+	typedef _R result_type;
+};
+
 	template<class _K, class _Ty, DWORD nil_addr, DWORD nilrefs_addr,
 		class _Pr = std::less<_K>,class _A = std::allocator<_Ty> >
 		class FAMap {
 		public:
 			typedef FAMap<_K, _Ty, nil_addr, nilrefs_addr, _Pr, _A> _Myt;
 			typedef std::pair<const _K, _Ty> value_type;
-			struct _Kfn : public std::unary_function<value_type, _K> {
+			struct _Kfn : public unary_function<value_type, _K> {
 				const _K& operator()(const value_type& _X) const
 				{
 					return (_X.first);
 				}
 			};
 			class value_compare
-				: public std::binary_function<value_type, value_type, bool> {
+				: public binary_function<value_type, value_type, bool> {
 				friend class FAMap<_K, _Ty, nil_addr, nilrefs_addr, _Pr, _A>;
 			public:
 				bool operator()(const value_type& _X,
