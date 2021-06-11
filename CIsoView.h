@@ -10,6 +10,34 @@ class CMyViewFrame;
 class CIsoView : public FA2CView
 {
 public:
+    static int GetCoordX(int nCoord) { return nCoord % 1000; }
+    static int GetCoordY(int nCoord) { return nCoord / 1000; }
+    static int GetCoord(int X, int Y) { return X * 1000 + Y; }
+
+    void MoveToWP(UINT nWaypoint) { JMP_THIS(0x4766A0); }
+    void MoveTo(int X, int Y) { JMP_THIS(0x4763D0); }
+    void MoveToCoord(int X, int Y) 
+    {
+        // Main code from CIsoView::MoveToWP
+        int nHW = *reinterpret_cast<DWORD*>(0x72CC00); // CurrentMapWidthPlusHeight, we don't want too much headers included.
+        int nParam = X + Y * nHW;
+        RECT rect;
+        this->GetWindowRect(&rect);
+        int v6 = (60 * (nParam % nHW)) / 4
+            + (30 * (nParam / nHW)) / 2
+            - 30
+            * *(unsigned __int8*)(((nParam % nHW
+                + nParam / nHW * nHW) << 6)
+                + *reinterpret_cast<DWORD*>(0x7ACDB8)
+                + 51)
+            / 2;
+        this->MoveTo(
+            30 * (nHW + (nParam / nHW)) - (rect.right - rect.left) / 2 - (30 * (nParam % nHW)) - rect.left,
+            v6 - (rect.bottom - rect.top) / 2 - rect.top
+        );
+        this->RedrawWindow(nullptr, nullptr, RDW_INVALIDATE | RDW_UPDATENOW);
+    }
+
     int Unknown_40;
     int Unknown_44;
     int Unknown_48;
@@ -17,8 +45,8 @@ public:
     int Unknown_50;
     int Unknown_54;
     int Unknown_58;
-    int Unknown_5C;
-    int Unknown_60;
+    int Unknown_5C; // X related
+    int Unknown_60; // Y related
     int Unknown_64;
     int Unknown_68;
     int Unknown_6C;
