@@ -38,6 +38,8 @@ public:
         this->RedrawWindow(nullptr, nullptr, RDW_INVALIDATE | RDW_UPDATENOW);
     }
 
+    void DrawText(int X, int Y, LPCSTR lpString, COLORREF color) { JMP_THIS(0x4685C0); }
+
     int Unknown_40;
     int Unknown_44;
     int Unknown_48;
