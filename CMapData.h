@@ -22,11 +22,10 @@ public:
     static ppmfc::CString GetUIName(const char* pRegName) { return ppmfc::CString(GlobalVars::CMapData().QueryUIName(pRegName)); }
 
     ppmfc::CString StringBuffer;
-    CString StringBuffer;
     int unknown_4;
     int MapWidthPlusHeight;
     char gap_huge[524412];
-   INIClass INI;
+    INIClass INI;
     int unknown_801A0;
     int unknown_801A4;
     int unknown_801A8;

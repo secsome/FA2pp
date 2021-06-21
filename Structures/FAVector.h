@@ -3,10 +3,7 @@
 #include "../Helpers/Macro.h"
 #include "../FAMemory.h"
 
-#include <climits>
-#include <memory>
-#include <stdexcept>
-#include <xutility>
+#include <xmemory>
 
 #ifdef  _MSC_VER
 #pragma pack(push,8)
@@ -17,22 +14,16 @@ template<class _Ty, class _A = std::allocator<_Ty> >
 class FAVector {
 public:
 	typedef FAVector<_Ty, _A> _Myt;
-	typedef _A allocator_type;
-	typedef _A::size_type size_type;
-	typedef _A::difference_type difference_type;
-	typedef _A::pointer _Tptr;
-	typedef _A::const_pointer _Ctptr;
-	typedef _A::reference reference;
-	typedef _A::const_reference const_reference;
-	typedef _A::value_type value_type;
-	typedef _Tptr iterator;
-	typedef _Ctptr const_iterator;
-	typedef reverse_iterator<const_iterator, value_type,
-		const_reference, _Ctptr, difference_type>
-		const_reverse_iterator;
-	typedef reverse_iterator<iterator, value_type,
-		reference, _Tptr, difference_type>
-		reverse_iterator;
+	typedef typename _A allocator_type;
+	typedef typename _A::size_type size_type;
+	typedef typename _A::difference_type difference_type;
+	typedef typename _A::pointer _Tptr;
+	typedef typename _A::const_pointer _Ctptr;
+	typedef typename _A::reference reference;
+	typedef typename _A::const_reference const_reference;
+	typedef typename _A::value_type value_type;
+	typedef typename _Tptr iterator;
+	typedef typename _Ctptr const_iterator;
 	explicit FAVector(const _A& _Al = _A())
 		: allocator(_Al), _First(0), _Last(0), _End(0) {}
 	explicit FAVector(size_type _N, const _Ty& _V = _Ty(),
@@ -123,22 +114,6 @@ public:
 	const_iterator end() const
 	{
 		return ((const_iterator)_Last);
-	}
-	reverse_iterator rbegin()
-	{
-		return (reverse_iterator(end()));
-	}
-	const_reverse_iterator rbegin() const
-	{
-		return (const_reverse_iterator(end()));
-	}
-	reverse_iterator rend()
-	{
-		return (reverse_iterator(begin()));
-	}
-	const_reverse_iterator rend() const
-	{
-		return (const_reverse_iterator(begin()));
 	}
 	void resize(size_type _N, const _Ty& _X = _Ty())
 	{
@@ -366,7 +341,7 @@ protected:
 	}
 	void _Xran() const
 	{
-		_THROW(out_of_range, "invalid FAVector<T> subscript");
+		_THROW("out_of_range - invalid FAVector<T> subscript");
 	}
 	_A allocator;
 	iterator _First, _Last, _End;
