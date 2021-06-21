@@ -45,6 +45,7 @@ public:
         static constexpr reference<INIClass, 0x7ED500> const FALanguage{}; // FALanguage.ini
         // static constexpr reference<INIClass, 0x72CBF8> const UINameHolder{}; // Holds Stringtable
         static constexpr reference<INIClass, 0x7ACC80> const CurrentDocument{}; // Current map file, without update
+        static constexpr reference<INIClass, 0x7EE03C> const CurrentTheater{}; // Current theater file
     };
 
 };
