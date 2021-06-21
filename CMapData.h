@@ -24,7 +24,6 @@ public:
     int MapWidthPlusHeight;
     char gap_huge[524412];
     INIClass INI;
-    int unknown_8009C;
     int unknown_800A0;
     int unknown_800A4;
     int unknown_800A8;
@@ -35,7 +34,7 @@ public:
     int unknown_800BC;
     int unknown_800C0;
     int unknown_800C4;
-    int unknown_800C8;
+    void* UndoRedoData;
     int unknown_800CC;
     int unknown_800D0;
     int unknown_800D4;
