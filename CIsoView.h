@@ -40,6 +40,18 @@ public:
 
     void DrawText(int X, int Y, LPCSTR lpString, COLORREF color) { JMP_THIS(0x4685C0); }
 
+    void PrimarySurfaceLost() { JMP_THIS(0x4691D0); }
+    void BltFromSurface() { JMP_THIS(0x4751B0); }
+    
+    void Update() { JMP_THIS(0x432010); }
+    void AfterUpdate(BOOL bSomeValidate) { JMP_THIS(0x456C10); }
+
+    void DrawCellOutline(int X, int Y,int someDeltaX,int someDeltaY,COLORREF color,BOOL bDot,BOOL bDrawOnPrimarySurface)
+        { JMP_THIS(0x469C60); }
+
+    void UpdateStatusBar(int X, int Y) { JMP_THIS(0x469E70); }
+    void UpdateSurfaceLayer(int X, int Y, int unused) { JMP_THIS(0x46BC80); }
+
     int Unknown_40;
     int Unknown_44;
     int Unknown_48;
@@ -47,10 +59,8 @@ public:
     int Unknown_50;
     int Unknown_54;
     int Unknown_58;
-    int Unknown_5C; // X related
-    int Unknown_60; // Y related
-    int Unknown_64;
-    int Unknown_68;
+    CPoint Point_5C;
+    CPoint Point_64;
     int Unknown_6C;
     int Unknown_74;
     int Unknown_78;
@@ -62,7 +72,7 @@ public:
     int Unknown_90;
     int Unknown_94;
     CMyViewFrame* pParent;
-    int Unknown_9C;
+    LPDIRECTDRAWSURFACE7 lpDDBackBufferSurface;
     LPDIRECTDRAWSURFACE7 lpDDTempBufferSurface;
     LPDIRECTDRAWSURFACE7 lpDDPrimarySurface;
     IDirectDraw7* lpDD7;
@@ -70,10 +80,7 @@ public:
     int Unknown_B0;
     CMenu Menu;
     BOOL IsInitializing;
-    int Unknown_BC;
-    int Unknown_C0;
-    int Unknown_C4;
-    int Unknown_C8;
+    RECT Rect_C0;
     int Unknown_CC;
     int Unknown_D0;
     int Unknown_D4;
