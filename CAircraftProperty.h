@@ -2,10 +2,10 @@
 
 #include "FA2PP.h"
 
-class NOVTABLE CPropertyAircraft : public FA2CDialog
+class NOVTABLE CAircraftProperty : public FA2CDialog
 {
 public:
-	CPropertyAircraft() = default;
+	CAircraftProperty() = default;
 
 	//member properties
 	ppmfc::CString			CString_Unknown; // ;/ Fill 92 - 96

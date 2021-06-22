@@ -180,14 +180,10 @@ public:
 	}
 
 	ppmfc::CString GetString(const char* pSection, const char* pKey, const char* pDefault = "") {
-		auto itrSection = Dict.find(pSection);
-		if (itrSection != Dict.end()) {
-			auto pEntries = &itrSection->second.EntitiesDictionary;
-			auto itrKey = pEntries->find(pKey);
-			if (itrKey != pEntries->end())
-				return itrKey->second;
-		}
-		return pDefault;
+		if (auto const pStr = TryGetString(pSection, pKey))
+			return *pStr;
+		else
+			return pDefault;
 	}
 
 	int GetInteger(const char* pSection, const char* pKey, int nDefault = 0) {
