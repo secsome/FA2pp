@@ -59,8 +59,8 @@ public:
     int Unknown_50;
     int Unknown_54;
     int Unknown_58;
-    CPoint Point_5C;
-    CPoint Point_64;
+    CPoint ViewPosition; // where the view center at
+    CPoint MoveCenterPosition; // where right button down
     int Unknown_6C;
     int Unknown_74;
     int Unknown_78;
