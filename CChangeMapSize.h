@@ -8,10 +8,10 @@ public:
 	CChangeMapSize() = default;
 
 	//member properties
-	ppmfc::CString		CString_Left; // 92
-	ppmfc::CString		CString_Height; // 96, range [0, 511]
-	ppmfc::CString		CString_Top; // 100
-	ppmfc::CString		CString_Width; // 104, range [0, 511]
+	int		INT_Left; // 92
+	int		INT_Height; // 96, range [0, 511]
+	int		INT_Top; // 100
+	int		INT_Width; // 104, range [0, 511]
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
 	{
