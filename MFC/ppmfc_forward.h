@@ -42,6 +42,9 @@
 #define _PPMFC_API __stdcall
 #endif // _PPMFC_API
 
+#define MAX(a,b) a>b?a:b;
+#define MIN(a,b) a<b?a:b;
+
 _PPMFC_BEGIN
 
 _PPMFC_CLASS(CObject)
