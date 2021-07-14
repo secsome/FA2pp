@@ -21,7 +21,7 @@ struct INISectionEntriesComparator
 };
 
 // type definations
-using INIDict = FAMap<ppmfc::CString, INISection, 0x5D8CB4, 0>;
+using INIDict = FAMap<ppmfc::CString, INISection, 0x5D8CB4, 0x5D8CE8>;
 using INIStringDict = FAMap<const char*, const char*, 0x5D8CB0, 0x5D8CAC, INISectionEntriesComparator>;
 using INIIndiceDict = FAMap<const char*, unsigned int, 0x5D8CA8, 0x5D8CA4, INISectionEntriesComparator>;
 
@@ -48,10 +48,8 @@ class INISection {
 public:
 	INISection() { JMP_THIS(0x452880); }
 	INISection(INISection& another) { JMP_THIS(0x4021C0); }
-	~INISection() { JMP_THIS(0x452B20); }
+	virtual ~INISection() { JMP_THIS(0x452B20); }
 
-private:
-	void* vftable_align; // for align
 public:
 	INIStringDict EntitiesDictionary;
 	INIIndiceDict IndicesDictionary;
@@ -65,7 +63,7 @@ private:
 private:
 	void* vftable_align; // for align
 public:
-	INIDict Dict; // no idea about the nilrefs
+	INIDict Dict;
 	char Path[MAX_PATH];
 
 	static ppmfc::CString* GetAvailableIndex(ppmfc::CString* ret)
@@ -79,17 +77,15 @@ public:
 	{
 		std::pair<ppmfc::CString, INISection> ins = std::make_pair(pSection, section);
 		std::pair<INIDict::iterator, bool> ret;
-		FAINIMap* mapptr = reinterpret_cast<FAINIMap*>(&Dict);
-		mapptr->insert(ret, ins);
+		reinterpret_cast<FAINIMap*>(&Dict)->insert(ret, ins);
 		return ret;
 	}
 
 	std::pair<INIStringDict::iterator, bool> InsertPair(INIStringDict& dict, const char* pKey, const char* pValue)
 	{
-		FAINIEntriesMap* ptrmap = reinterpret_cast<FAINIEntriesMap*>(&dict);
 		std::pair<ppmfc::CString, ppmfc::CString> ins = std::make_pair(pKey, pValue);
 		std::pair<INIStringDict::iterator, bool> ret;
-		ptrmap->insert(ret, ins);
+		reinterpret_cast<FAINIEntriesMap*>(&dict)->insert(ret, ins);
 		return ret;
 	}
 
