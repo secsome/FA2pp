@@ -5,7 +5,11 @@
 #include "CWndView.h"
 #include "CIsoView.h"
 
-using ObjectBrowserControl = CTreeCtrl;
+class ObjectBrowserControl : public CTreeCtrl
+{
+public:
+    void Update() { JMP_THIS(0x51CD20); }
+};
 
 // Don't know what it should be called.
 class CMyRightView : public FA2CWnd

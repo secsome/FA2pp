@@ -6,6 +6,7 @@
 
 class INIClass;
 class CLoading;
+class CFinalSunDlg;
 class CMapData;
 
 class GlobalVars
@@ -23,6 +24,7 @@ public:
     {
     public:
         static constexpr reference<CLoading*, 0x7EE030> const CLoading{};
+        static constexpr reference<CFinalSunDlg*, 0x7EDF24> const CFinalSunDlg{};
     };
 
     class INIFiles
