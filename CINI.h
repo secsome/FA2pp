@@ -22,8 +22,8 @@ struct INISectionEntriesComparator
 
 // type definations
 using INIDict = FAMap<ppmfc::CString, INISection, 0x5D8CB4, 0x5D8CE8>;
-using INIStringDict = FAMap<const char*, const char*, 0x5D8CB0, 0x5D8CAC, INISectionEntriesComparator>;
-using INIIndiceDict = FAMap<const char*, unsigned int, 0x5D8CA8, 0x5D8CA4, INISectionEntriesComparator>;
+using INIStringDict = FAMap<ppmfc::CString, ppmfc::CString, 0x5D8CB0, 0x5D8CAC, INISectionEntriesComparator>;
+using INIIndiceDict = FAMap<ppmfc::CString, unsigned int, 0x5D8CA8, 0x5D8CA4, INISectionEntriesComparator>;
 
 struct FAINIMap
 {
@@ -44,7 +44,7 @@ public:
 	}
 };
 
-class INISection {
+class NOVTABLE INISection {
 public:
 	INISection() { JMP_THIS(0x452880); }
 	INISection(INISection& another) { JMP_THIS(0x4021C0); }
@@ -55,7 +55,7 @@ public:
 	INIIndiceDict IndicesDictionary;
 };
 
-class INIClass
+class NOVTABLE INIClass
 {
 private:
 	// ~INIClass() { JMP_THIS(0x4527E0); }
@@ -81,7 +81,7 @@ public:
 		return ret;
 	}
 
-	std::pair<INIStringDict::iterator, bool> InsertPair(INIStringDict& dict, const char* pKey, const char* pValue)
+	std::pair<INIStringDict::iterator, bool> InsertPair(INIStringDict& dict, ppmfc::CString pKey, ppmfc::CString pValue)
 	{
 		std::pair<ppmfc::CString, ppmfc::CString> ins = std::make_pair(pKey, pValue);
 		std::pair<INIStringDict::iterator, bool> ret;
@@ -96,14 +96,14 @@ public:
 		return ret;
 	}
 
-	static ppmfc::CString GetAvailableKey(const char* pSection)
+	static ppmfc::CString GetAvailableKey(ppmfc::CString pSection)
 	{
 		ppmfc::CString ret;
 		GetAvailableKey(&ret, pSection);
 		return ret;
 	}
 
-	int GetKeyCount(const char* pSection)
+	int GetKeyCount(ppmfc::CString pSection)
 	{
 		auto itr = Dict.find(pSection);
 		if (itr != Dict.end())
@@ -111,7 +111,7 @@ public:
 		return 0;
 	}
 
-	ppmfc::CString GetKeyName(const char* pSection, int nIndex)
+	ppmfc::CString GetKeyName(ppmfc::CString pSection, int nIndex)
 	{
 		auto itr = Dict.find(pSection);
 		if (itr != Dict.end())
@@ -130,33 +130,43 @@ public:
 		return "";
 	}
 
-	bool SectionExists(const char* pSection)
+	bool SectionExists(ppmfc::CString pSection)
 	{
 		return Dict.find(pSection) != Dict.end();
 	}
 	
-	bool KeyExists(const char* pSection, const char* pKey)
+	bool KeyExists(ppmfc::CString pSection, ppmfc::CString pKey)
 	{
 		if (auto section = GetSection(pSection))
 			return section->EntitiesDictionary.find(pKey) != section->EntitiesDictionary.end();
 		return false;
 	}
 
-	// Something is wrong.
-	// Might blow FA2 up (for most times kek)
-	// I might remake it some times later
-	bool WriteString(const char* pSection, const char* pKey, const char* pValue)
+	/// <summary>
+	/// Write a string to the ini dict.
+	/// </summary>
+	/// <param name="pSection"></param>
+	/// <param name="pKey"></param>
+	/// <param name="pValue"></param>
+	/// <returns>Whether this value has existed.</returns>
+	bool WriteString(ppmfc::CString pSection, ppmfc::CString pKey, ppmfc::CString pValue)
 	{
-		auto itr = Dict.find(pSection);
-		if (itr == Dict.end())	return false;
-		auto& dict = itr->second.EntitiesDictionary;
-		auto pair = InsertPair(dict, pKey, pValue);
-		if (!pair.second)
-			((ppmfc::CString*) & pair.first->second)->AssignCopy(strlen(pValue), pValue);
-		return true;
+		bool bExisted = true;
+		
+		auto itr = InsertSection(pSection, INISection());
+		if (itr.second)
+			bExisted = false;
+
+		auto itr2 = InsertPair(itr.first->second.EntitiesDictionary, pKey, ppmfc::CString());
+		if (itr2.second)
+			bExisted = false;
+
+		new(&itr2.first->second) ppmfc::CString(pValue);
+
+		return bExisted;
 	}
 
-	INISection* GetSection(const char* pSection)
+	INISection* GetSection(ppmfc::CString pSection)
 	{
 		auto itr = Dict.find(pSection);
 		if (itr != Dict.end())
@@ -164,7 +174,7 @@ public:
 		return nullptr;
 	}
 
-	ppmfc::CString* TryGetString(const char* pSection, const char* pKey) {
+	ppmfc::CString* TryGetString(ppmfc::CString pSection, ppmfc::CString pKey) {
 		auto itrSection = Dict.find(pSection);
 		if (itrSection != Dict.end()) {
 			auto pEntries = &itrSection->second.EntitiesDictionary;
@@ -175,14 +185,14 @@ public:
 		return nullptr;
 	}
 
-	ppmfc::CString GetString(const char* pSection, const char* pKey, const char* pDefault = "") {
+	ppmfc::CString GetString(ppmfc::CString pSection, ppmfc::CString pKey, ppmfc::CString pDefault = "") {
 		if (auto const pStr = TryGetString(pSection, pKey))
 			return *pStr;
 		else
 			return pDefault;
 	}
 
-	int GetInteger(const char* pSection, const char* pKey, int nDefault = 0) {
+	int GetInteger(ppmfc::CString pSection, ppmfc::CString pKey, int nDefault = 0) {
 		ppmfc::CString& pStr = this->GetString(pSection, pKey, "");
 		int ret = 0;
 		if (sscanf_s(pStr, "%d", &ret) == 1)
@@ -190,7 +200,7 @@ public:
 		return nDefault;
 	}
 
-	float GetSingle(const char* pSection, const char* pKey, float nDefault = 0) {
+	float GetSingle(ppmfc::CString pSection, ppmfc::CString pKey, float nDefault = 0) {
 		ppmfc::CString& pStr = this->GetString(pSection, pKey, "");
 		float ret = 0;
 		if (sscanf_s(pStr, "%f", &ret) == 1)
@@ -198,7 +208,7 @@ public:
 		return nDefault;
 	}
 
-	double GetDouble(const char* pSection, const char* pKey, double nDefault = 0) {
+	double GetDouble(ppmfc::CString pSection, ppmfc::CString pKey, double nDefault = 0) {
 		ppmfc::CString& pStr = this->GetString(pSection, pKey, "");
 		double ret = 0;
 		if (sscanf_s(pStr, "%lf", &ret) == 1)
@@ -206,7 +216,7 @@ public:
 		return nDefault;
 	}
 
-	bool GetBool(const char* pSection, const char* pKey, bool nDefault = false) {
+	bool GetBool(ppmfc::CString pSection, ppmfc::CString pKey, bool nDefault = false) {
 		ppmfc::CString& pStr = this->GetString(pSection, pKey, "");
 		switch (toupper(static_cast<unsigned char>(*pStr)))
 		{
@@ -223,7 +233,7 @@ public:
 		}
 	}
 
-	COLORREF GetColor(const char* pSection, const char* pKey, COLORREF nDefault = 0xFFFFFF) {
+	COLORREF GetColor(ppmfc::CString pSection, ppmfc::CString pKey, COLORREF nDefault = 0xFFFFFF) {
 		ppmfc::CString& pStr = this->GetString(pSection, pKey, "");
 		struct { byte R, G, B, Zero; } ret;
 		ret.Zero = 0;
@@ -232,7 +242,7 @@ public:
 		return nDefault;
 	}
 
-	std::map<unsigned int, ppmfc::CString> ParseIndiciesData(const char* pSection)
+	std::map<unsigned int, ppmfc::CString> ParseIndiciesData(ppmfc::CString pSection)
 	{
 		std::map<unsigned int, ppmfc::CString> ret;
 		auto& section = Dict.find(pSection);
