@@ -21,11 +21,13 @@ public:
     COLORREF Data[256];
 
     COLORREF& operator[](int index) { return Data[index]; }
-    ColorStruct GetByteColor(int index) {
+    ColorStruct GetByteColor(int index) { // It's BGR color
         ColorStruct ret;
-        ret.red = GetRValue(Data[index]);
-        ret.green = GetGValue(Data[index]);
-        ret.blue = GetBValue(Data[index]);
+        struct BGRStruct { unsigned char B, G, R, Zero; };
+        BGRStruct& tmp = *(BGRStruct*)&Data[index];
+        ret.red = tmp.R;
+        ret.green = tmp.G;
+        ret.blue = tmp.B;
         return ret;
     }
 };
