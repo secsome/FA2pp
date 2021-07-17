@@ -41,7 +41,7 @@ public:
     void DrawText(int X, int Y, LPCSTR lpString, COLORREF color) { JMP_THIS(0x4685C0); }
 
     void PrimarySurfaceLost() { JMP_THIS(0x4691D0); }
-    void BltFromSurface() { JMP_THIS(0x4751B0); }
+    void BltToBackBuffer(LPDIRECTDRAWSURFACE7 lpSrcSurface, int X, int Y, int W, int H) { JMP_THIS(0x4751B0); }
     
     void Update() { JMP_THIS(0x432010); }
     void AfterUpdate(BOOL bSomeValidate) { JMP_THIS(0x456C10); }
