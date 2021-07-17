@@ -1,6 +1,12 @@
 #pragma once
 
 #include "FA2PP.h"
+#include "Helpers/CompileTime.h"
+
+struct BGRStruct 
+{ 
+    unsigned char B, G, R, Zero; 
+};
 
 struct ColorStruct
 {
@@ -18,12 +24,13 @@ public:
 class Palette
 {
 public:
-    COLORREF Data[256];
+    static constexpr constant_ptr<Palette, 0x72B4C4> PALETTE_UNIT{};
 
-    COLORREF& operator[](int index) { return Data[index]; }
+    BGRStruct Data[256];
+
+    BGRStruct& operator[](int index) { return Data[index]; }
     ColorStruct GetByteColor(int index) { // It's BGR color
         ColorStruct ret;
-        struct BGRStruct { unsigned char B, G, R, Zero; };
         BGRStruct& tmp = *(BGRStruct*)&Data[index];
         ret.red = tmp.R;
         ret.green = tmp.G;
