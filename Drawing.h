@@ -36,3 +36,25 @@ struct DrawDataStruct
     DrawDataFlag Flag;
     bool IsOverlay; // Only OVRLXX_XX will set this true
 };
+
+class HSVClass;
+class RGBClass
+{
+public:
+	unsigned char R, G, B;
+
+	operator int()
+	{
+		return RGB(R, G, B);
+	}
+
+    operator HSVClass() const;
+};
+
+class HSVClass
+{
+public:
+    unsigned char H, S, V;
+
+    operator RGBClass() const;
+};

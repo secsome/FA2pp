@@ -5,7 +5,8 @@
 
 struct BGRStruct 
 { 
-    unsigned char B, G, R, Zero; 
+    unsigned char B, G, R, Zero;
+    bool operator< (const BGRStruct& rhs) const { return *(int*)this < *(int*)&rhs; }
 };
 
 struct ColorStruct
