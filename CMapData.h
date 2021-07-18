@@ -2,6 +2,7 @@
 
 #include <CINI.h>
 #include <GlobalVars.h>
+#include <CObjectDatas.h>
 
 #include <Structures/FAVector.h>
 
@@ -41,71 +42,11 @@ public:
     FAVector<int> vector_801E8;
     FAVector<int> vector_801F8;
     FAVector<int> vector_80208;
-    FAVector<int> vector_80218;
+    FAVector<CInfantryData> InfantryDatas;
     FAVector<int> vector_80228;
     FAVector<int> vector_80238;
-    int unknown_80248;
-    int unknown_8024C;
-    int unknown_80250;
-    int unknown_80254;
-    int unknown_80258;
-    int unknown_8025C;
-    int unknown_80260;
-    int unknown_80264;
-    int unknown_80268;
-    int unknown_8026C;
-    int unknown_80270;
-    int unknown_80274;
-    int unknown_80278;
-    int unknown_8027C;
-    int unknown_80280;
-    int unknown_80284;
-    int unknown_80288;
-    int unknown_8028C;
-    int unknown_80290;
-    int unknown_80294;
-    int unknown_80298;
-    int unknown_8029C;
-    int unknown_802A0;
-    int unknown_802A4;
-    int unknown_802A8;
-    int unknown_802AC;
-    int unknown_802B0;
-    int unknown_802B4;
-    int unknown_802B8;
-    int unknown_802BC;
-    int unknown_802C0;
-    int unknown_802C4;
-    int unknown_802C8;
-    int unknown_802CC;
-    int unknown_802D0;
-    int unknown_802D4;
-    int unknown_802D8;
-    int unknown_802DC;
-    int unknown_802E0;
-    int unknown_802E4;
-    int unknown_802E8;
-    int unknown_802EC;
-    int unknown_802F0;
-    int unknown_802F4;
-    int unknown_802F8;
-    int unknown_802FC;
-    int unknown_80300;
-    int unknown_80304;
-    int unknown_80308;
-    int unknown_8030C;
-    int unknown_80310;
-    int unknown_80314;
-    int unknown_80318;
-    int unknown_8031C;
-    int unknown_80320;
-    int unknown_80324;
-    int unknown_80328;
-    int unknown_8032C;
-    int unknown_80330;
-    int unknown_80334;
-    int unknown_80338;
-    int unknown_8033C;
-    int unknown_80340;
-    int unknown_80344;
+    unsigned char MapPreview[0x40000];
+    BITMAPINFO MapPreviewInfo;
+    int SomeNumber;
+    char gap[256];
 };
