@@ -46,6 +46,11 @@ public:
 	}
 
 	//CDialog
+	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam) override
+	{
+		JMP_THIS(0x553BAC);
+	}
+
 	virtual BOOL OnInitDialog() override
 	{
 		JMP_THIS(0x5520A8);

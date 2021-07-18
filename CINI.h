@@ -148,9 +148,12 @@ public:
 	/// <param name="pSection"></param>
 	/// <param name="pKey"></param>
 	/// <param name="pValue"></param>
-	/// <returns>Whether this value has existed.</returns>
+	/// <returns>Whether this value has existed. If pSection or pKey is empty, it will return false as well.</returns>
 	bool WriteString(ppmfc::CString pSection, ppmfc::CString pKey, ppmfc::CString pValue)
 	{
+		if (pSection.IsEmpty() || pKey.IsEmpty())
+			return false;
+
 		bool bExisted = true;
 		
 		auto itr = InsertSection(pSection, INISection());
@@ -164,6 +167,31 @@ public:
 		new(&itr2.first->second) ppmfc::CString(pValue);
 
 		return bExisted;
+	}
+
+	bool DeleteSection(ppmfc::CString pSection)
+	{
+		auto itr = Dict.find(pSection);
+		if (itr != Dict.end())
+		{
+			itr->second.~INISection();
+
+		}
+		return false;
+	}
+
+	bool DeleteKey(ppmfc::CString pSection, ppmfc::CString pKey)
+	{
+		if (auto section = GetSection(pSection))
+		{
+			auto itr = section->EntitiesDictionary.find(pKey);
+			if (itr != section->EntitiesDictionary.end())
+			{
+				section->EntitiesDictionary.erase(itr);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	INISection* GetSection(ppmfc::CString pSection)
