@@ -17,6 +17,8 @@ public:
     static constexpr reference<char, 0x72A634, 260> const FilePath{}; // Where mix files locates
     
     static constexpr reference<int, 0x72CC00> const CurrentMapWidthPlusHeight{}; // duh
+    static constexpr reference<int, 0x7ACDA0> const MapWidth{};
+    static constexpr reference<int, 0x7ACDA4> const MapHeight{};
 
     static constexpr reference<CMapData, 0x72CBF8> const CMapData{};
 
@@ -47,7 +49,7 @@ public:
         static constexpr reference<INIClass, 0x7ED500> const FALanguage{}; // FALanguage.ini
         // static constexpr reference<INIClass, 0x72CBF8> const UINameHolder{}; // Holds Stringtable
         static constexpr reference<INIClass, 0x7ACC80> const CurrentDocument{}; // Current map file, without update
-        static constexpr reference<INIClass, 0x7EE03C> const CurrentTheater{}; // Current theater file
+        static constexpr reference<INIClass*, 0x7EE03C> const CurrentTheater{}; // Current theater file
     };
 
 };
