@@ -421,6 +421,134 @@
             --_Size;
             return (_P);
         }
+        void manual_erase(iterator _P)
+        {
+            FATreeNode* _X;
+            FATreeNode* _Y = (_P++)._Mynode();
+            FATreeNode* _Z = _Y;
+            std::_Lockit _Lk;
+            if (_Left(_Y) == *_Nil())
+                _X = _Right(_Y);
+            else if (_Right(_Y) == *_Nil())
+                _X = _Left(_Y);
+            else
+                _Y = _Min(_Right(_Y)), _X = _Right(_Y);
+            if (_Y != _Z)
+            {
+                _Parent(_Left(_Z)) = _Y;
+                _Left(_Y) = _Left(_Z);
+                if (_Y == _Right(_Z))
+                    _Parent(_X) = _Y;
+                else
+                {
+                    _Parent(_X) = _Parent(_Y);
+                    _Left(_Parent(_Y)) = _X;
+                    _Right(_Y) = _Right(_Z);
+                    _Parent(_Right(_Z)) = _Y;
+                }
+                if (_Root() == _Z)
+                    _Root() = _Y;
+                else if (_Left(_Parent(_Z)) == _Z)
+                    _Left(_Parent(_Z)) = _Y;
+                else
+                    _Right(_Parent(_Z)) = _Y;
+                _Parent(_Y) = _Parent(_Z);
+                std::swap(_Color(_Y), _Color(_Z));
+                _Y = _Z;
+            }
+            else
+            {
+                _Parent(_X) = _Parent(_Y);
+                if (_Root() == _Z)
+                    _Root() = _X;
+                else if (_Left(_Parent(_Z)) == _Z)
+                    _Left(_Parent(_Z)) = _X;
+                else
+                    _Right(_Parent(_Z)) = _X;
+                if (_Lmost() != _Z)
+                    ;
+                else if (_Right(_Z) == *_Nil())
+                    _Lmost() = _Parent(_Z);
+                else
+                    _Lmost() = _Min(_X);
+                if (_Rmost() != _Z)
+                    ;
+                else if (_Left(_Z) == *_Nil())
+                    _Rmost() = _Parent(_Z);
+                else
+                    _Rmost() = _Max(_X);
+            }
+            if (_Color(_Y) == _Black)
+            {
+                while (_X != _Root() && _Color(_X) == _Black)
+                    if (_X == _Left(_Parent(_X)))
+                    {
+                        FATreeNode* _W = _Right(_Parent(_X));
+                        if (_Color(_W) == _Red)
+                        {
+                            _Color(_W) = _Black;
+                            _Color(_Parent(_X)) = _Red;
+                            _Lrotate(_Parent(_X));
+                            _W = _Right(_Parent(_X));
+                        }
+                        if (_Color(_Left(_W)) == _Black
+                            && _Color(_Right(_W)) == _Black)
+                        {
+                            _Color(_W) = _Red;
+                            _X = _Parent(_X);
+                        }
+                        else
+                        {
+                            if (_Color(_Right(_W)) == _Black)
+                            {
+                                _Color(_Left(_W)) = _Black;
+                                _Color(_W) = _Red;
+                                _Rrotate(_W);
+                                _W = _Right(_Parent(_X));
+                            }
+                            _Color(_W) = _Color(_Parent(_X));
+                            _Color(_Parent(_X)) = _Black;
+                            _Color(_Right(_W)) = _Black;
+                            _Lrotate(_Parent(_X));
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        FATreeNode* _W = _Left(_Parent(_X));
+                        if (_Color(_W) == _Red)
+                        {
+                            _Color(_W) = _Black;
+                            _Color(_Parent(_X)) = _Red;
+                            _Rrotate(_Parent(_X));
+                            _W = _Left(_Parent(_X));
+                        }
+                        if (_Color(_Right(_W)) == _Black
+                            && _Color(_Left(_W)) == _Black)
+                        {
+                            _Color(_W) = _Red;
+                            _X = _Parent(_X);
+                        }
+                        else
+                        {
+                            if (_Color(_Left(_W)) == _Black)
+                            {
+                                _Color(_Right(_W)) = _Black;
+                                _Color(_W) = _Red;
+                                _Lrotate(_W);
+                                _W = _Left(_Parent(_X));
+                            }
+                            _Color(_W) = _Color(_Parent(_X));
+                            _Color(_Parent(_X)) = _Black;
+                            _Color(_Left(_W)) = _Black;
+                            _Rrotate(_Parent(_X));
+                            break;
+                        }
+                    }
+                _Color(_X) = _Black;
+            }
+            --_Size;
+        }
         iterator erase(iterator _F, iterator _L)
         {
             if (size() == 0 || _F != begin() || _L != end())

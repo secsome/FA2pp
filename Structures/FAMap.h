@@ -117,6 +117,10 @@ struct binary_function {
 			{
 				return (_Tr.erase((_Imp::iterator&)_P));
 			}
+			void manual_erase(iterator _P)
+			{
+				_Tr.manual_erase((_Imp::iterator&)_P);
+			}
 			iterator erase(iterator _F, iterator _L)
 			{
 				return (_Tr.erase((_Imp::iterator&)_F,

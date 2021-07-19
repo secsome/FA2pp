@@ -29,7 +29,7 @@ struct FAINIMap
 {
 public:
 	std::pair<INIDict::iterator, bool>*
-		insert(std::pair<INIDict::iterator, bool>& ret, std::pair<ppmfc::CString, INISection>& section)
+		insert(std::pair<INIDict::iterator, bool>* ret, std::pair<ppmfc::CString, INISection>* section)
 	{
 		JMP_THIS(0x4026D0);
 	}
@@ -38,10 +38,22 @@ struct FAINIEntriesMap
 {
 public:
 	std::pair<INIStringDict::iterator, bool>*
-		insert(std::pair<INIStringDict::iterator, bool>& ret, std::pair<ppmfc::CString, ppmfc::CString>& pair)
+		insert(std::pair<INIStringDict::iterator, bool>* ret, std::pair<ppmfc::CString, ppmfc::CString>* pair)
 	{
 		JMP_THIS(0x40A010);
 	}
+};
+
+struct FAINICStringMap : private INIStringDict
+{
+	INIStringDict* CopyCTOR(INIStringDict* another)
+		{ JMP_THIS(0x408070); }
+};
+
+struct FAINIIndiceMap : private INIIndiceDict
+{
+	INIIndiceDict* CopyCTOR(INIIndiceDict* another)
+		{ JMP_THIS(0x4081F0); }
 };
 
 class NOVTABLE INISection {
@@ -73,11 +85,11 @@ public:
 		{ JMP_STD(0x499E80); }
 
 public:
-	std::pair<INIDict::iterator, bool> InsertSection(ppmfc::CString pSection, INISection& section)
+	std::pair<INIDict::iterator, bool> InsertSection(ppmfc::CString pSection, INISection* section)
 	{
-		std::pair<ppmfc::CString, INISection> ins = std::make_pair(pSection, section);
+		std::pair<ppmfc::CString, INISection> ins = std::make_pair(pSection, *section);
 		std::pair<INIDict::iterator, bool> ret;
-		reinterpret_cast<FAINIMap*>(&Dict)->insert(ret, ins);
+		reinterpret_cast<FAINIMap*>(&Dict)->insert(&ret, &ins);
 		return ret;
 	}
 
@@ -85,7 +97,7 @@ public:
 	{
 		std::pair<ppmfc::CString, ppmfc::CString> ins = std::make_pair(pKey, pValue);
 		std::pair<INIStringDict::iterator, bool> ret;
-		reinterpret_cast<FAINIEntriesMap*>(&dict)->insert(ret, ins);
+		reinterpret_cast<FAINIEntriesMap*>(&dict)->insert(&ret, &ins);
 		return ret;
 	}
 
@@ -141,6 +153,30 @@ public:
 			return section->EntitiesDictionary.find(pKey) != section->EntitiesDictionary.end();
 		return false;
 	}
+	
+	INISection* AddSection(ppmfc::CString pSectionName)
+	{
+		if (SectionExists(pSectionName))
+			return nullptr;
+
+		auto pSection = GameCreate<INISection>();
+
+		struct TMP { // Avoid CTOR
+			ppmfc::CString Text;
+			char Section[sizeof INISection];
+		};
+		auto insertPair = GameCreate<TMP>();
+		insertPair->Text = pSectionName;
+		
+		((FAINICStringMap*)(&((INISection*)&insertPair->Section)->EntitiesDictionary))->CopyCTOR(&pSection->EntitiesDictionary);
+		((FAINIIndiceMap*)(&((INISection*)&insertPair->Section)->IndicesDictionary))->CopyCTOR(&pSection->IndicesDictionary);
+		std::pair<INIDict::iterator, bool> ret;
+		auto itrpair = ((FAINIMap*)&Dict)->insert(&ret, (std::pair<ppmfc::CString, INISection>*)& insertPair);
+		((INISection*)&insertPair->Section)->~INISection();
+		GameDelete(insertPair);
+		GameDelete(pSection);
+
+	}
 
 	/// <summary>
 	/// Write a string to the ini dict.
@@ -156,7 +192,10 @@ public:
 
 		bool bExisted = true;
 		
-		auto itr = InsertSection(pSection, INISection());
+		auto section = GameCreate<INISection>();
+		auto itr = InsertSection(pSection, section);
+		GameDelete(section);
+
 		if (itr.second)
 			bExisted = false;
 
@@ -174,8 +213,8 @@ public:
 		auto itr = Dict.find(pSection);
 		if (itr != Dict.end())
 		{
+			Dict.manual_erase(itr);
 			itr->second.~INISection();
-
 		}
 		return false;
 	}
