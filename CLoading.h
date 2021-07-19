@@ -7,7 +7,6 @@
 
 // Forward Definations
 class INIClass;
-struct t_palet_entry;
 class Cmix_file;
 
 struct MixesStruct
@@ -63,25 +62,25 @@ public:
 	CProgressCtrl CPCProgress;
 	int Unknown_150;
 	int Unknown_154;
-	t_palet_entry* PAL_ISOTEM;
-	t_palet_entry* PAL_ISOSNO;
-	t_palet_entry* PAL_ISOURB;
-	t_palet_entry* PAL_UNITTEM;
-	t_palet_entry* PAL_UNITSNO;
-	t_palet_entry* PAL_UNITURB;
-	t_palet_entry* PAL_TEMPERAT;
-	t_palet_entry* PAL_SNOW;
-	t_palet_entry* PAL_URBAN;
-	t_palet_entry* PAL_LIB_ID2124019542;
-	t_palet_entry* PAL_LUNAR;
-	t_palet_entry* PAL_DESERT;
-	t_palet_entry* PAL_URBANN;
-	t_palet_entry* PAL_ISOLUN;
-	t_palet_entry* PAL_ISODES;
-	t_palet_entry* PAL_ISOUBN;
-	t_palet_entry* PAL_UNITLUN;
-	t_palet_entry* PAL_UNITDES;
-	t_palet_entry* PAL_UNITUBN;
+	int PAL_ISOTEM; // index in the array at 0x7EDD9C BytePalette[]
+	int PAL_ISOSNO;
+	int PAL_ISOURB;
+	int PAL_UNITTEM;
+	int PAL_UNITSNO;
+	int PAL_UNITURB;
+	int PAL_TEMPERAT;
+	int PAL_SNOW;
+	int PAL_URBAN;
+	int PAL_LIB_ID2124019542;
+	int PAL_LUNAR;
+	int PAL_DESERT;
+	int PAL_URBANN;
+	int PAL_ISOLUN;
+	int PAL_ISODES;
+	int PAL_ISOUBN;
+	int PAL_UNITLUN;
+	int PAL_UNITDES;
+	int PAL_UNITUBN;
 	Cmix_file* MIX_LOCAL;
 	Cmix_file* MIX_SNO;
 	Cmix_file* MIX_TEM;
