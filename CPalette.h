@@ -27,6 +27,9 @@ class Palette
 {
 public:
     static constexpr constant_ptr<Palette, 0x72B4C4> PALETTE_UNIT{};
+    static constexpr constant_ptr<Palette, 0x72B8C4> PALETTE_ISO{};
+    static constexpr constant_ptr<Palette, 0x72ACC4> PALETTE_THEATER{};
+    static constexpr constant_ptr<Palette, 0x72A8C4> PALETTE_LIB{};
 
     BGRStruct Data[256];
 

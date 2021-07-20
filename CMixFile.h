@@ -7,7 +7,7 @@
 class CMixFile
 {
 public:
-    static bool __cdecl HasFile(const char* pName, Cmix_file* pmix) { JMP_STD(0x525670); }
-    static bool __cdecl ExtractFile(const char* pName, const char* pPath, Cmix_file* pMix) { JMP_STD(0x5257D0) }
-
+    static bool __cdecl HasFile(const char* pName, int nMix) { JMP_STD(0x525670); }
+    static bool __cdecl ExtractFile(const char* pName, const char* pPath, int nMix) { JMP_STD(0x5257D0) }
+    static bool __cdecl LoadSHP(const char* pName, int nMix) { JMP_STD(0x525C50); }
 };

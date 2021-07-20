@@ -50,8 +50,11 @@ public:
 
 	CLoading(CWnd* pParentWnd) { JMP_THIS(0x479A40) }
 
-	Cmix_file* SearchFile(const char* pName, char* pUnk = nullptr) { JMP_THIS(0x48A650) }
+	int SearchFile(const char* pName, char* pUnk = nullptr) { JMP_THIS(0x48A650) }
 	void LoadTSINI(const char* pFile, INIClass* pINI, BOOL bMerge) { JMP_THIS(0x47FFB0) }
+	void GetSHPValidRange(unsigned char* pData, int Width, int Height, int* OutBegin, 
+		int* OutEnd, BOOL bUnknown = FALSE, int* pUnknown = nullptr) // Last one is realtived to tmp drawing
+		{ JMP_THIS(0x4965B0); }
 
 	//member properties
 	char TheaterIdentifier; // T, A(SNOW), U, N, D, L
