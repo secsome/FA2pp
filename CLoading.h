@@ -149,6 +149,7 @@ public:
 			return (Palette*)(0x72A8C4);
 		return nullptr;
 	}
+	unsigned char* ReadWholeFile(ppmfc::CString filename);
 
 	//member properties
 	char TheaterIdentifier; // T, A(SNOW), U, N, D, L
