@@ -43,6 +43,8 @@ struct MixesStruct
 	Cmix_file* Mix29;
 };
 
+class Palette;
+
 class NOVTABLE CLoading : public FA2CDialog
 {
 public:
@@ -56,9 +58,101 @@ public:
 		int* OutEnd, BOOL bUnknown = FALSE, int* pUnknown = nullptr) // Last one is realtived to tmp drawing
 		{ JMP_THIS(0x4965B0); }
 
+	int GetPaletteISO()
+	{
+		switch (this->TheaterIdentifier)
+		{
+		case 'A':
+			return this->PAL_ISOSNO;
+		case 'U':
+			return this->PAL_ISOURB;
+		case 'N':
+			return this->PAL_ISOUBN;
+		case 'D':
+			return this->PAL_ISODES;
+		case 'L':
+			return this->PAL_ISOLUN;
+		case 'T':
+		default:
+			return this->PAL_ISOTEM;
+		}
+	}
+	int GetPaletteUnit()
+	{
+		switch (this->TheaterIdentifier)
+		{
+		case 'A':
+			return this->PAL_UNITSNO;
+		case 'U':
+			return this->PAL_UNITURB;
+		case 'N':
+			return this->PAL_UNITUBN;
+		case 'D':
+			return this->PAL_UNITDES;
+		case 'L':
+			return this->PAL_UNITLUN;
+		case 'T':
+		default:
+			return this->PAL_UNITTEM;
+		}
+	}
+	int GetPaletteTheater()
+	{
+		switch (this->TheaterIdentifier)
+		{
+		case 'A':
+			return this->PAL_SNOW;
+		case 'U':
+			return this->PAL_URBAN;
+		case 'N':
+			return this->PAL_URBANN;
+		case 'D':
+			return this->PAL_DESERT;
+		case 'L':
+			return this->PAL_LUNAR;
+		case 'T':
+		default:
+			return this->PAL_TEMPERAT;
+		}
+	}
+	ppmfc::CString GetFileExtension()
+	{
+		switch (this->TheaterIdentifier)
+		{
+		case 'A':
+			return ".sno";
+		case 'U':
+			return ".urb";
+		case 'N':
+			return ".ubn";
+		case 'D':
+			return ".des";
+		case 'L':
+			return ".lun";
+		case 'T':
+		default:
+			return ".tem";
+		}
+	}
+	Palette* GetPalette(int id)
+	{
+		if (id == PAL_UNITTEM || id == PAL_UNITSNO || id == PAL_UNITURB || 
+			id == PAL_UNITUBN || id == PAL_UNITLUN || id == PAL_UNITDES)
+			return (Palette*)(0x72B4C4);
+		if (id == PAL_ISOTEM || id == PAL_ISOSNO || id == PAL_ISOURB ||
+			id == PAL_ISOUBN || id == PAL_ISOLUN || id == PAL_ISODES)
+			return (Palette*)(0x72B8C4);
+		if (id == PAL_TEMPERAT || id == PAL_SNOW || id == PAL_URBAN ||
+			id == PAL_URBANN || id == PAL_LUNAR || id == PAL_DESERT)
+			return (Palette*)(0x72ACC4);
+		if (id == PAL_LIB_ID2124019542)
+			return (Palette*)(0x72A8C4);
+		return nullptr;
+	}
+
 	//member properties
 	char TheaterIdentifier; // T, A(SNOW), U, N, D, L
-	char gap_93[3];
+	//align 3 bytes
 	CStatic CSCVersion;
 	CStatic CSCBuiltby;
 	CStatic CSCLoading;
