@@ -7,6 +7,23 @@
 
 #include "MFC/ppmfc_include.h"
 
+class LEPTON
+{
+public:
+	LEPTON(int value) : Value{ value } {}
+	int Value;
+};
+
+inline int Lepton_To_Pixel(LEPTON lepton)
+{
+	return (((int)(signed short)lepton.Value * 60) + (256 / 2) - ((lepton.Value < 0) ? (256 - 1) : 0)) / 256;
+}
+
+inline LEPTON Pixel_To_Lepton(int pixel)
+{
+	return (LEPTON)(((pixel * 256) + (60 / 2) - ((pixel < 0) ? (60 - 1) : 0)) / 60);
+}
+
 class NOVTABLE FA2PP
 {
 public:

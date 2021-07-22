@@ -161,7 +161,7 @@ public:
         _PPMFC_THISCALL(0x556423);
 
     void SetAt(int nIndex, TCHAR ch)
-        _PPMFC_THISCALL(0x556423);
+        _PPMFC_THISCALL(0x556435);
 
     BOOL LoadString(UINT nID)          // load from string resource, 255 chars max
         _PPMFC_THISCALL(0x556507);

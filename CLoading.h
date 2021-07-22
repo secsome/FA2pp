@@ -151,6 +151,22 @@ public:
 	}
 	unsigned char* ReadWholeFile(ppmfc::CString filename);
 
+	void SetTheaterLetter(ppmfc::CString& string)
+	{
+		if (this->TheaterIdentifier != 0)
+		{
+			char f = string[0], s = string[1];
+			if (f >= 'A' && f <= 'Z')	f += ' ';
+			if (s >= 'A' && s <= 'Z')	s += ' ';
+			if ((f == 'g' || f == 'n' || f == 'c' || f == 'y') && (s == 'a' || s == 't'))
+				string.SetAt(1, this->TheaterIdentifier);
+		}
+	}
+	void SetGenericTheaterLetter(ppmfc::CString& string)
+	{
+		string.SetAt(1, 'G');
+	}
+
 	//member properties
 	char TheaterIdentifier; // T, A(SNOW), U, N, D, L
 	//align 3 bytes
