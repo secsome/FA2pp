@@ -33,5 +33,6 @@ class CShpFile
 {
 public:
     static bool __cdecl GetSHPHeader(ShapeHeader* pHeader) { JMP_STD(0x525A30); }
+    static bool __cdecl GetSHPImageHeader(int nFrame, ShapeImageHeader* pHeader) { JMP_STD(0x525A60); }
     static bool __cdecl LoadFrame(int nFrame, int nFrameCount, unsigned char** ppBuffer) { JMP_STD(0x526020); }
 };
