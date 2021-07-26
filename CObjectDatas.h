@@ -92,3 +92,12 @@ public:
     ppmfc::CString AutoYESRecruitType;
     int Flag;
 };
+
+class CTerrainData
+{
+public:
+    ppmfc::CString TypeID;
+    ppmfc::CString X; // maybe
+    ppmfc::CString Y; // maybe
+    int Flag;
+};
