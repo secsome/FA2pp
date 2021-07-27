@@ -13,21 +13,28 @@ struct TileData
 
     short Short_0;
     short Short_2;
-    int Unknown_4;
+    short Short_4;
+    short Short_6;
     int Unknown_8;
     int Unknown_C;
     int Unknown_10;
-    int Unknown_14;
+    short Short_14;
     int Unknown_18;
-    int Unknown_1C;
+    short Short_1C;
     int Unknown_20;
     int Unknown_24;
-    ppmfc::CString String_28;
-    int Unknown_2C;
-    int Unknown_30;
-    int Unknown_34;
-    int Unknown_38;
-    int Flags; // 1 2 4 8 0xF0
+    CString String_28;
+    unsigned char Byte_2C;
+    unsigned char Byte_2D;
+    short Short_2E;
+    short Height;
+    unsigned char Byte_32;
+    unsigned char Byte_33;
+    unsigned char Byte_34;
+    short Short_36;
+    short Unknown_38;
+    unsigned char Byte_3A;
+    short Flags; // 0, 16, 32, 48, 64
 };
 
 #pragma pack(push, 1)
