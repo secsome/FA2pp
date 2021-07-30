@@ -379,6 +379,12 @@ public:
     static CWnd* _PPMFC_API CreateObject()
         _PPMFC_STDCALL(0x564309);
 
+    CWnd* GetWindow(UINT nCmd) const
+        { ASSERT(::IsWindow(m_hWnd)); return CWnd::FromHandle(::GetWindow(m_hWnd, nCmd)); }
+
+    int GetWindowTextLength() const
+        { ASSERT(::IsWindow(m_hWnd)); return ::GetWindowTextLength(m_hWnd); }
+
 public:
     HWND m_hWnd;
     HWND m_hWndOwner;
