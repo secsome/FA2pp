@@ -6,10 +6,10 @@
 
 #include <Structures/FAVector.h>
 
-// need debug to find out what it actually stores
-struct TileData
+// it seems actually waypoint and minimap related, no idea what it really does now.
+struct SomeData
 {
-    TileData(const TileData& another) { JMP_THIS(0x416EB0); }
+    SomeData(const SomeData& another) { JMP_THIS(0x416EB0); }
 
     short Short_0;
     short Short_2;
@@ -63,16 +63,20 @@ public:
     }
 
     const wchar_t* QueryUIName(const char* pRegName) { JMP_THIS(0x4B2610); }
-    static ppmfc::CString GetUIName(const char* pRegName) { return ppmfc::CString(GlobalVars::CMapData().QueryUIName(pRegName)); }
+    static ppmfc::CString GetUIName(const char* pRegName) { return ppmfc::CString(GlobalVars::CMapData->QueryUIName(pRegName)); }
 
     void LoadMap(const char* pMapPath) { JMP_THIS(0x49D2C0); }
     void UnpackData() { JMP_THIS(0x49EE50); } // called in LoadMap
 
+    // FA2 magics
+    int GetCoordIndex(int X, int Y) { return X + Y * MapWidthPlusHeight; }  
+    int GetXFromCoordIndex(int CoordIndex) { return CoordIndex % MapWidthPlusHeight; }
+    int GetYFromCoordIndex(int CoordIndex) { return CoordIndex / MapWidthPlusHeight; }
 
     ppmfc::CString StringBuffer;
     BOOL Initialized; // Maybe? It's data related, if this is false, UnitData, StructureData and so on will be called for loading?
     int MapWidthPlusHeight;
-    TileData TempTileData;
+    SomeData TempData;
     BOOL FieldDataAllocated;
     FAVector<int> BuildingTypes;
     FAVector<int> TerrainTypes;
@@ -84,8 +88,8 @@ public:
     INIClass INI;
     RECT Size;
     RECT LocalSize;
-    TileData* TileDatas; // tile set realted, see 4BB920 validate the map, looks like tiles, dtor at 416FC0
-    int TileDataCount; // tile set realted, see 4BB920 validate the map
+    SomeData* SomeDatas; // see 4BB920 validate the map, dtor at 416FC0
+    int SomeataCount; // see 4BB920 validate the map
     void* UndoRedoData;
     int UndoRedoDataCount; // undo redo count related
     int UndoRedoCurrentDataIndex; // undo redo count related, UndoRedoDataCount - 1
@@ -95,8 +99,8 @@ public:
     FAVector<int> vector_801F8;
     FAVector<CTerrainData> TerrainDatas;
     FAVector<CInfantryData> InfantryDatas;
-    FAVector<int> vector_80228;
-    FAVector<int> vector_80238;
+    FAVector<CUnitData> UnitDatas; // Seems never used except DTOR
+    FAVector<int> vector_80238;    // Seems never used except DTOR
     unsigned char MapPreview[0x40000];
     BITMAPINFO MapPreviewInfo;
     int nSomeMapPreviewData_C0274;
