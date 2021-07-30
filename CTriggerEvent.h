@@ -8,7 +8,7 @@ public:
 	CTriggerEvent() = default;
 
 	//member properties
-	BYTE		Unknown_92[4]; // Fill 92 - 96
+	ppmfc::CString		EventID; // 92
 	CComboBox	CCBParameters; // 96
 	CListBox	CLBParamList; // 156
 	CComboBox	CCBEventType; // 216
@@ -17,6 +17,13 @@ public:
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
 	{
-		JMP_STD(0x4FD0B0);
+		JMP_THIS(0x4FD0B0);
 	}
+
+	void OnBNNewEventClicked() { JMP_THIS(0x4FD1D0); }
+	void OnBNDelEventClicked() { JMP_THIS(0x4FD630); }
+	void OnCBCurrentEventSelChanged() { JMP_THIS(0x4FDAD0); }
+	void OnCBEventTypeEditChanged() { JMP_THIS(0x4FDDB0); }
+	void OnLBParamsSelChanged() { JMP_THIS(0x4FF3E0); }
+	void OnCBParamValueEditChanged() { JMP_THIS(0x4FFB10); }
 };
