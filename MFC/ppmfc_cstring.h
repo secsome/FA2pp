@@ -517,17 +517,3 @@ public:
 //    _PPMFC_STDCALL(0x55FD07);
 
 _PPMFC_END
-
-// HASH
-#include <string>
-namespace std
-{
-	template<>
-	struct hash<ppmfc::CString>
-	{
-		std::size_t operator()(ppmfc::CString const& s) const noexcept
-		{
-			return std::hash<std::string>()((LPCSTR)s);
-		}
-	};
-}
