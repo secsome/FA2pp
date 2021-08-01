@@ -15,10 +15,9 @@ public:
     static constexpr reference<char, 0x72A738, 260> const ExePath{}; // Where FA2.exe locates
     static constexpr reference<char, 0x72A530, 260> const MapPath{}; // Where current map locates 
     static constexpr reference<char, 0x72A634, 260> const FilePath{}; // Where mix files locates
-    
-    static constexpr reference<int, 0x72CC00> const CurrentMapWidthPlusHeight{}; // duh
-    static constexpr reference<int, 0x7ACDA0> const MapWidth{};
-    static constexpr reference<int, 0x7ACDA4> const MapHeight{};
+
+    static constexpr reference<bool, 0x5E7C08> const IsMapNotLoaded{};
+    static constexpr reference<DWORD, 0x7EE084> const LastSucceededOperation{}; // used by TopLevelExceptionFilter
 
     static constexpr reference<CMapData, 0x72CBF8> const CMapData{};
 

@@ -7,31 +7,35 @@
 #include <Structures/FAVector.h>
 
 // it seems actually waypoint and minimap related, no idea what it really does now.
-struct SomeData
+struct CellData_20
 {
-    SomeData(const SomeData& another) { JMP_THIS(0x416EB0); }
+    int val1;
+    int val2;
+    ppmfc::CString str;
+};
 
-    short Short_0;
-    short Short_2;
-    short Short_4;
-    short Short_6;
-    int Unknown_8;
+struct CellData
+{
+    // CellData(const CellData& another) { JMP_THIS(0x416EB0); }
+
+    short Unit;
+    short Infantry[3];
+    short Aircraft;
+    short Structure;
     int Unknown_C;
     int Unknown_10;
     short Short_14;
     int Unknown_18;
     short Short_1C;
-    int Unknown_20;
-    int Unknown_24;
-    CString String_28;
-    unsigned char Byte_2C;
-    unsigned char Byte_2D;
+    CellData_20 Data_20;
+    unsigned char Overlay;
+    unsigned char OverlayData; // [0, 59]
     short Short_2E;
-    short Height;
+    short Short_30;
     unsigned char Byte_32;
-    unsigned char Byte_33;
+    unsigned char Height;
     unsigned char Byte_34;
-    short Short_36;
+    short CellTag;
     short Unknown_38;
     unsigned char Byte_3A;
     short Flags; // 0, 16, 32, 48, 64
@@ -76,7 +80,7 @@ public:
     ppmfc::CString StringBuffer;
     BOOL Initialized; // Maybe? It's data related, if this is false, UnitData, StructureData and so on will be called for loading?
     int MapWidthPlusHeight;
-    SomeData TempData;
+    CellData TempCellData;
     BOOL FieldDataAllocated;
     FAVector<int> BuildingTypes;
     FAVector<int> TerrainTypes;
@@ -88,14 +92,14 @@ public:
     INIClass INI;
     RECT Size;
     RECT LocalSize;
-    SomeData* SomeDatas; // see 4BB920 validate the map, dtor at 416FC0
-    int SomeataCount; // see 4BB920 validate the map
+    CellData* CellDatas; // see 4BB920 validate the map, dtor at 416FC0
+    int CellDataCount; // see 4BB920 validate the map
     void* UndoRedoData;
     int UndoRedoDataCount; // undo redo count related
     int UndoRedoCurrentDataIndex; // undo redo count related, UndoRedoDataCount - 1
     int MoneyCount;
     FAVector<CStructureData> StructureDatas;
-    FAVector<int> vector_801E8;
+    FAVector<int> vector_801E8; // see 4753C0, might be TUBE related
     FAVector<int> vector_801F8;
     FAVector<CTerrainData> TerrainDatas;
     FAVector<CInfantryData> InfantryDatas;

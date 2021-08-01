@@ -39,11 +39,10 @@ public:
     }
 
     void DrawText(int X, int Y, LPCSTR lpString, COLORREF color) { JMP_THIS(0x4685C0); }
-
+    void Draw() { JMP_THIS(0x46DE00); }
     void PrimarySurfaceLost() { JMP_THIS(0x4691D0); }
     void BltToBackBuffer(LPDIRECTDRAWSURFACE7 lpSrcSurface, int X, int Y, int W, int H) { JMP_THIS(0x4751B0); }
     
-    void Update() { JMP_THIS(0x432010); }
     void AfterUpdate(BOOL bSomeValidate) { JMP_THIS(0x456C10); }
 
     void DrawCellOutline(int X, int Y,int someDeltaX,int someDeltaY,COLORREF color,BOOL bDot,BOOL bDrawOnPrimarySurface)
@@ -51,8 +50,6 @@ public:
 
     void UpdateStatusBar(int X, int Y) { JMP_THIS(0x469E70); }
     void UpdateSurfaceLayer(int X, int Y, int unused) { JMP_THIS(0x46BC80); }
-
-
 
     int Unknown_40;
     int Unknown_44;
