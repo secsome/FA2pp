@@ -6,39 +6,37 @@
 
 #include <Structures/FAVector.h>
 
-// it seems actually waypoint and minimap related, no idea what it really does now.
-struct CellData_20
+struct CellData_BaseNodeData
 {
-    int val1;
-    int val2;
-    ppmfc::CString str;
+    int BuildingID;
+    int BasenodeID;
+    ppmfc::CString House;
 };
 
 struct CellData
 {
-    // CellData(const CellData& another) { JMP_THIS(0x416EB0); }
-
     short Unit;
     short Infantry[3];
     short Aircraft;
     short Structure;
-    int Unknown_C;
-    int Unknown_10;
-    short Short_14;
-    int Unknown_18;
-    short Short_1C;
-    CellData_20 Data_20;
+    int TypeListIndex; // for BuildingType, it's -65536+{idx in list}, for TerrainType, it's some fucking number, or it's -1
+    int TerrainType;
+    short Smudge;
+    int SmudgeType;
+    short Waypoint;
+    CellData_BaseNodeData BaseNode;
     unsigned char Overlay;
     unsigned char OverlayData; // [0, 59]
-    short Short_2E;
+    short TileIndex;
     short Short_30;
-    unsigned char Byte_32;
+    unsigned char TileSubIndex;
     unsigned char Height;
-    unsigned char Byte_34;
+    unsigned char IceGrowth;
     short CellTag;
-    short Unknown_38;
-    unsigned char Byte_3A;
-    short Flags; // 0, 16, 32, 48, 64
+    short Tube;
+    unsigned char TubeDir;
+    unsigned char StatusFlag;
+    unsigned char LAT; // uses high 4 bit, see https://modenc.renegadeprojects.com/images/ConnectingLATSetSubTileSelection.png
 };
 
 #pragma pack(push, 1)
@@ -73,9 +71,9 @@ public:
     void UnpackData() { JMP_THIS(0x49EE50); } // called in LoadMap
 
     // FA2 magics
-    int GetCoordIndex(int X, int Y) { return X + Y * MapWidthPlusHeight; }  
-    int GetXFromCoordIndex(int CoordIndex) { return CoordIndex % MapWidthPlusHeight; }
-    int GetYFromCoordIndex(int CoordIndex) { return CoordIndex / MapWidthPlusHeight; }
+    int GetCoordIndex(int X, int Y) { return Y + X * MapWidthPlusHeight; }  
+    int GetXFromCoordIndex(int CoordIndex) { return CoordIndex / MapWidthPlusHeight; }
+    int GetYFromCoordIndex(int CoordIndex) { return CoordIndex % MapWidthPlusHeight; }
 
     ppmfc::CString StringBuffer;
     BOOL Initialized; // Maybe? It's data related, if this is false, UnitData, StructureData and so on will be called for loading?
