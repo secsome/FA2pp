@@ -95,7 +95,7 @@ public:
 	unsigned char _GAP[36];
 	unsigned int FileSize;
 };
-unsigned char* CLoading::ReadWholeFile(ppmfc::CString filename)
+void* CLoading::ReadWholeFile(ppmfc::CString filename)
 {
 	ppmfc::CString filepath = GlobalVars::FilePath();
 	filepath += filename;
@@ -110,20 +110,21 @@ unsigned char* CLoading::ReadWholeFile(ppmfc::CString filename)
 		return pBuffer;
 	}
 
-	int nMix = this->SearchFile(filename);
+	auto nMix = GlobalVars::Dialogs::CLoading->SearchFile(filename);
 	if (CMixFile::HasFile(filename, nMix))
 	{
-		unsigned int crc = CRCEngine::Get(filename, filename.GetLength());
-		auto pCcfile = GameCreate<FakeCccFile>(false);
-		if (pCcfile->open(crc, CMixFile::ID2File(nMix)))
+		CMixFile::ExtractFile(filename, filepath, nMix);
+		HANDLE hFile = CreateFile(filepath, GENERIC_READ, FILE_SHARE_READ, nullptr,
+			OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+		if (hFile != INVALID_HANDLE_VALUE)
 		{
-			auto pBuffer = GameCreate<unsigned char>(pCcfile->FileSize);
-			memcpy_s(pBuffer, pCcfile->FileSize, pCcfile->Data, pCcfile->FileSize);
-			pCcfile->close();
-			GameDelete(pCcfile);
+			DWORD dwSize = GetFileSize(hFile, nullptr);
+			auto pBuffer = GameCreateArray<unsigned char>(dwSize);
+			ReadFile(hFile, pBuffer, dwSize, nullptr, nullptr);
+			CloseHandle(hFile);
+			DeleteFile(filepath);
 			return pBuffer;
 		}
-		GameDelete(pCcfile);
 	}
 
 	return nullptr;

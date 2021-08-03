@@ -149,7 +149,7 @@ public:
 			return (Palette*)(0x72A8C4);
 		return nullptr;
 	}
-	unsigned char* ReadWholeFile(ppmfc::CString filename);
+	void* ReadWholeFile(ppmfc::CString filename);
 
 	void SetTheaterLetter(ppmfc::CString& string)
 	{
