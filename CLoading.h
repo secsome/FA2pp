@@ -150,7 +150,7 @@ public:
 		return nullptr;
 	}
 	void* ReadWholeFile(ppmfc::CString filename);
-
+	bool HasFile(ppmfc::CString filename);
 	void SetTheaterLetter(ppmfc::CString& string)
 	{
 		if (this->TheaterIdentifier != 0)

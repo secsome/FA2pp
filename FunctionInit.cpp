@@ -130,3 +130,18 @@ void* CLoading::ReadWholeFile(ppmfc::CString filename)
 	return nullptr;
 }
 
+bool CLoading::HasFile(ppmfc::CString filename)
+{
+	ppmfc::CString filepath = GlobalVars::FilePath();
+	filepath += filename;
+	HANDLE hFile = CreateFile(filepath, GENERIC_READ, FILE_SHARE_READ, nullptr,
+		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+	if (hFile != INVALID_HANDLE_VALUE)
+	{
+		CloseHandle(hFile);
+		return true;
+	}
+	auto nMix = GlobalVars::Dialogs::CLoading->SearchFile(filename);
+	return CMixFile::HasFile(filename, nMix);
+}
+
