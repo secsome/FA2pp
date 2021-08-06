@@ -56,6 +56,15 @@ class ImageDataMapHelper
 private:
     ImageDataClass* GetImageDataFromMap_(ppmfc::CString* ppName) { JMP_THIS(0x4768D0); }
 public:
+    static bool IsImageLoaded(ppmfc::CString name)
+    {
+        ImageDataMap& imageDatas = *reinterpret_cast<ImageDataMap*>(0x72CBC8);
+        auto itr = imageDatas.find(name);
+        if (itr == imageDatas.end())
+            return false;
+        return itr->second.pImageBuffer != nullptr;
+    }
+
     static ImageDataClass* GetImageDataFromMap(ppmfc::CString name)
     {
         ImageDataMap& imageDatas = *reinterpret_cast<ImageDataMap*>(0x72CBC8);
