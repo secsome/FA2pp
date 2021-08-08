@@ -8,17 +8,17 @@ public:
 	CHouses() = default;
 
 	//member properties
-	CComboBox  CCBHumanHouse; // 92
-	CComboBox  CCBTechLevel; // 152
-	CComboBox  CCBCountry; //212
-	CComboBox  CCBPlayerControl; // 272
-	CComboBox  CCBPercentBuilt; // 332
-	CComboBox  CCBNodeCount; // 392
-	CComboBox  CCBIQ; // 452
-	CComboBox  CCBEdge; // 512
-	CEdit				CETCredits; // 572
-	CComboBox  CCBColor; // 632
-	CEdit				CETAllies; // 692
-	CComboBox  CCBActsLike; // 752
-	CComboBox	CCBHouses; // 812
+	ppmfc::CComboBox  CCBHumanHouse; // 92
+	ppmfc::CComboBox  CCBTechLevel; // 152
+	ppmfc::CComboBox  CCBCountry; //212
+	ppmfc::CComboBox  CCBPlayerControl; // 272
+	ppmfc::CComboBox  CCBPercentBuilt; // 332
+	ppmfc::CComboBox  CCBNodeCount; // 392
+	ppmfc::CComboBox  CCBIQ; // 452
+	ppmfc::CComboBox  CCBEdge; // 512
+	ppmfc::CEdit	  CETCredits; // 572
+	ppmfc::CComboBox  CCBColor; // 632
+	ppmfc::CEdit	  CETAllies; // 692
+	ppmfc::CComboBox  CCBActsLike; // 752
+	ppmfc::CComboBox  CCBHouses; // 812
 };
