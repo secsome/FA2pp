@@ -70,6 +70,8 @@ public:
     void LoadMap(const char* pMapPath) { JMP_THIS(0x49D2C0); }
     void UnpackData() { JMP_THIS(0x49EE50); } // called in LoadMap
 
+    void InitializeBuildingTypes(const char* ID) { JMP_THIS(0x4B5460); } // use nullptr to reload all
+
     // FA2 magics
     int GetCoordIndex(int X, int Y) { return Y + X * MapWidthPlusHeight; }  
     int GetXFromCoordIndex(int CoordIndex) { return CoordIndex / MapWidthPlusHeight; }

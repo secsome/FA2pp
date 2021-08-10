@@ -2,6 +2,7 @@
 
 #include "FA2PP.h"
 #include "Structures/FAMap.h"
+#include "Helpers/CompileTime.h"
 
 #include <ddraw.h>
 
@@ -46,6 +47,19 @@ public:
     short FullHeight;
     ImageDataFlag Flag;
     bool IsOverlay; // Only OVRLXX_XX will set this true
+};
+
+struct BuildingData
+{
+    static constexpr reference<BuildingData, 0x627930, 3840> const Array{};
+
+    ImageDataFlag Facings[8];
+    int FacingCount;
+    unsigned __int8 Foundation_Width;
+    unsigned __int8 Foundation_Height;
+    int Unknown_108;
+    int Unknown_10C;
+    int Unknown_110;
 };
 
 using ImageDataMap = FAMap<ppmfc::CString, ImageDataClass, 0x5E7C18, 0>; // DrawDataMap& tmp = *reinterpret_cast<DrawDataMap*>(0x72CBC8);
