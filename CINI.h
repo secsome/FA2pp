@@ -62,6 +62,8 @@ public:
 	INISection(INISection& another) { JMP_THIS(0x4021C0); }
 	virtual ~INISection() { JMP_THIS(0x452B20); }
 
+	ppmfc::CString* GetValueAt(unsigned int nIndex) { JMP_THIS(0x453590); }
+
 public:
 	INIStringDict EntitiesDictionary;
 	INIIndiceDict IndicesDictionary;
@@ -239,6 +241,12 @@ public:
 		if (itr != Dict.end())
 			return &itr->second;
 		return nullptr;
+	}
+
+	ppmfc::CString GetStringAt(ppmfc::CString pSection, unsigned int nIndex, ppmfc::CString pDefault = "") {
+		if (auto section = GetSection(pSection))
+			return *section->GetValueAt(nIndex);
+		return pDefault;
 	}
 
 	ppmfc::CString* TryGetString(ppmfc::CString pSection, ppmfc::CString pKey) {
