@@ -58,6 +58,7 @@ public:
 		int* OutEnd, BOOL bUnknown = FALSE, int* pUnknown = nullptr) // Last one is realtived to tmp drawing
 		{ JMP_THIS(0x4965B0); }
 
+	void Release() { JMP_THIS(0x491D00); }
 	int GetPaletteISO()
 	{
 		switch (this->TheaterIdentifier)

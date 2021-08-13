@@ -87,6 +87,8 @@ public:
 		{ JMP_STD(0x499E80); }
 
 public:
+	void Release() { JMP_THIS(0x4527E0); } // DTOR
+
 	std::pair<INIDict::iterator, bool> InsertSection(ppmfc::CString pSection, INISection* section)
 	{
 		std::pair<ppmfc::CString, INISection> ins = std::make_pair(pSection, *section);

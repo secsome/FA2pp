@@ -51,4 +51,12 @@ public:
         static constexpr reference<INIClass*, 0x7EE03C> const CurrentTheater{}; // Current theater file
     };
 
+    class Exceptions
+    {
+    public:
+        static constexpr reference<DWORD, 0x7EE084> const LastSucceededOperation{};
+        static constexpr reference<DWORD, 0x88403C> const LastSucceededLibraryOperation{};
+        static constexpr reference<DWORD, 0x7EE078> const SE2KMODE{};
+    };
+
 };

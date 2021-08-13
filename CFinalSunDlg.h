@@ -35,6 +35,7 @@ public:
 		dlg->UpdateDialogs_(a2, a2);
 	}
 
+	void SaveMap(LPCSTR lpPath) { JMP_THIS(0x426E50); }
 	void Update() { JMP_THIS(0x432010); }
 public:
 	//member properties
