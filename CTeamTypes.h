@@ -9,7 +9,7 @@ public:
 
 	//member properties
 	CStatic		CSTMindControlDecision; // 92
-	CComboBox	CCBTeamList; // 152
+	ppmfc::CComboBox	CCBTeamList; // 152
 	BOOL		BOOL_Aggressive; // 212
 	BOOL		BOOL_Annoyance; // 216
 	BOOL		BOOL_AreTeamMembersRecruitable; // 220
