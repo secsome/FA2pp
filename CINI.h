@@ -219,6 +219,7 @@ public:
 		{
 			Dict.manual_erase(itr);
 			itr->second.~INISection();
+			return true;
 		}
 		return false;
 	}
@@ -230,7 +231,8 @@ public:
 			auto itr = section->EntitiesDictionary.find(pKey);
 			if (itr != section->EntitiesDictionary.end())
 			{
-				section->EntitiesDictionary.erase(itr);
+				section->EntitiesDictionary.manual_erase(itr);
+				itr->second.~CString();
 				return true;
 			}
 		}
