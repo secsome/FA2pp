@@ -95,7 +95,7 @@ public:
 	unsigned char _GAP[36];
 	unsigned int FileSize;
 };
-void* CLoading::ReadWholeFile(ppmfc::CString filename)
+void* CLoading::ReadWholeFile(ppmfc::CString filename, DWORD* pDwSize)
 {
 	ppmfc::CString filepath = GlobalVars::FilePath();
 	filepath += filename;
@@ -105,6 +105,8 @@ void* CLoading::ReadWholeFile(ppmfc::CString filename)
 	{
 		DWORD dwSize = GetFileSize(hFile, nullptr);
 		auto pBuffer = GameCreateArray<unsigned char>(dwSize);
+		if(pDwSize)
+			*pDwSize = dwSize;
 		ReadFile(hFile, pBuffer, dwSize, nullptr, nullptr);
 		CloseHandle(hFile);
 		return pBuffer;
@@ -120,6 +122,8 @@ void* CLoading::ReadWholeFile(ppmfc::CString filename)
 		{
 			DWORD dwSize = GetFileSize(hFile, nullptr);
 			auto pBuffer = GameCreateArray<unsigned char>(dwSize);
+			if (pDwSize)
+				*pDwSize = dwSize;
 			ReadFile(hFile, pBuffer, dwSize, nullptr, nullptr);
 			CloseHandle(hFile);
 			DeleteFile(filepath);
