@@ -80,22 +80,50 @@ RGBClass::operator HSVClass() const
 #include "CLoading.h"
 #include "GlobalVars.h"
 #include "CCRC.h"
+#include "CShpFile.h"
+struct FakeString
+{
+	void assign(const char* src, unsigned int len) { JMP_THIS(0x4556A0); }
+	void _Tidy(bool bUnk) { JMP_THIS(0x43A650); }
+	char _Grow(unsigned int N, bool Trim) { JMP_THIS(0x43A650); }
+
+	char allocator;
+	char* _Ptr;
+	unsigned int _Len;
+	unsigned int _Res;
+};
+
 struct FakeCccFile
 {
 public:
 	FakeCccFile(bool open = false) { JMP_THIS(0x5298C0); }
 	~FakeCccFile() { JMP_THIS(0x5298F0); }
 	int open(unsigned int crc, Cmix_file* pMix) { JMP_THIS(0x529900); }
+	int open(FakeString* name) { JMP_THIS(0x529A30); }
 	void close() { JMP_THIS(0x529D00); }
 
 	void* vfptr;
 	bool DataLoaded;
 	bool Attached;
 	unsigned char* Data;
-	unsigned char _GAP[36];
+	void* vfptr2;
+	HANDLE Handle;
+	bool IsOpen;
+	int Pointer;
+	void* MixFile;
+	bool IsOpen2;
+	int Offset;
+	int Pointer2;
+	bool ReadOnOpen;
 	unsigned int FileSize;
 };
-void* CLoading::ReadWholeFile(ppmfc::CString filename, DWORD* pDwSize)
+
+struct FakeMixFile
+{
+	int read(LPVOID lpBuffer, DWORD nNumberOfBytesToRead) { JMP_THIS(0x529B80); }
+};
+
+void* CLoading::ReadWholeFile(const char* filename, DWORD* pDwSize)
 {
 	ppmfc::CString filepath = GlobalVars::FilePath();
 	filepath += filename;
@@ -115,19 +143,26 @@ void* CLoading::ReadWholeFile(ppmfc::CString filename, DWORD* pDwSize)
 	auto nMix = GlobalVars::Dialogs::CLoading->SearchFile(filename);
 	if (CMixFile::HasFile(filename, nMix))
 	{
-		CMixFile::ExtractFile(filename, filepath, nMix);
-		HANDLE hFile = CreateFile(filepath, GENERIC_READ, FILE_SHARE_READ, nullptr,
-			OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
-		if (hFile != INVALID_HANDLE_VALUE)
+		auto pFile = (FakeCccFile*)0x8204B8;
+		char temp[0x34];
+		memcpy(temp, pFile, 0x34);
+		if (CMixFile::LoadSHP(filename, nMix))
 		{
-			DWORD dwSize = GetFileSize(hFile, nullptr);
-			auto pBuffer = GameCreateArray<unsigned char>(dwSize);
+			auto pBuffer = GameCreateArray<unsigned char>(pFile->FileSize);
+			memcpy(pBuffer, pFile->Data, pFile->FileSize);
 			if (pDwSize)
-				*pDwSize = dwSize;
-			ReadFile(hFile, pBuffer, dwSize, nullptr, nullptr);
-			CloseHandle(hFile);
-			DeleteFile(filepath);
+				*pDwSize = pFile->FileSize;
+			if (pFile->IsOpen2)
+				pFile->close();
+			memcpy(pFile, temp, 0x34);
 			return pBuffer;
+		}
+		else
+		{
+			if (pFile->IsOpen2)
+				pFile->close();
+			memcpy(pFile, temp, 0x34);
+			return nullptr;
 		}
 	}
 

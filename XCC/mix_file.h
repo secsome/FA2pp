@@ -75,8 +75,8 @@ public:
 	{
 		return m_is_encrypted;
 	}
-private:
-	void clean_up();
+// private:
+	// void clean_up();
 	int m_c_files;
 	t_game m_game;
 	bool m_mix_expansion;
