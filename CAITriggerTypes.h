@@ -8,17 +8,17 @@ public:
 	CAITriggerTypes() = default;
 
 	//member properties
-	CComboBox	CCBTeam1; // 92
-	CComboBox	CCBComparisonObject; // 152
-	CComboBox	CCBTeam2; // 212
-	CComboBox	CCBConditionType; // 272
-	CComboBox	CCBTechLevel; // 332
-	CComboBox	CCBData; // 392 Useless
-	CComboBox	CCBOwnerHouse; // 452
+	ppmfc::CComboBox	CCBTeam1; // 92
+	ppmfc::CComboBox	CCBComparisonObject; // 152
+	ppmfc::CComboBox	CCBTeam2; // 212
+	ppmfc::CComboBox	CCBConditionType; // 272
+	ppmfc::CComboBox	CCBTechLevel; // 332
+	ppmfc::CComboBox	CCBData; // 392 Useless
+	ppmfc::CComboBox	CCBOwnerHouse; // 452
 	CEdit				CETPercentageMax; // 512
 	CEdit				CETPercentageMin; // 572
 	CEdit				CETPercentageNormal; // 632
-	CComboBox  CCBAITriggerList; // 692
+	ppmfc::CComboBox  CCBAITriggerList; // 692
 	INT				Unknown_752; // As u see, there should be nothing :/ Fill 752 - 756
 	ppmfc::CString			CString_MinDiff; // 756 Useless
 	ppmfc::CString			CString_Name; // 760
