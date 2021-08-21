@@ -385,6 +385,11 @@ public:
     int GetWindowTextLength() const
         { ASSERT(::IsWindow(m_hWnd)); return ::GetWindowTextLength(m_hWnd); }
 
+    BOOL LockWindowUpdate()    // for backward compatibility
+        { ASSERT(::IsWindow(m_hWnd)); return ::LockWindowUpdate(m_hWnd); }
+    void UnlockWindowUpdate()
+        { ASSERT(::IsWindow(m_hWnd)); ::LockWindowUpdate(NULL); }
+
 public:
     HWND m_hWnd;
     HWND m_hWndOwner;

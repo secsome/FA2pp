@@ -90,5 +90,5 @@ public:
         void __cdecl Waypoints(ppmfc::CComboBox* pComboBox) {
             JMP_STD(0x446070);
         }
-    }
-}
+    };
+};
