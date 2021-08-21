@@ -9,6 +9,6 @@ public:
 	CAITriggerEnable() = default;
 
 	//member properties
-	CString		CString_5C;
-	CListBox	CLBAITriggerTypes;
+	ppmfc::CString		CString_5C;
+	ppmfc::CListBox	CLBAITriggerTypes;
 };

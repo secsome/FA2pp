@@ -10,7 +10,7 @@ public:
 	//member properties
 	ppmfc::CString		EventID; // 92
 	ppmfc::CComboBox	CCBParameters; // 96
-	CListBox	CLBParamList; // 156
+	ppmfc::CListBox	CLBParamList; // 156
 	ppmfc::CComboBox	CCBEventType; // 216
 	ppmfc::CEdit		CETDescription; // 276
 	ppmfc::CComboBox	CCBCurrentEvent; // 336

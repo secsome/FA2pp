@@ -9,7 +9,7 @@ public:
 
 	//member properties
 	INT			Unknown_92; // Fill 92 - 96
-	CListBox	CLBAvailableSections; // 96
+	ppmfc::CListBox	CLBAvailableSections; // 96
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
 	{

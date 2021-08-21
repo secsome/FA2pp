@@ -13,7 +13,7 @@ public:
 	ppmfc::CComboBox	CCBCurrentAction; // 212
 	ppmfc::CComboBox	CCBCurrentScript; // 272
 	ppmfc::CComboBox	CCBScriptParameter; // 332
-	CListBox		CLBScriptActions; // 392
+	ppmfc::CListBox		CLBScriptActions; // 392
 	ppmfc::CString			CString_ScriptName; // 452
 
 public:

@@ -37,8 +37,8 @@ public:
 	}
 	//member properties
 	CButton		CBNPreviewImage; // 92
-	CListBox	CLBUsed; // 152
-	CListBox	CLBAvailable; // 212
+	ppmfc::CListBox	CLBUsed; // 152
+	ppmfc::CListBox	CLBAvailable; // 212
 	ppmfc::CString		CString_Terrain; // 272
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override

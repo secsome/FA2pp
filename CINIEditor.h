@@ -9,7 +9,7 @@ public:
 
 	//member properties
 	ppmfc::CEdit				CETValue; // 92
-	CListBox		CLBKeys; // 152
+	ppmfc::CListBox		CLBKeys; // 152
 	CButton			CBNInsertAnotherINIFileContent; // 212
 	CButton			CBNDeleteSection; // 272
 	CButton			CBNDeleteKey; // 332
