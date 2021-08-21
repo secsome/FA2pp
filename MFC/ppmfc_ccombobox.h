@@ -65,7 +65,7 @@ public:
 	{
 		GetLBText(nIndex, rString.GetBufferSetLength(GetLBTextLen(nIndex)));
 		rString.ReleaseBuffer();
-	};
+	}
 	int GetLBTextLen(int nIndex) const 
 		{ ASSERT(::IsWindow(this->m_hWnd)); return this->SendMessage(CB_GETLBTEXTLEN, nIndex, 0); };
 
