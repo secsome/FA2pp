@@ -13,10 +13,10 @@ public:
 	CButton		CBNHard; // 156
 	CButton		CBNEasy; // 216
 	CButton		CBNDisabled; // 276
-	CComboBox	CCBRepeatType; // 336
-	CEdit		CETName; // 396
-	CComboBox	CCBHouse; // 456
-	CComboBox	CCBAttachedTag; // 516
+	ppmfc::CComboBox	CCBRepeatType; // 336
+	ppmfc::CEdit		CETName; // 396
+	ppmfc::CComboBox	CCBHouse; // 456
+	ppmfc::CComboBox	CCBAttachedTag; // 516
 	CToolTipCtrl CTTCHouse;
 
 	BOOL OnInitDialog() override

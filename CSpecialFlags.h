@@ -8,19 +8,19 @@ public:
 	CSpecialFlags() = default;
 
 	//member properties
-	CComboBox			CCBVisceroids; // 92
-	CComboBox			CCBTiberiumSpreads; // 152
-	CComboBox			CCBTiberiumGrows; // 212
-	CComboBox			CCBTiberiumExplosive; // 272
-	CComboBox			CCBMeteorites; // 332
-	CComboBox			CCBMCVDeploy; // 392
-	CComboBox			CCBIonStorms; // 452
-	CComboBox			CCBInitialVeteran; // 512
-	CComboBox			CCBInert; // 572
-	CComboBox			CCBHarvesterImmune; // 632
-	CComboBox			CCBFogOfWar; // 692
-	CComboBox			CCBFixedAlliance; // 752
-	CComboBox			CCBDestoryableBridges; // 812
+	ppmfc::CComboBox			CCBVisceroids; // 92
+	ppmfc::CComboBox			CCBTiberiumSpreads; // 152
+	ppmfc::CComboBox			CCBTiberiumGrows; // 212
+	ppmfc::CComboBox			CCBTiberiumExplosive; // 272
+	ppmfc::CComboBox			CCBMeteorites; // 332
+	ppmfc::CComboBox			CCBMCVDeploy; // 392
+	ppmfc::CComboBox			CCBIonStorms; // 452
+	ppmfc::CComboBox			CCBInitialVeteran; // 512
+	ppmfc::CComboBox			CCBInert; // 572
+	ppmfc::CComboBox			CCBHarvesterImmune; // 632
+	ppmfc::CComboBox			CCBFogOfWar; // 692
+	ppmfc::CComboBox			CCBFixedAlliance; // 752
+	ppmfc::CComboBox			CCBDestoryableBridges; // 812
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
 	{

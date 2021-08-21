@@ -9,8 +9,8 @@ public:
 
 	//member properties
 	BYTE		Unknown_92[8]; // Fill 92 - 100
-	CComboBox	CCBLanguage; // 100
-	CEdit		CETPath; // 160
+	ppmfc::CComboBox	CCBLanguage; // 100
+	ppmfc::CEdit		CETPath; // 160
 	BOOL		BOOL_SelectMode; // 220
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override

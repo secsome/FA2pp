@@ -8,9 +8,9 @@ public:
 	CTags() = default;
 
 	//member properties
-	CComboBox	CCBRepeat; // 92
-	CComboBox	CCBTagList; // 152
-	CComboBox	CCBTrigger; // 212
+	ppmfc::CComboBox	CCBRepeat; // 92
+	ppmfc::CComboBox	CCBTagList; // 152
+	ppmfc::CComboBox	CCBTrigger; // 212
 	ppmfc::CString			CString_Name; // 272
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override

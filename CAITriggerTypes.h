@@ -15,9 +15,9 @@ public:
 	ppmfc::CComboBox	CCBTechLevel; // 332
 	ppmfc::CComboBox	CCBData; // 392 Useless
 	ppmfc::CComboBox	CCBOwnerHouse; // 452
-	CEdit				CETPercentageMax; // 512
-	CEdit				CETPercentageMin; // 572
-	CEdit				CETPercentageNormal; // 632
+	ppmfc::CEdit				CETPercentageMax; // 512
+	ppmfc::CEdit				CETPercentageMin; // 572
+	ppmfc::CEdit				CETPercentageNormal; // 632
 	ppmfc::CComboBox  CCBAITriggerList; // 692
 	INT				Unknown_752; // As u see, there should be nothing :/ Fill 752 - 756
 	ppmfc::CString			CString_MinDiff; // 756 Useless

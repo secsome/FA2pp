@@ -8,16 +8,16 @@ public:
 	CLighting() = default;
 
 	//member properties
-	CEdit CETLightingRed; // 92
-	CEdit CETNormalRed; // 152
-	CEdit CETLightingLevel; // 212
-	CEdit CETNormalLevel; // 272
-	CEdit CETLightingGreen; // 332
-	CEdit CETNormalGreen; // 392
-	CEdit CETLightingBlue; // 452
-	CEdit CETNormalBlue; // 512
-	CEdit CETLightingIon; // 572
-	CEdit CETNormalIon; // 632
+	ppmfc::CEdit CETLightingRed; // 92
+	ppmfc::CEdit CETNormalRed; // 152
+	ppmfc::CEdit CETLightingLevel; // 212
+	ppmfc::CEdit CETNormalLevel; // 272
+	ppmfc::CEdit CETLightingGreen; // 332
+	ppmfc::CEdit CETNormalGreen; // 392
+	ppmfc::CEdit CETLightingBlue; // 452
+	ppmfc::CEdit CETNormalBlue; // 512
+	ppmfc::CEdit CETLightingIon; // 572
+	ppmfc::CEdit CETNormalIon; // 632
 
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override

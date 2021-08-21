@@ -8,8 +8,8 @@ public:
 	CMapD() = default;
 
 	//member properties
-	CEdit				CETSize; // 92
-	CComboBox	CCBTheater; // 152
-	CString			CString_Width; // 212
-	CString			CString_Height; // 216
+	ppmfc::CEdit				CETSize; // 92
+	ppmfc::CComboBox	CCBTheater; // 152
+	ppmfc::CString			CString_Width; // 212
+	ppmfc::CString			CString_Height; // 216
 };

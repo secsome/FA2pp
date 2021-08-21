@@ -8,7 +8,7 @@ public:
 	CScriptTypes() = default;
 
 	//member properties
-	CEdit				CETDescription; // 92
+	ppmfc::CEdit				CETDescription; // 92
 	CStatic			CSTParameterOfSection; // 152
 	ppmfc::CComboBox	CCBCurrentAction; // 212
 	ppmfc::CComboBox	CCBCurrentScript; // 272

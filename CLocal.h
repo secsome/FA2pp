@@ -8,9 +8,9 @@ public:
 	CLocal() = default;
 
 	//member properties
-	CComboBox			CCBPresetValue; // 92
-	CComboBox			CCBLocalList; // 152
-	CString					CString_Name; // 212
+	ppmfc::CComboBox			CCBPresetValue; // 92
+	ppmfc::CComboBox			CCBLocalList; // 152
+	ppmfc::CString					CString_Name; // 212
 
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override

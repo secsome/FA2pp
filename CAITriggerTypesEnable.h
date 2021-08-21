@@ -8,5 +8,5 @@ public:
 	CAITriggerTypesEnable() = default;
 
 	//member properties
-	CComboBox	CCBAITriggerTypes;
+	ppmfc::CComboBox	CCBAITriggerTypes;
 };

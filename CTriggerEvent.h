@@ -9,11 +9,11 @@ public:
 
 	//member properties
 	ppmfc::CString		EventID; // 92
-	CComboBox	CCBParameters; // 96
+	ppmfc::CComboBox	CCBParameters; // 96
 	CListBox	CLBParamList; // 156
-	CComboBox	CCBEventType; // 216
-	CEdit		CETDescription; // 276
-	CComboBox	CCBCurrentEvent; // 336
+	ppmfc::CComboBox	CCBEventType; // 216
+	ppmfc::CEdit		CETDescription; // 276
+	ppmfc::CComboBox	CCBCurrentEvent; // 336
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
 	{

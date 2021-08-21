@@ -8,26 +8,26 @@ public:
 	CBasic() = default;
 
 	//member properties
-	CComboBox CCBRequiredAddOn; // 92
-	CComboBox CCBVeinGrowthEnabled; // 152
-	CComboBox CCBTruckCrate; // 212
-	CComboBox CCBTrainCrate; // 272
-	CComboBox CCBTiberiumGrowthEnabled; // 332
-	CComboBox CCBTiberiumDeathToVisceroid; // 392
-	CComboBox CCBSkipScore; // 452
-	CComboBox CCBSkipMapSelect; // 512
-	CComboBox CCBOneTimeOnly; // 572
-	CComboBox CCBOfficial; // 632
-	CComboBox CCBNextScenario; // 692
-	CEdit			   CETPercent; // 752 ?
-	CEdit			   CETNewINIFormat; // 812
-	CEdit			   CETName; // 872
-	CEdit			   CETMultiplayerOnly; // 932
-	CEdit			   CETInitTime; // 992
-	CComboBox CCBIgnoreGlobalAITriggers; // 1052
-	CComboBox CCBIceGrowthEnabled; // 1112
-	CComboBox CCBFreeRadar; // 1172
-	CComboBox CCBEndOfGame; // 1232
-	CEdit			   CETCarryOverCap; // 1292
-	CComboBox CCBAltNextScenario; // 1352
+	ppmfc::CComboBox CCBRequiredAddOn; // 92
+	ppmfc::CComboBox CCBVeinGrowthEnabled; // 152
+	ppmfc::CComboBox CCBTruckCrate; // 212
+	ppmfc::CComboBox CCBTrainCrate; // 272
+	ppmfc::CComboBox CCBTiberiumGrowthEnabled; // 332
+	ppmfc::CComboBox CCBTiberiumDeathToVisceroid; // 392
+	ppmfc::CComboBox CCBSkipScore; // 452
+	ppmfc::CComboBox CCBSkipMapSelect; // 512
+	ppmfc::CComboBox CCBOneTimeOnly; // 572
+	ppmfc::CComboBox CCBOfficial; // 632
+	ppmfc::CComboBox CCBNextScenario; // 692
+	ppmfc::CEdit			   CETPercent; // 752 ?
+	ppmfc::CEdit			   CETNewINIFormat; // 812
+	ppmfc::CEdit			   CETName; // 872
+	ppmfc::CEdit			   CETMultiplayerOnly; // 932
+	ppmfc::CEdit			   CETInitTime; // 992
+	ppmfc::CComboBox CCBIgnoreGlobalAITriggers; // 1052
+	ppmfc::CComboBox CCBIceGrowthEnabled; // 1112
+	ppmfc::CComboBox CCBFreeRadar; // 1172
+	ppmfc::CComboBox CCBEndOfGame; // 1232
+	ppmfc::CEdit			   CETCarryOverCap; // 1292
+	ppmfc::CComboBox CCBAltNextScenario; // 1352
 };

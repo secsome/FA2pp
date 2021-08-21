@@ -8,17 +8,17 @@ public:
 	CSingleplayerSettings() = default;
 
 	//member properties
-	CComboBox			CCBInheritTimer; // 92
-	CComboBox			CCBDropships; // 152
-	CComboBox			CCBFillSilos; // 212
-	CComboBox			CCBCarryOverMoney; // 272
-	CComboBox			CCBMovieWin; // 332
-	CComboBox			CCBMoviePremapSelect; // 392
-	CComboBox			CCBMoviePostScore; // 452
-	CComboBox			CCBMovieLose; // 512
-	CComboBox			CCBMovieIntro; // 572
-	CComboBox			CCBMovieBrief; // 632
-	CComboBox			CCBMovieAction; // 692
+	ppmfc::CComboBox			CCBInheritTimer; // 92
+	ppmfc::CComboBox			CCBDropships; // 152
+	ppmfc::CComboBox			CCBFillSilos; // 212
+	ppmfc::CComboBox			CCBCarryOverMoney; // 272
+	ppmfc::CComboBox			CCBMovieWin; // 332
+	ppmfc::CComboBox			CCBMoviePremapSelect; // 392
+	ppmfc::CComboBox			CCBMoviePostScore; // 452
+	ppmfc::CComboBox			CCBMovieLose; // 512
+	ppmfc::CComboBox			CCBMovieIntro; // 572
+	ppmfc::CComboBox			CCBMovieBrief; // 632
+	ppmfc::CComboBox			CCBMovieAction; // 692
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
 	{
