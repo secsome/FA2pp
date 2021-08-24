@@ -85,7 +85,7 @@ public:
     FAVector<int> BuildingTypes;
     FAVector<int> TerrainTypes;
     FAVector<int> UnitTypes;
-    unsigned char OverlayPack[0x40000];
+    unsigned char Overlay[0x40000];
     unsigned char OverlayData[0x40000];
     TileStruct* IsoPackData;
     int IsoPackDataCount;
