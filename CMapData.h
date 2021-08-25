@@ -3,6 +3,7 @@
 #include <CINI.h>
 #include <GlobalVars.h>
 #include <CObjectDatas.h>
+#include <CPalette.h>
 
 #include <Structures/FAVector.h>
 
@@ -51,6 +52,20 @@ struct TileStruct
 };
 #pragma pack(pop)
 
+struct StructureData
+{
+    ColorStruct HouseColor;
+    ppmfc::CString ID;
+    short Y;
+    short X;
+    short Facing;
+    unsigned char Strength;
+    unsigned char PowerUpCount;
+    ppmfc::CString PowerUp1;
+    ppmfc::CString PowerUp2;
+    ppmfc::CString PowerUp3;
+};
+
 class NOVTABLE CMapData
 {
 public:
@@ -77,6 +92,8 @@ public:
     int GetXFromCoordIndex(int CoordIndex) { return CoordIndex / MapWidthPlusHeight; }
     int GetYFromCoordIndex(int CoordIndex) { return CoordIndex % MapWidthPlusHeight; }
 
+    void GetStructureData(int structureID, StructureData* pRet) { JMP_THIS(0x4C3C20); }
+
     ppmfc::CString StringBuffer;
     BOOL Initialized; // Maybe? It's data related, if this is false, UnitData, StructureData and so on will be called for loading?
     int MapWidthPlusHeight;
@@ -98,7 +115,7 @@ public:
     int UndoRedoDataCount; // undo redo count related
     int UndoRedoCurrentDataIndex; // undo redo count related, UndoRedoDataCount - 1
     int MoneyCount;
-    FAVector<CStructureData> StructureDatas;
+    FAVector<StructureData> StructureDatas; // being used in 4C3C20
     FAVector<int> vector_801E8; // see 4753C0, might be TUBE related
     FAVector<int> vector_801F8;
     FAVector<CTerrainData> TerrainDatas;
