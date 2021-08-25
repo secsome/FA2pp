@@ -61,7 +61,8 @@ public:
     CPoint ViewPosition; // where the view center at
     CPoint MoveCenterPosition; // where right button down
     int Unknown_6C;
-    int Unknown_74;
+    int Unknown_70;
+    BOOL IsScrolling;
     int Unknown_78;
     int Unknown_7C;
     int Unknown_80;

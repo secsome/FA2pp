@@ -62,8 +62,9 @@ public:
 	INISection(INISection& another) { JMP_THIS(0x4021C0); }
 	virtual ~INISection() { JMP_THIS(0x452B20); }
 
+	// Low efficiency warning
 	ppmfc::CString* GetValueAt(unsigned int nIndex) { JMP_THIS(0x453590); }
-
+	ppmfc::CString* GetKeyAt(unsigned int nIndex) { JMP_THIS(0x453650); }
 public:
 	INIStringDict EntitiesDictionary;
 	INIIndiceDict IndicesDictionary;

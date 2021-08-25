@@ -35,7 +35,7 @@ struct CellData
     unsigned char IceGrowth;
     short CellTag;
     short Tube;
-    unsigned char TubeDir;
+    unsigned char TubeDataIndex;
     unsigned char StatusFlag;
     unsigned char LAT; // uses high 4 bit, see https://modenc.renegadeprojects.com/images/ConnectingLATSetSubTileSelection.png
 };
@@ -66,6 +66,16 @@ struct StructureData
     ppmfc::CString PowerUp3;
 };
 
+struct TubeData
+{
+    __int16 Unknown_0;
+    __int16 DestY;
+    __int16 DestX;
+    __int16 TubeDir;
+    __int16 Unknown_8; // X related?
+    char Data[102];
+};
+
 class NOVTABLE CMapData
 {
 public:
@@ -93,6 +103,7 @@ public:
     int GetYFromCoordIndex(int CoordIndex) { return CoordIndex % MapWidthPlusHeight; }
 
     void GetStructureData(int structureID, StructureData* pRet) { JMP_THIS(0x4C3C20); }
+    TubeData* GetTubeData(int tubeID) { JMP_THIS(0x4753C0); }
 
     ppmfc::CString StringBuffer;
     BOOL Initialized; // Maybe? It's data related, if this is false, UnitData, StructureData and so on will be called for loading?
@@ -116,7 +127,7 @@ public:
     int UndoRedoCurrentDataIndex; // undo redo count related, UndoRedoDataCount - 1
     int MoneyCount;
     FAVector<StructureData> StructureDatas; // being used in 4C3C20
-    FAVector<int> vector_801E8; // see 4753C0, might be TUBE related
+    FAVector<TubeData> TubeDatas; // see 4753C0, might be TUBE related
     FAVector<int> vector_801F8;
     FAVector<CTerrainData> TerrainDatas;
     FAVector<CInfantryData> InfantryDatas;
