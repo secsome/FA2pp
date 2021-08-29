@@ -7,40 +7,39 @@
 
 // Forward Definations
 class INIClass;
-class Cmix_file;
 
-struct MixesStruct
+struct ExpandMixStruct
 {
-	Cmix_file* Mix0;
-	Cmix_file* Mix1;
-	Cmix_file* Mix2;
-	Cmix_file* Mix3;
-	Cmix_file* Mix4;
-	Cmix_file* Mix5;
-	Cmix_file* Mix6;
-	Cmix_file* Mix7;
-	Cmix_file* Mix8;
-	Cmix_file* Mix9;
-	Cmix_file* Mix10;
-	Cmix_file* Mix11;
-	Cmix_file* Mix12;
-	Cmix_file* Mix13;
-	Cmix_file* Mix14;
-	Cmix_file* Mix15;
-	Cmix_file* Mix16;
-	Cmix_file* Mix17;
-	Cmix_file* Mix18;
-	Cmix_file* Mix19;
-	Cmix_file* Mix20;
-	Cmix_file* Mix21;
-	Cmix_file* Mix22;
-	Cmix_file* Mix23;
-	Cmix_file* Mix24;
-	Cmix_file* Mix25;
-	Cmix_file* Mix26;
-	Cmix_file* Mix27;
-	Cmix_file* Mix28;
-	Cmix_file* Mix29;
+	int Parent;
+	int Ecache01;
+	int Conquer;
+	int Local;
+	int IsoSnowmd;
+	int IsoTempmd;
+	int IsoUrbmd;
+	int IsoGen;
+	int IsoLun;
+	int IsoDes;
+	int IsoUbn;
+	int IsoGenmd;
+	int IsoLunmd;
+	int IsoDesmd;
+	int IsoUbnmd;
+	int Temperatmd;
+	int Snowmd;
+	int Urbanmd;
+	int Lunarmd;
+	int Urbannmd;
+	int Desertmd;
+	int Genericmd;
+	int Temmd;
+	int Snomd;
+	int Urbmd;
+	int Ubn;
+	int Lun;
+	int Des;
+	int Unknown;
+	int Marblemd;
 };
 
 class Palette;
@@ -52,7 +51,11 @@ public:
 
 	CLoading(CWnd* pParentWnd) { JMP_THIS(0x479A40) }
 
-	int SearchFile(const char* pName, char* pUnk = nullptr) { JMP_THIS(0x48A650) }
+	//Returns : The index of mixfile in the global array, 0 for not found.
+	//pTheaterType:
+	// 0 : Not a specific theater
+	// 1 - 6 : TEM SNO URB UBN LUN DES
+	int SearchFile(const char* pName, char* pTheaterType = nullptr) { JMP_THIS(0x48A650) }
 	void LoadTSINI(const char* pFile, INIClass* pINI, BOOL bMerge) { JMP_THIS(0x47FFB0) }
 	void GetSHPValidRange(unsigned char* pData, int Width, int Height, int* OutBegin, 
 		int* OutEnd, BOOL bUnknown = FALSE, int* pUnknown = nullptr) // Last one is realtived to tmp drawing
@@ -196,35 +199,35 @@ public:
 	int PAL_UNITLUN;
 	int PAL_UNITDES;
 	int PAL_UNITUBN;
-	Cmix_file* MIX_LOCAL;
-	Cmix_file* MIX_SNO;
-	Cmix_file* MIX_TEM;
-	Cmix_file* MIX_URB;
-	Cmix_file* MIX_LUN;
-	Cmix_file* MIX_DES;
-	Cmix_file* MIX_UBN;
-	Cmix_file* MIX_RA2;
-	Cmix_file* MIX_GENERIC;
-	MixesStruct xccfield_1C8[101];
-	Cmix_file* ECacheMixes[100];
-	Cmix_file* MIX_ISOTEM;
-	Cmix_file* MIX_ISOSNO;
-	Cmix_file* MIX_ISOURB;
-	Cmix_file* MIX_ISOGEN;
-	Cmix_file* MIX_ISOLUN;
-	Cmix_file* MIX_ISODES;
-	Cmix_file* MIX_ISOUBN;
-	Cmix_file* MIX_TEMPRAT;
-	Cmix_file* MIX_SNOW;
-	Cmix_file* MIX_URBAN;
-	Cmix_file* MIX_URBANN;
-	Cmix_file* MIX_LUNAR;
-	Cmix_file* MIX_DESERT;
-	Cmix_file* MIX_CACHE;
-	Cmix_file* MIX_CONQUER;
-	Cmix_file* MIX_LANGUAGE;
-	Cmix_file* MIX_LANGMD;
-	Cmix_file* MIX_MARBLE;
+	int MIX_LOCAL;
+	int MIX_SNO;
+	int MIX_TEM;
+	int MIX_URB;
+	int MIX_LUN;
+	int MIX_DES;
+	int MIX_UBN;
+	int MIX_RA2;
+	int MIX_GENERIC;
+	ExpandMixStruct ExpandMixes[101];
+	int ECacheMixes[100];
+	int MIX_ISOTEM;
+	int MIX_ISOSNO;
+	int MIX_ISOURB;
+	int MIX_ISOGEN;
+	int MIX_ISOLUN;
+	int MIX_ISODES;
+	int MIX_ISOUBN;
+	int MIX_TEMPRAT;
+	int MIX_SNOW;
+	int MIX_URBAN;
+	int MIX_URBANN;
+	int MIX_LUNAR;
+	int MIX_DESERT;
+	int MIX_CACHE;
+	int MIX_CONQUER;
+	int MIX_LANGUAGE;
+	int MIX_LANGMD;
+	int MIX_MARBLE;
 	int Unknown_32F8;
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
