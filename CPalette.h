@@ -17,6 +17,10 @@ struct ColorStruct
 class BytePalette
 {
 public:
+    static constexpr reference<int, 0x884034> const LoadedPaletteCount{};
+    static constexpr reference<int, 0x81E098, 254> const LoadedPaletteFlag{};
+    static constexpr reference<BytePalette, 0x7EDD9C, 255> const LoadedPalettes{}; // count is not sure in fact
+
     ColorStruct Data[256];
 
     ColorStruct& operator[](int index) { return Data[index]; }
