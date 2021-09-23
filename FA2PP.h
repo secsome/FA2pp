@@ -105,14 +105,49 @@ public:
 	// Cwnd
 	virtual BOOL PreTransateMessage(MSG* pMsg)
 	{
-		JMP_STD(0x55304D);
+		JMP_THIS(0x55304D);
+	}
+};
+
+class FA2CStatusBar : public CStatusBar
+{
+public:
+	BOOL Create(CWnd* pParent, unsigned int a3, unsigned int a4, int nID)
+	{
+		JMP_THIS(0x565951);
 	}
 };
 
 class NOVTABLE FA2CFrameWnd : public CFrameWnd
 {
+public:
+	virtual BOOL OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pCreateContent)
+	{
+		JMP_THIS(0x562025);
+	}
+
 	virtual BOOL PreTransateMessage(MSG* pMsg)
 	{
-		JMP_STD(0x5618F4);
+		JMP_THIS(0x5618F4);
+	}
+};
+
+class FA2CSplitterWnd : public CSplitterWnd
+{
+public:
+	virtual BOOL CreateView(int row, int col, CRuntimeClass* pViewClass,
+		SIZE sizeInit, CCreateContext* pContext)
+	{
+		JMP_THIS(0x55BF94);
+	}
+
+	BOOL CreateStatic(CWnd* pWnd, int nRows, int nCols, DWORD dwStyle, UINT nID)
+	{
+		JMP_THIS(0x55BE29);
+	}
+
+	CWnd* GetPane(int row, int col)
+	{
+		JMP_THIS(0x55C11E);
 	}
 };
