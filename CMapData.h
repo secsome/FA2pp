@@ -1,7 +1,6 @@
 #pragma once
 
 #include <CINI.h>
-#include <GlobalVars.h>
 #include <CObjectDatas.h>
 #include <CPalette.h>
 
@@ -79,18 +78,34 @@ struct TubeData
 class NOVTABLE CMapData
 {
 public:
+    static constexpr reference<CMapData, 0x72CBF8> const Instance{};
+
+    static constexpr reference<bool, 0x5E7C08> const MapNotLoaded{};
+
+    static constexpr reference<int, 0x5E7C54> const WaterSet{};
+    static constexpr reference<int, 0x5E7C68> const SlopeSetPieces{};
+    static constexpr reference<int, 0x5E7C6C> const RampSmooth{};
+    static constexpr reference<int, 0x5E7C70> const CliffSetCount{};
+    static constexpr reference<int, 0x5E7C74> const CliffSet{};
+    static constexpr reference<int, 0x5E7C50> const Cliff2{};
+    static constexpr reference<int, 0x7EDEF0> const Ramps2Count{};
+    static constexpr reference<int, 0x7EDEF4> const Morphable2Count{};
+    static constexpr reference<int, 0x7EDEF8> const Morphable2{};
+    static constexpr reference<int, 0x7EDEFC> const Ramps2{};
+    static constexpr reference<int, 0x7EDF00> const RampBase{};
+    static constexpr reference<int, 0x7EDF04> const RampBaseCount{};
 
     void UpdateMapFieldData(bool bFlag) { JMP_THIS(0x49C280); }
-    INIClass* UpdateCurrentDocument() { JMP_THIS(0x49C260); }
-    static INIClass* GetMapDocument(bool bUpdateMapField = false)
+    CINI* UpdateCurrentDocument() { JMP_THIS(0x49C260); }
+    static CINI* GetMapDocument(bool bUpdateMapField = false)
     {
         if (bUpdateMapField)
-            GlobalVars::CMapData().UpdateMapFieldData(1);
-        return &GlobalVars::CMapData().INI;
+            Instance->UpdateMapFieldData(1);
+        return &Instance->INI;
     }
 
     const wchar_t* QueryUIName(const char* pRegName) { JMP_THIS(0x4B2610); }
-    static ppmfc::CString GetUIName(const char* pRegName) { return ppmfc::CString(GlobalVars::CMapData->QueryUIName(pRegName)); }
+    static ppmfc::CString GetUIName(const char* pRegName) { return ppmfc::CString(Instance->QueryUIName(pRegName)); }
 
     void LoadMap(const char* pMapPath) { JMP_THIS(0x49D2C0); }
     void UnpackData() { JMP_THIS(0x49EE50); } // called in LoadMap
@@ -117,7 +132,7 @@ public:
     unsigned char OverlayData[0x40000];
     TileStruct* IsoPackData;
     int IsoPackDataCount;
-    INIClass INI;
+    CINI INI;
     RECT Size;
     RECT LocalSize;
     CellData* CellDatas; // see 4BB920 validate the map, dtor at 416FC0
@@ -136,7 +151,7 @@ public:
     unsigned char MapPreview[0x40000];
     BITMAPINFO MapPreviewInfo;
     int nSomeMapPreviewData_C0274;
-    INIClass SomeTheaterINI; //maybe?
+    CINI SomeTheaterINI; //maybe?
     int Unknown_C0380;
     int Unknown_C0384;
     int Unknown_C0388;

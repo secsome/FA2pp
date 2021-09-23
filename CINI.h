@@ -9,11 +9,8 @@
 #include <vector>
 #include <map>
 
-// Consider to use : auto& iRules = GlobalVars::INIFiles::Rules();
-
 // Forward Definations
 class INISection;
-class INIClass;
 
 struct INISectionEntriesComparator 
 { 
@@ -70,10 +67,30 @@ public:
 	INIIndiceDict IndicesDictionary;
 };
 
-class NOVTABLE INIClass
+class NOVTABLE CINI
 {
+public:
+	static constexpr reference<CINI, 0x7EDDD8> const Rules{}; // rulesmd.ini / rules.ini
+	static constexpr reference<CINI, 0x7EDCA8> const Art{}; // artmd.ini / art.ini
+	static constexpr reference<CINI, 0x7ED960> const Turtorial{}; // turtorial.ini
+	static constexpr reference<CINI, 0x7EDA78> const Sound{}; // soundmd.ini / sound.ini
+	static constexpr reference<CINI, 0x7ED848> const Eva{}; // evamd.ini / eva.ini
+	static constexpr reference<CINI, 0x7ED730> const Theme{}; // thememd.ini / theme.ini
+	static constexpr reference<CINI, 0x7EDB90> const Ai{}; // aimd.ini / ai.ini
+	static constexpr reference<CINI, 0x7ED3E8> const Temperate{}; // temperatmd.ini / temperat.ini
+	static constexpr reference<CINI, 0x7ED2D0> const Snow{}; // snowmd.ini / snow.ini
+	static constexpr reference<CINI, 0x7ED1B8> const Urban{}; // urbanmd.ini / urban.ini
+	static constexpr reference<CINI, 0x7ED0A0> const NewUrban{}; // urbannmd.ini
+	static constexpr reference<CINI, 0x7ECF88> const Lunar{}; // lunarmd.ini
+	static constexpr reference<CINI, 0x7ECE70> const Desert{}; // desertmd.ini
+	static constexpr reference<CINI, 0x7ED618> const FAData{}; // FAData.ini
+	static constexpr reference<CINI, 0x7ED500> const FALanguage{}; // FALanguage.ini
+	// static constexpr reference<CINI, 0x72CBF8> const UINameHolder{}; // Holds Stringtable
+	static constexpr reference<CINI, 0x7ACC80> const CurrentDocument{}; // Current map file, without update
+	static constexpr reference<CINI*, 0x7EE03C> const CurrentTheater{}; // Current theater file
+
 private:
-	// ~INIClass() { JMP_THIS(0x4527E0); }
+	// ~CINI() { JMP_THIS(0x4527E0); }
 
 private:
 	void* vftable_align; // for align

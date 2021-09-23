@@ -1,7 +1,6 @@
 #pragma once
 
 #include "FA2PP.h"
-#include "Helpers/CompileTime.h"
 
 struct BGRStruct 
 { 

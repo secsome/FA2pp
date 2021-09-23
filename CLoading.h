@@ -1,12 +1,9 @@
 #pragma once
 
-// #include "Helpers/CompileTime.h"
 #include "FA2PP.h"
 
-// #include "CMixFile.h"
-
 // Forward Definations
-class INIClass;
+class CINI;
 
 struct ExpandMixStruct
 {
@@ -47,6 +44,10 @@ class Palette;
 class NOVTABLE CLoading : public FA2CDialog
 {
 public:
+	static constexpr reference<CLoading*, 0x7EE030> const Instance{};
+
+	static constexpr reference<bool, 0x5D32AC> const HasMdFile{};
+
 	CLoading() = default;
 
 	CLoading(CWnd* pParentWnd) { JMP_THIS(0x479A40) }
@@ -56,7 +57,7 @@ public:
 	// 0 : Not a specific theater
 	// 1 - 6 : TEM SNO URB UBN LUN DES
 	int SearchFile(const char* pName, char* pTheaterType = nullptr) { JMP_THIS(0x48A650) }
-	void LoadTSINI(const char* pFile, INIClass* pINI, BOOL bMerge) { JMP_THIS(0x47FFB0) }
+	void LoadTSINI(const char* pFile, CINI* pINI, BOOL bMerge) { JMP_THIS(0x47FFB0) }
 	void GetSHPValidRange(unsigned char* pData, int Width, int Height, int* OutBegin, 
 		int* OutEnd, BOOL bUnknown = FALSE, int* pUnknown = nullptr) // Last one is realtived to tmp drawing
 		{ JMP_THIS(0x4965B0); }

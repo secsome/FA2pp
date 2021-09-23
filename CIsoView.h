@@ -10,6 +10,19 @@ class CMyViewFrame;
 class CIsoView : public FA2CView
 {
 public:
+    
+    static constexpr reference<bool, 0x5E7C10> const RButtonDownOrFocusKilled{};
+    static constexpr reference<bool, 0x5E7C10> const Destoryed{};
+    static constexpr reference<bool, 0x5E7C14> const ScrollingRelatedFlag{};
+
+    static constexpr reference<int, 0x72CBD8> const CurrentCommand{};
+    static constexpr reference<int, 0x72CBDC> const CurrentType{};
+    static constexpr reference<int, 0x72CBE0> const CurrentParam{};
+    static constexpr reference<int, 0x72CBE4> const CurrentOverlay{};
+    static constexpr reference<int, 0x72CBE8> const CurrentOverlayData{};
+    static constexpr reference<int, 0x72CBEC> const CurrentHeight{}; // maybe ? have some validate ensure it less than 14
+    static constexpr reference<ppmfc::CString, 0x72CBF0> const CurrentObjectID{};
+
     static int GetCoordX(int nCoord) { return nCoord % 1000; }
     static int GetCoordY(int nCoord) { return nCoord / 1000; }
     static int GetCoord(int X, int Y) { return X * 1000 + Y; }
@@ -87,7 +100,7 @@ public:
     int Unknown_D8;
     int Unknown_DC;
     int Unknown_E0;
-    int Unknown_E4;
-    int Unknown_E8;
+    int CurrentCellObjectType;
+    int CurrentCellObjectIndex;
     int Unknown_EC;
 };

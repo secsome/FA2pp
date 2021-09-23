@@ -7,6 +7,8 @@
 
 #include "MFC/ppmfc_include.h"
 
+#include "Helpers/CompileTime.h"
+
 class LEPTON
 {
 public:

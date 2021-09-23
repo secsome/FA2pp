@@ -2,7 +2,6 @@
 
 #include "FA2PP.h"
 #include "Structures/FAMap.h"
-#include "Helpers/CompileTime.h"
 
 #include <ddraw.h>
 
@@ -53,7 +52,7 @@ struct BuildingData
 {
     static constexpr reference<BuildingData, 0x627930, 3840> const Array{};
 
-    ImageDataFlag Facings[8];
+    ImageDataClass Facings[8];
     int FacingCount;
     unsigned __int8 Foundation_Width;
     unsigned __int8 Foundation_Height;
@@ -62,13 +61,20 @@ struct BuildingData
     int Unknown_110;
 };
 
-using ImageDataMap = FAMap<ppmfc::CString, ImageDataClass, 0x5E7C18, 0>; // DrawDataMap& tmp = *reinterpret_cast<DrawDataMap*>(0x72CBC8);
+struct OverlayData
+{
+    static constexpr reference<OverlayData, 0x5D8CF4, 255> const Array{};
+
+    ImageDataClass* Frames[60];
+};
+
+using ImageDataMap = FAMap<ppmfc::CString, ImageDataClass, 0x5E7C18, 0>;
 using SomeDataMap = FAMap<ppmfc::CString, bool, 0x5D8CD0, 0>;
 
 class ImageDataMapHelper
 {
 private:
-    ImageDataClass* GetImageDataFromMap_(ppmfc::CString* ppName) { JMP_THIS(0x4768D0); }
+    ImageDataClass* GetImageDataFromMap(ppmfc::CString* ppName) { JMP_THIS(0x4768D0); }
 public:
     static bool IsImageLoaded(ppmfc::CString name)
     {
@@ -82,19 +88,19 @@ public:
     static ImageDataClass* GetImageDataFromMap(ppmfc::CString name)
     {
         ImageDataMap& imageDatas = *reinterpret_cast<ImageDataMap*>(0x72CBC8);
-        return ((ImageDataMapHelper*)&imageDatas)->GetImageDataFromMap_(&name);
+        return ((ImageDataMapHelper*)&imageDatas)->GetImageDataFromMap(&name);
     }
 };
 
 class SomeDataMapHelper
 {
 private:
-    bool* GetSomeDataFromMap_(ppmfc::CString* ppName) { JMP_THIS(0x4767B0); }
+    bool* GetSomeDataFromMap(ppmfc::CString* ppName) { JMP_THIS(0x4767B0); }
 public:
     static void SetSomeData(ppmfc::CString name, bool value)
     {
         SomeDataMap& someDatas = *reinterpret_cast<SomeDataMap*>(0x72A870);
-        *((SomeDataMapHelper*)&someDatas)->GetSomeDataFromMap_(&name) = value;
+        *((SomeDataMapHelper*)&someDatas)->GetSomeDataFromMap(&name) = value;
     }
 };
 

@@ -1,4 +1,11 @@
 #include "Drawing.h"
+
+#include "CMixFile.h"
+#include "CLoading.h"
+#include "CCRC.h"
+#include "CShpFile.h"
+#include "CFinalSunApp.h"
+
 HSVClass::operator RGBClass() const
 {
 	if (S == 0u)
@@ -76,11 +83,6 @@ RGBClass::operator HSVClass() const
 	return { (unsigned char)hue, (unsigned char)saturation, (unsigned char)value };
 }
 
-#include "CMixFile.h"
-#include "CLoading.h"
-#include "GlobalVars.h"
-#include "CCRC.h"
-#include "CShpFile.h"
 struct FakeString
 {
 	void assign(const char* src, unsigned int len) { JMP_THIS(0x4556A0); }
@@ -125,7 +127,7 @@ struct FakeMixFile
 
 void* CLoading::ReadWholeFile(const char* filename, DWORD* pDwSize)
 {
-	ppmfc::CString filepath = GlobalVars::FilePath();
+	ppmfc::CString filepath = CFinalSunApp::FilePath();
 	filepath += filename;
 	HANDLE hFile = CreateFile(filepath, GENERIC_READ, FILE_SHARE_READ, nullptr,
 		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
@@ -133,14 +135,14 @@ void* CLoading::ReadWholeFile(const char* filename, DWORD* pDwSize)
 	{
 		DWORD dwSize = GetFileSize(hFile, nullptr);
 		auto pBuffer = GameCreateArray<unsigned char>(dwSize);
-		if(pDwSize)
+		if (pDwSize)
 			*pDwSize = dwSize;
 		ReadFile(hFile, pBuffer, dwSize, nullptr, nullptr);
 		CloseHandle(hFile);
 		return pBuffer;
 	}
 
-	auto nMix = GlobalVars::Dialogs::CLoading->SearchFile(filename);
+	auto nMix = CLoading::Instance->SearchFile(filename);
 	if (CMixFile::HasFile(filename, nMix))
 	{
 		auto pFile = (FakeCccFile*)0x8204B8;
@@ -171,7 +173,7 @@ void* CLoading::ReadWholeFile(const char* filename, DWORD* pDwSize)
 
 bool CLoading::HasFile(ppmfc::CString filename)
 {
-	ppmfc::CString filepath = GlobalVars::FilePath();
+	ppmfc::CString filepath = CFinalSunApp::FilePath();
 	filepath += filename;
 	HANDLE hFile = CreateFile(filepath, GENERIC_READ, FILE_SHARE_READ, nullptr,
 		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
@@ -180,7 +182,7 @@ bool CLoading::HasFile(ppmfc::CString filename)
 		CloseHandle(hFile);
 		return true;
 	}
-	auto nMix = GlobalVars::Dialogs::CLoading->SearchFile(filename);
+	auto nMix = CLoading::Instance->SearchFile(filename);
 	return CMixFile::HasFile(filename, nMix);
 }
 
