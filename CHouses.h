@@ -21,4 +21,11 @@ public:
 	ppmfc::CEdit	  CETAllies; // 692
 	ppmfc::CComboBox  CCBActsLike; // 752
 	ppmfc::CComboBox  CCBHouses; // 812
+
+public:
+
+	void OnETAlliesKillFocus()
+	{
+		JMP_THIS(0x44F590);
+	}
 };
