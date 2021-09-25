@@ -150,4 +150,15 @@ public:
 	{
 		JMP_THIS(0x55C11E);
 	}
+
+	void SetColumnInfo(int col, int cxIdeal, int cxMin)
+	{
+		this->m_pColInfo[col].nIdealSize = cxIdeal;
+		this->m_pColInfo[col].nMinSize = cxMin;
+	}
+
+	void SetRowInfo(int row, int cyIdeal, int cyMin)
+	{
+		JMP_THIS(0x55C1B6);
+	}
 };

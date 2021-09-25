@@ -5,7 +5,7 @@
 #include "CWndView.h"
 
 class CIsoView;
-class CTileSetBrowserView;
+class CTileSetBrowserFrame;
 
 class ObjectBrowserControl : public CTreeCtrl
 {
@@ -27,7 +27,7 @@ public:
     ObjectBrowserControl* pObjectBrowserControl;
     CIsoView* pIsoView;
     FA2CSplitterWnd SplitterWnd;
-    CTileSetBrowserView* pTileSetBrowserView;
+    CTileSetBrowserFrame* pTileSetBrowserFrame;
     CRightFrame* pRightFrame;
 
     virtual BOOL OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
