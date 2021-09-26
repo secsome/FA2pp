@@ -7,5 +7,6 @@
 #include "ppmfc_cedit.h"
 #include "ppmfc_ccombobox.h"
 #include "ppmfc_clistbox.h"
+#include "ppmfc_ctabctrl.h"
 
 #include "ppmfc_cstring.h"

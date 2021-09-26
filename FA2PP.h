@@ -95,7 +95,16 @@ class NOVTABLE FA2CWinApp : public CWinApp
 class NOVTABLE FA2CScrollView : public CScrollView
 {
 public:
-	// Cwnd
+	void Create(LPCTSTR lpszClassName, LPCTSTR lpszWindowName, DWORD dwStyle, const RECT* rect, 
+		CWnd* pParentWnd, UINT nID, CCreateContext* pContext)
+	{
+		JMP_THIS(0x552DAB);
+	}
+
+	void SetScrollSizes(int a2, SIZE a3, SIZE* a4, SIZE* a5)
+	{
+		JMP_THIS(0x559720);
+	}
 	
 };
 
@@ -160,5 +169,14 @@ public:
 	void SetRowInfo(int row, int cyIdeal, int cyMin)
 	{
 		JMP_THIS(0x55C1B6);
+	}
+};
+
+class FA2CDialogBar : public CDialogBar
+{
+public:
+	BOOL Create(CWnd* pParent, LPCSTR Name, int a4, LONG dwNewLong)
+	{
+		JMP_THIS(0x55BBB9);
 	}
 };

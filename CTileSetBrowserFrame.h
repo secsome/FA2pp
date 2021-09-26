@@ -7,6 +7,6 @@
 class NOVTABLE CTileSetBrowserFrame : public FA2CFrameWnd
 {
 public:
-	CDialogBar DialogBar;
+	FA2CDialogBar DialogBar;
 	CTileSetBrowserView View;
 };

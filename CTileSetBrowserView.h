@@ -7,12 +7,12 @@ class NOVTABLE CTileSetBrowserView : public FA2CScrollView
 	virtual void OnDraw(CDC* pDC) {};
 
 public:
-	int SelectedIndex;
-	PROTECTED_PROPERTY(char, gap_69[3]);
-	int field_70;
-	int field_74;
-	int field_78;
-	int field_7c;
-	PROTECTED_PROPERTY(char, gap_7C[4]);
-	int unknown_84;
+	int SelectedOverlayIndex;
+	int Unknown_70;
+	int Unknown_74;
+	int CurrentTileset;
+	int CurrentMode;
+	int Unknown_80;
+	int CurrentImageHeight;
+	int CurrentImageWidth;
 };
