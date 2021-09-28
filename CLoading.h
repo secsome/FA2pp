@@ -160,11 +160,21 @@ public:
 	{
 		if (this->TheaterIdentifier != 0)
 		{
+			// Ares code here
+			char c0 = string[0];
+			char c1 = string[1] & ~0x20; // evil hack to uppercase
+			if (isalpha(static_cast<unsigned char>(c0))) {
+				if (c1 == 'A' || c1 == 'T') {
+					string.SetAt(1, this->TheaterIdentifier);
+				}
+			}
+			/* WW code here
 			char f = string[0], s = string[1];
 			if (f >= 'A' && f <= 'Z')	f += ' ';
 			if (s >= 'A' && s <= 'Z')	s += ' ';
 			if ((f == 'g' || f == 'n' || f == 'c' || f == 'y') && (s == 'a' || s == 't'))
 				string.SetAt(1, this->TheaterIdentifier);
+			*/
 		}
 	}
 	void SetGenericTheaterLetter(ppmfc::CString& string)
