@@ -8,7 +8,7 @@ class NOVTABLE CTileSetBrowserView : public FA2CScrollView
 
 public:
 	int SelectedOverlayIndex;
-	int Unknown_70;
+	int ScrollWidth;
 	int Unknown_74;
 	int CurrentTileset;
 	int CurrentMode;

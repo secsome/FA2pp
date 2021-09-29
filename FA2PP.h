@@ -130,6 +130,11 @@ public:
 class NOVTABLE FA2CFrameWnd : public CFrameWnd
 {
 public:
+	virtual BOOL OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
+	{
+		JMP_THIS(0x553C38);
+	}
+
 	virtual BOOL OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pCreateContent)
 	{
 		JMP_THIS(0x562025);
