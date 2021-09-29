@@ -130,6 +130,11 @@ public:
 class NOVTABLE FA2CFrameWnd : public CFrameWnd
 {
 public:
+	virtual void RecalcLayout(BOOL bRepaint = FALSE)
+	{
+		JMP_THIS(0x56353A);
+	}
+
 	virtual BOOL OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 	{
 		JMP_THIS(0x553C38);
