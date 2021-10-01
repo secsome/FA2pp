@@ -120,6 +120,17 @@ public:
     void GetStructureData(int structureID, StructureData* pRet) { JMP_THIS(0x4C3C20); }
     TubeData* GetTubeData(int tubeID) { JMP_THIS(0x4753C0); }
 
+    ppmfc::CString* FindAvailableOwner(ppmfc::CString* buffer, int nUnknown, bool bUseCountries)
+    {
+        JMP_THIS(0x49B2D0);
+    }
+    ppmfc::CString FindAvailableOwner(int nUnknown, bool bUseCountries)
+    {
+        ppmfc::CString ret;
+        this->FindAvailableOwner(&ret, nUnknown, bUseCountries);
+        return ret;
+    }
+
     ppmfc::CString StringBuffer;
     BOOL Initialized; // Maybe? It's data related, if this is false, UnitData, StructureData and so on will be called for loading?
     int MapWidthPlusHeight;

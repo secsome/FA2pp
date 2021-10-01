@@ -8,7 +8,7 @@ public:
 	CTriggerOption() = default;
 
 	//member properties
-	BYTE		Unknown_92[4]; // Fill 92 - 96
+	ppmfc::CString		TriggerID; // 92
 	CButton		CBNMedium; // 96
 	CButton		CBNHard; // 156
 	CButton		CBNEasy; // 216
@@ -26,6 +26,8 @@ public:
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
 	{
-		JMP_STD(0x5008C0);
+		JMP_THIS(0x5008C0);
 	}
+
+	void Update() { JMP_THIS(0x500970); }
 };

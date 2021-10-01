@@ -79,7 +79,7 @@ public:
             JMP_STD(0x443630);
         }
 
-        void __cdecl Houses(ppmfc::CComboBox* pComboBox, bool b1, bool b2, bool b3) {
+        void __cdecl Houses(ppmfc::CComboBox* pComboBox, bool bDisplayIndex, bool bUseCountry, bool bMultiplayer) {
             JMP_STD(0x4448F0);
         }
 

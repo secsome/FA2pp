@@ -8,7 +8,7 @@ public:
 	CTriggerEvent() = default;
 
 	//member properties
-	ppmfc::CString		EventID; // 92
+	ppmfc::CString		TriggerID; // 92
 	ppmfc::CComboBox	CCBParameters; // 96
 	ppmfc::CListBox	CLBParamList; // 156
 	ppmfc::CComboBox	CCBEventType; // 216
@@ -26,4 +26,5 @@ public:
 	void OnCBEventTypeEditChanged() { JMP_THIS(0x4FDDB0); }
 	void OnLBParamsSelChanged() { JMP_THIS(0x4FF3E0); }
 	void OnCBParamValueEditChanged() { JMP_THIS(0x4FFB10); }
+	void Update() { JMP_THIS(0x4FFFC0); }
 };

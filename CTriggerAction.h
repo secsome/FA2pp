@@ -8,7 +8,7 @@ public:
 	CTriggerAction() = default;
 
 	//member properties
-	ppmfc::CString		ActionID; // 92
+	ppmfc::CString		TriggerID; // 92
 	ppmfc::CComboBox	CCBParameters; // 96
 	ppmfc::CListBox	CLBParamList; // 156
 	ppmfc::CComboBox	CCBActionType; // 216
@@ -26,4 +26,5 @@ public:
 	void OnCBActionTypeEditChanged() { JMP_THIS(0x4F6430); }
 	void OnLBParamsSelChanged() { JMP_THIS(0x4F80B0); }
 	void OnCBParamValueEditChanged() { JMP_THIS(0x4F8880); }
+	void Update() { JMP_THIS(0x4F9940); }
 };

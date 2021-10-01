@@ -64,6 +64,11 @@ public:
 		JMP_THIS(0x554A08);
 	}
 
+	int MessageBox(LPCSTR lpText, LPCSTR lpCaptain = nullptr, UINT uType = MB_OK)
+	{
+		JMP_THIS(0x553E53);
+	}
+
 	//CDialog
 	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam) override
 	{
