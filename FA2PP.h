@@ -154,6 +154,11 @@ public:
 	{
 		JMP_THIS(0x5618F4);
 	}
+
+	void OnSysCommand(UINT uID, LPARAM lParam)
+	{
+		JMP_THIS(0x562626);
+	}
 };
 
 class FA2CSplitterWnd : public CSplitterWnd

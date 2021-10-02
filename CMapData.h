@@ -19,7 +19,8 @@ struct CellData
     short Infantry[3];
     short Aircraft;
     short Structure;
-    int TypeListIndex; // for BuildingType, it's -65536+{idx in list}, for TerrainType, it's some fucking number, or it's -1
+    short TypeListIndex; // for BuildingType, it's -65536+{idx in list}, for TerrainType, it's some fucking number, or it's -1
+    short Terrain;
     int TerrainType;
     short Smudge;
     int SmudgeType;
