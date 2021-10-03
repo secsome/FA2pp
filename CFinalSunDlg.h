@@ -56,11 +56,7 @@ public:
 protected:
 	
 public:
-	void UpdateDialogs(BOOL bNotUpdateSelf, BOOL bNotUpdateIsoView)
-	{
-		JMP_THIS(0x4261E0);
-	}
-
+	void UpdateDialogs(BOOL bSkipUpdateSelf, BOOL bSkipUpdateIsoView) { JMP_THIS(0x4261E0); }
 	void SaveMap(LPCSTR lpPath) { JMP_THIS(0x426E50); }
 	void Update() { JMP_THIS(0x432010); }
 public:
@@ -70,7 +66,7 @@ public:
 	CToolBar ToolBar2;
 	CToolBar ToolBar3;
 	CBrushSize BrushSize;
-	CWnd Unknown_CWnd;
+	CWnd ReBarCtrl;
 	CSingleplayerSettings SingleplayerSettings;
 	CAITriggerTypes AITriggerTypes;
 	CAITriggerTypesEnable AITriggerTypesEnable;
@@ -89,7 +85,6 @@ public:
 	CBasic Basic;
 	CMapD MapD;
 	CINI INIMap;
-	char gap[256];
 	ObjectBrowserControl ObjectBrowserView;
 	HICON hIcon;
 };

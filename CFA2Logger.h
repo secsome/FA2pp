@@ -7,43 +7,29 @@
 class CFA2Logger
 {
 public:
-    static bool isInitialized;
-
-/*
-    static int WriteLog(const char* pFormat, ...)
+    /*static void WriteLog(const char* pMessage)
     {
-        va_list args;
-        va_start(args, pFormat);
-        char buffer[1024];
-        vsprintf_s(buffer, 1024, pFormat, args);
-        va_end(pFormat);
-        return SafeWriteLog(buffer);
+        
+    }*/
+
+    static void* __cdecl WriteLog(void* pFileHandle, const char* pMessage)
+    {
+        JMP_STD(0x4135B0);
     }
-*/
+
+    void Clear_sub_413350()
+    {
+        JMP_THIS(0x413350);
+    }
+
+    void Flush()
+    {
+        JMP_THIS(0x4391C0);
+    }
 
 private:
-    static int __cdecl WriteLog(int pConstant, const char* pMessage)
-    {
-        JMP_THIS(0x4135B0);
-    }
-
-    static int SafeWriteLog(const char* pMessage)
-    {
-        if (isInitialized)
-            return WriteLog(firstParam, pMessage);
-        return -1;
-    }
-
-    static const int firstParam = 6192288;
+    static const void* FileHandle = 0x5E7CA0; // basic_ios*
 };
-
-bool CFA2Logger::isInitialized = false;
-
-DEFINE_HOOK(41F8D1, CFA2Logger_Initialized, 5)
-{
-    CFA2Logger::isInitialized = true;
-    return 0;
-}
 
 //DEFINE_HOOK(4135B0, CFA2Logger_WriteLogStart, 5)
 //{

@@ -22,6 +22,6 @@ public:
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
 	{
-		JMP_STD(0x4D2240);
+		JMP_THIS(0x4D2240);
 	}
 };

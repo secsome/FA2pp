@@ -17,7 +17,7 @@ public:
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
 	{
-		JMP_STD(0x4F60D0);
+		JMP_THIS(0x4F60D0);
 	}
 
 	void OnBNNewActionClicked() { JMP_THIS(0x4F90C0); }

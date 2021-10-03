@@ -1,7 +1,6 @@
 #pragma once
 
 #include "FA2PP.h"
-#include "FAString.h"
 #include "Structures/FAMap.h"
 
 #include "MFC/ppmfc_cstring.h"
@@ -14,7 +13,13 @@ class INISection;
 
 struct INISectionEntriesComparator 
 { 
-	bool operator()(const ppmfc::CString& s1, const ppmfc::CString& s2) const { JMP_STD(0x452230); } 
+	bool operator()(const ppmfc::CString& s1, const ppmfc::CString& s2) const 
+	{
+		const int l1 = s1.GetLength();
+		const int l2 = s2.GetLength();
+		return l1 < l2 || l1 == l2 && strcmp(s1, s2) < 0;
+		// JMP_STD(0x452230); 
+	} 
 };
 
 // type definations

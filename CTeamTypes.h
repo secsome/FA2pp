@@ -47,7 +47,7 @@ public:
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
 	{
-		JMP_STD(0x5971EC);
+		JMP_THIS(0x5971EC);
 	}
 
 	void OnBNNewTeamClicked()
