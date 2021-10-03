@@ -54,13 +54,11 @@ public:
 	static constexpr reference<DWORD, 0x7EE078> const SE2KMODE{};
 
 protected:
-	void UpdateDialogs_(int a2, int a3)
-		{ JMP_THIS(0x4261E0); }
+	
 public:
-	static void UpdateDialogs(int a2, int a3)
+	void UpdateDialogs(BOOL bNotUpdateSelf, BOOL bNotUpdateIsoView)
 	{
-		CFinalSunDlg* dlg = reinterpret_cast<CFinalSunDlg*>(0x7EDF24);
-		dlg->UpdateDialogs_(a2, a2);
+		JMP_THIS(0x4261E0);
 	}
 
 	void SaveMap(LPCSTR lpPath) { JMP_THIS(0x426E50); }
