@@ -6,13 +6,6 @@
 
 #include <Structures/FAVector.h>
 
-struct CellData_BaseNodeData
-{
-    int BuildingID;
-    int BasenodeID;
-    ppmfc::CString House;
-};
-
 struct CellData
 {
     short Unit;
@@ -25,7 +18,12 @@ struct CellData
     short Smudge;
     int SmudgeType;
     short Waypoint;
-    CellData_BaseNodeData BaseNode;
+    struct BaseNodeData
+    {
+        int BuildingID;
+        int BasenodeID;
+        ppmfc::CString House;
+    } BaseNode;
     unsigned char Overlay;
     unsigned char OverlayData; // [0, 59]
     short TileIndex;
@@ -68,11 +66,11 @@ struct StructureData
 
 struct TubeData
 {
-    __int16 Unknown_0;
-    __int16 DestY;
-    __int16 DestX;
-    __int16 TubeDir;
-    __int16 Unknown_8; // X related?
+    short Unknown_0;
+    short DestY;
+    short DestX;
+    short TubeDir;
+    short Unknown_8; // X related?
     char Data[102];
 };
 
@@ -121,10 +119,7 @@ public:
     void GetStructureData(int structureID, StructureData* pRet) { JMP_THIS(0x4C3C20); }
     TubeData* GetTubeData(int tubeID) { JMP_THIS(0x4753C0); }
 
-    ppmfc::CString* FindAvailableOwner(ppmfc::CString* buffer, int nUnknown, bool bUseCountries)
-    {
-        JMP_THIS(0x49B2D0);
-    }
+    ppmfc::CString* FindAvailableOwner(ppmfc::CString* buffer, int nUnknown, bool bUseCountries) { JMP_THIS(0x49B2D0); }
     ppmfc::CString FindAvailableOwner(int nUnknown, bool bUseCountries)
     {
         ppmfc::CString ret;
@@ -146,7 +141,7 @@ public:
     int IsoPackDataCount;
     CINI INI;
     RECT Size;
-    RECT LocalSize;
+    RECT LocalSize; // Visible Area
     CellData* CellDatas; // see 4BB920 validate the map, dtor at 416FC0
     int CellDataCount; // see 4BB920 validate the map
     void* UndoRedoData;
@@ -154,17 +149,16 @@ public:
     int UndoRedoCurrentDataIndex; // undo redo count related, UndoRedoDataCount - 1
     int MoneyCount;
     FAVector<StructureData> StructureDatas; // being used in 4C3C20
-    FAVector<TubeData> TubeDatas; // see 4753C0, might be TUBE related
+    FAVector<TubeData> TubeDatas; // see 4753C0
     FAVector<int> vector_801F8;
     FAVector<CTerrainData> TerrainDatas;
     FAVector<CInfantryData> InfantryDatas;
-    FAVector<CUnitData> UnitDatas; // Seems never used except DTOR
+    FAVector<CUnitData> UnitDatas;
     FAVector<int> vector_80238;    // Seems never used except DTOR
     unsigned char MapPreview[0x40000];
     BITMAPINFO MapPreviewInfo;
     int nSomeMapPreviewData_C0274;
     CINI SomeTheaterINI; //maybe?
-    int Unknown_C0380;
     int Unknown_C0384;
     int Unknown_C0388;
     int Unknown_C038C;

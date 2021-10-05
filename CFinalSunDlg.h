@@ -24,27 +24,7 @@
 class NOVTABLE CFinalSunDlg : public FA2CDialog
 {
 public:
-	static constexpr reference<CFinalSunDlg*, 0x7EDF24> const Instance{};
-
-	static constexpr reference<bool, 0x7EDFE4> const FlatToGround{};
-	static constexpr reference<bool, 0x7EDFE8> const EasyMode{};
-	static constexpr reference<bool, 0x7EDFEC> const FrameMode{};
-	static constexpr reference<bool, 0x7EDFF0> const MarbleLoaded{};
-	static constexpr reference<bool, 0x7EDFF4> const ShowBuildingCells{};
-	static constexpr reference<bool, 0x7EDFF8> const NoBuildingGraphics{};
-	static constexpr reference<bool, 0x7EDFFC> const NoInfantryGraphics{};
-	static constexpr reference<bool, 0x7ED000> const NoAircraftGraphics{};
-	static constexpr reference<bool, 0x7EE004> const NoTreeGraphics{};
-	static constexpr reference<bool, 0x7EE008> const NoSnowGraphics{};
-	static constexpr reference<bool, 0x7EE00C> const NoTemperateGraphics{};
-	static constexpr reference<bool, 0x7EE010> const NoVehicleGraphics{};
-	static constexpr reference<bool, 0x7EE014> const NoBMPs{};
-	static constexpr reference<bool, 0x7EE018> const NoOverlayGraphics{};
-	static constexpr reference<bool, 0x7EE01C> const DisableAutoShore{};
-	static constexpr reference<bool, 0x7EE020> const DisableAutoLat{};
-	static constexpr reference<bool, 0x7EE024> const NoSounds{};
-	static constexpr reference<bool, 0x7EE028> const DisableSlopeCorrection{};
-	static constexpr reference<bool, 0x7EE02C> const FileSearchLikeTS{};
+	static constexpr reference<CFinalSunDlg*, 0x7EDF24> const Instance{}; // CFinalSunApp->MainWnd
 
 	static constexpr reference<bool, 0x7EE07C> const SomeSettingConfigReadingLock{};
 	static constexpr reference<bool, 0x7EE080> const ControlKeyIsDown{};

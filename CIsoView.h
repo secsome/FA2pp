@@ -1,6 +1,7 @@
 #pragma once
 
 #include "FA2PP.h"
+#include "CMapData.h"
 
 #include <ddraw.h>
 
@@ -27,26 +28,19 @@ public:
     static int GetCoordY(int nCoord) { return nCoord / 1000; }
     static int GetCoord(int X, int Y) { return X * 1000 + Y; }
 
+    static void MapCoord2ScreenCoord_Height(int& Y, int& X) { JMP_STD(0x45E880); }
+    static void MapCoord2ScreenCoord_Flat(int& Y, int& X) { JMP_STD(0x476240); }
+
     void MoveToWP(UINT nWaypoint) { JMP_THIS(0x4766A0); }
     void MoveTo(int X, int Y) { JMP_THIS(0x4763D0); }
     void MoveToCoord(int X, int Y) 
     {
-        // Main code from CIsoView::MoveToWP
-        int nHW = *reinterpret_cast<DWORD*>(0x72CC00); // CurrentMapWidthPlusHeight, we don't want too much headers included.
-        int nParam = X + Y * nHW;
+        int nMapCoord = CMapData::Instance->GetCoordIndex(X, Y);
         RECT rect;
         this->GetWindowRect(&rect);
-        int v6 = (60 * (nParam % nHW)) / 4
-            + (30 * (nParam / nHW)) / 2
-            - 30
-            * *(unsigned __int8*)(((nParam % nHW
-                + nParam / nHW * nHW) << 6)
-                + *reinterpret_cast<DWORD*>(0x7ACDB8)
-                + 51)
-            / 2;
         this->MoveTo(
-            30 * (nHW + (nParam / nHW)) - (rect.right - rect.left) / 2 - (30 * (nParam % nHW)) - rect.left,
-            v6 - (rect.bottom - rect.top) / 2 - rect.top
+            30 * (CMapData::Instance->MapWidthPlusHeight + X - Y) - (rect.right - rect.left) / 2 - rect.left,
+            15 * (Y + X) - CMapData::Instance->CellDatas[nMapCoord].Height - (rect.bottom - rect.top) / 2 - rect.top
         );
         this->RedrawWindow(nullptr, nullptr, RDW_INVALIDATE | RDW_UPDATENOW);
     }

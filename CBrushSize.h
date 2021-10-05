@@ -8,5 +8,5 @@ public:
 	CBrushSize() = default;
 
 	//member properties
-	DWORD unknown;
+	int nCurSel; // ComboBox 1377
 };
