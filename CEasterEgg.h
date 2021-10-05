@@ -2,7 +2,7 @@
 
 #include "FA2PP.h"
 
-class NOVTABLE CGamePanel : public CStatic
+class NOVTABLE CGamePanel : public FA2CStatic
 {
 public:
 	enum BlockType : int
@@ -14,6 +14,8 @@ public:
 
 	BlockType Map[9];
 	bool CanPlayerPlace;
+
+	BlockType& GetBlock(int X, int Y) { return this->Map[3 * X + Y]; }
 
 	void AI() { JMP_THIS(0x41ECA0); }
 	void OnPaint() { JMP_THIS(0x41E9A0); }

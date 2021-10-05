@@ -33,6 +33,12 @@ public:
 	}
 };
 
+class NOVTABLE FA2CStatic : public FA2CWnd
+{
+public:
+	void Default() { JMP_THIS(0x5526A5); }
+};
+
 class NOVTABLE FA2CDialog : public CDialog
 {
 public:
