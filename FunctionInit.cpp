@@ -6,6 +6,8 @@
 #include "CShpFile.h"
 #include "CFinalSunApp.h"
 
+#include <fstream>
+
 HSVClass::operator RGBClass() const
 {
 	if (S == 0u)
@@ -129,19 +131,23 @@ void* CLoading::ReadWholeFile(const char* filename, DWORD* pDwSize)
 {
 	ppmfc::CString filepath = CFinalSunApp::FilePath();
 	filepath += filename;
-	HANDLE hFile = CreateFile(filepath, GENERIC_READ, FILE_SHARE_READ, nullptr,
-		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
-	if (hFile != INVALID_HANDLE_VALUE)
+	std::ifstream fin;
+	fin.open(filepath, std::ios::in | std::ios::binary);
+	if (fin.is_open())
 	{
-		DWORD dwSize = GetFileSize(hFile, nullptr);
-		auto pBuffer = GameCreateArray<unsigned char>(dwSize);
+		fin.seekg(0, std::ios::end);
+		const int size = static_cast<int>(fin.tellg());
+		if (size == 0)
+			return false;
+
+		fin.seekg(0, std::ios::beg);
+		auto pBuffer = GameCreateArray<unsigned char>(size);
 		if (pDwSize)
-			*pDwSize = dwSize;
-		ReadFile(hFile, pBuffer, dwSize, nullptr, nullptr);
-		CloseHandle(hFile);
+			*pDwSize = size;
+		fin.read((char*)pBuffer, size);
+		fin.close();
 		return pBuffer;
 	}
-
 	auto nMix = CLoading::Instance->SearchFile(filename);
 	if (CMixFile::HasFile(filename, nMix))
 	{
@@ -175,11 +181,11 @@ bool CLoading::HasFile(ppmfc::CString filename)
 {
 	ppmfc::CString filepath = CFinalSunApp::FilePath();
 	filepath += filename;
-	HANDLE hFile = CreateFile(filepath, GENERIC_READ, FILE_SHARE_READ, nullptr,
-		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
-	if (hFile != INVALID_HANDLE_VALUE)
+	std::ifstream fin;
+	fin.open(filepath, std::ios::in | std::ios::binary);
+	if (fin.is_open())
 	{
-		CloseHandle(hFile);
+		fin.close();
 		return true;
 	}
 	auto nMix = CLoading::Instance->SearchFile(filename);
