@@ -35,6 +35,7 @@ public:
 
 class CStructureData
 {
+public:
     ppmfc::CString House;
     ppmfc::CString TypeID;
     ppmfc::CString Health;

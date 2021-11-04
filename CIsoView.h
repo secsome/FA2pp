@@ -8,6 +8,31 @@
 // Forward declarations
 class CMyViewFrame;
 
+enum FACurrentCommand : int
+{
+    Nothing = 0x0,
+    ObjectPlace = 0x1,
+    ObjectDelete = 0x2,
+    WaypointHandle = 0x3,
+    CelltagHandle = 0x4,
+    BasenodeHandle = 0x5,
+    TunnelHandle = 0x6,
+    TileDraw = 0xA,
+    HeightenGround = 0xB,
+    LowerGround = 0xC,
+    LowerSingleTile = 0xD,
+    RaiseSingleTile = 0xE,
+    MakeTerrainFlat = 0xF,
+    HideTileSet = 0x10,
+    HideSingleField = 0x11,
+    PaintCliffFront = 0x12,
+    PaintCliffBack = 0x13,
+    TileCopy = 0x14,
+    TilePaste = 0x15,
+    TerrainRandom = 0x16,
+};
+
+
 class CIsoView : public FA2CView
 {
 public:
@@ -97,4 +122,5 @@ public:
     int CurrentCellObjectType;
     int CurrentCellObjectIndex;
     int Unknown_EC;
+    int Unknown_F0;
 };

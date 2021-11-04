@@ -59,6 +59,11 @@ public:
 	}
 
 	//CDialog
+	virtual int DoModal() override
+	{
+		JMP_THIS(0x551E20);
+	}
+
 	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam) override
 	{
 		JMP_THIS(0x553BAC);

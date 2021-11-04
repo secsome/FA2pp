@@ -116,7 +116,24 @@ public:
     int GetXFromCoordIndex(int CoordIndex) { return CoordIndex / MapWidthPlusHeight; }
     int GetYFromCoordIndex(int CoordIndex) { return CoordIndex % MapWidthPlusHeight; }
 
-    void GetStructureData(int structureID, StructureData* pRet) { JMP_THIS(0x4C3C20); }
+    void SetStructureData(CStructureData& data, LPCSTR lpNewTypeID, LPCSTR lpNewHouse, int nCoord, ppmfc::CString Unk1)
+        { JMP_THIS(0x4ACB60); }
+    void DeleteStructureData(int structureID) { JMP_THIS(0x4A8FB0); }
+    void QueryStructureData(int structureID, CStructureData& data) { JMP_THIS(0x4AADB0); }
+    void SetInfantryData(CInfantryData& data, LPCSTR lpNewTypeID, LPCSTR lpNewHouse, int nCoord, int ManualinfID)
+        { JMP_THIS(0x4AC210); }
+    void DeleteInfantryData(int infID) { JMP_THIS(0x4A7B60); }
+    void QueryInfantryData(int infID, CInfantryData& data) { JMP_THIS(0x4AEC30); }
+    void SetUnitData(CUnitData& data, LPCSTR lpNewTypeID, LPCSTR lpNewHouse, int nCoord, ppmfc::CString Unk1)
+        { JMP_THIS(0x4B0B30); }
+    void DeleteUnitData(int unitID) { JMP_THIS(0x4A87A0); }
+    void QueryUnitData(int unitID, CUnitData& data) { JMP_THIS(0x4AED40); }
+    void SetAircraftData(CAircraftData& data, LPCSTR lpNewTypeID, LPCSTR lpNewHouse, int nCoord, ppmfc::CString Unk1)
+        { JMP_THIS(0x4B0060); }
+    void DeleteAircraftData(int aircraftID) { JMP_THIS(0x4A98B0); }
+    void QueryAircraftData(int aircraftID, CAircraftData& data) { JMP_THIS(0x4AF430); }
+
+    void GetStructureData(int structureID, StructureData* pRet) { JMP_THIS(0x4C3C20); } // Type
     TubeData* GetTubeData(int tubeID) { JMP_THIS(0x4753C0); }
 
     ppmfc::CString* FindAvailableOwner(ppmfc::CString* buffer, int nUnknown, bool bUseCountries) { JMP_THIS(0x49B2D0); }

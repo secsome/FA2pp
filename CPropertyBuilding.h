@@ -5,11 +5,10 @@
 class NOVTABLE CPropertyBuilding : public FA2CDialog
 {
 public:
-	CPropertyBuilding() = default;
 
 	//member properties
 	ppmfc::CString			CString_Unknown_92; // ;/ Fill 92 - 100
-	ppmfc::CString			CString_Unknown_96;
+	ppmfc::CString			CString_HealthPoint;
 	CSliderCtrl		CSCStrength;// 100
 	ppmfc::CString			CString_Direction; // 160
 	ppmfc::CString			CString_House; // 164
@@ -29,4 +28,13 @@ public:
 	{
 		JMP_THIS(0x417910);
 	}
+
+	// Should be ppmfc::CWnd*
+	CPropertyBuilding(void* pParent)
+	{
+		JMP_THIS(0x417480);
+	}
+
+private:
+	CPropertyBuilding(noinit_t) {}
 };

@@ -5,10 +5,8 @@
 class NOVTABLE CPropertyUnit : public FA2CDialog
 {
 public:
-	CPropertyUnit() = default;
-
 	//member properties
-	ppmfc::CString			CString_Unknown; // Fill 92 - 96
+	ppmfc::CString			CString_HealthPoint; // Fill 92 - 96
 	CSliderCtrl		CSCStrength;// 96
 	ppmfc::CString			CString_Direction; // 156
 	ppmfc::CString			CString_VeteranLevel; // 160
@@ -25,4 +23,12 @@ public:
 	{
 		JMP_THIS(0x50EA90);
 	}
+
+	CPropertyUnit(void* pParent)
+	{
+		JMP_THIS(0x50E8E0);
+	}
+
+private:
+	CPropertyUnit(noinit_t) {}
 };
