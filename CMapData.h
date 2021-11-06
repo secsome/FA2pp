@@ -144,6 +144,20 @@ public:
         return ret;
     }
 
+    inline CellData* GetCellAt(int nIndex) { return &this->CellDatas[nIndex]; }
+    inline CellData* GetCellAt(int X, int Y) { return this->GetCellAt(this->GetCoordIndex(X, Y)); }
+    inline CellData* TryGetCellAt(int nIndex) 
+    {
+        if (nIndex < this->CellDataCount)
+            return this->GetCellAt(nIndex);
+        else
+        {
+            this->TempCellData.LAT |= 1;
+            return &this->TempCellData;
+        }
+    }
+    inline CellData* TryGetCellAt(int X,int Y){ return this->TryGetCellAt(this->GetCoordIndex(X, Y)); }
+
     ppmfc::CString StringBuffer;
     BOOL Initialized; // Maybe? It's data related, if this is false, UnitData, StructureData and so on will be called for loading?
     int MapWidthPlusHeight;
@@ -175,8 +189,22 @@ public:
     unsigned char MapPreview[0x40000];
     BITMAPINFO MapPreviewInfo;
     int nSomeMapPreviewData_C0274;
-    CINI SomeTheaterINI; //maybe?
-    int Unknown_C0384;
-    int Unknown_C0388;
-    int Unknown_C038C;
+    CINI Desert;
+    CINI Lunar;
+    CINI NewUrban;
+    CINI Urban;
+    CINI Snow;
+    CINI Temperate;
+    CINI FALanguage;
+    CINI FAData;
+    CINI Theme;
+    CINI EVA;
+    CINI Turtorial;
+    CINI Sound;
+    CINI AI;
+    CINI Art;
+    int Unknown_C11C8;
+    int Unknown_C11CC;
+    FAMap<int, int, 0x5D8CB8, 0> HeightDatas;
+    CINI Rules;
 };

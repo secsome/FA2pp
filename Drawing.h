@@ -64,6 +64,7 @@ struct BuildingData
 struct OverlayData
 {
     static constexpr reference<OverlayData, 0x5D8CF4, 255> const Array{};
+    static constexpr reference<OverlayData*, 0x5E7C04> const LastOverlayData{};
 
     ImageDataClass* Frames[60];
 };

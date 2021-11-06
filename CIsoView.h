@@ -53,8 +53,16 @@ public:
     static int GetCoordY(int nCoord) { return nCoord / 1000; }
     static int GetCoord(int X, int Y) { return X * 1000 + Y; }
 
+    static void ScreenCoord2MapCoord(int& Y, int& X) { JMP_STD(0x466890); }
     static void MapCoord2ScreenCoord_Height(int& Y, int& X) { JMP_STD(0x45E880); }
     static void MapCoord2ScreenCoord_Flat(int& Y, int& X) { JMP_STD(0x476240); }
+    static void MapCoord2ScreenCoord(int& Y, int& X)
+    {
+        if (*(bool*)0x7EDF08 + 0xDC) // CFinalSunApp::Instance->FlatToGround
+            MapCoord2ScreenCoord_Flat(Y, X);
+        else
+            MapCoord2ScreenCoord_Height(Y, X);
+    }
 
     void MoveToWP(UINT nWaypoint) { JMP_THIS(0x4766A0); }
     void MoveTo(int X, int Y) { JMP_THIS(0x4763D0); }
