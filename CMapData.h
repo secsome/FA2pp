@@ -37,7 +37,7 @@ struct CellData
     unsigned char StatusFlag;
     struct CellDataFlag
     {
-        char IsValidCell : 1;
+        char NotAValidCell : 1;
         char IsHiddenCell : 1;
         char IgnoreAltImages : 1;
         char : 1;
@@ -159,7 +159,7 @@ public:
             return this->GetCellAt(nIndex);
         else
         {
-            this->TempCellData.LAT |= 1;
+            this->TempCellData.Flag.NotAValidCell = 1;
             return &this->TempCellData;
         }
     }
@@ -195,7 +195,7 @@ public:
     FAVector<int> vector_80238;    // Seems never used except DTOR
     unsigned char MapPreview[0x40000];
     BITMAPINFO MapPreviewInfo;
-    int nSomeMapPreviewData_C0274;
+    int MapPreviewWidth; // Probably is the width I guess (Unknown_C0274)
 
     // Well, things from now on shouldn't quite belongs to this class, but for some reason I decide to leave them here.
     CINI Desert;
