@@ -3,6 +3,8 @@
 #include "FA2PP.h"
 #include "CMapData.h"
 
+#include "CFinalSunApp.h"
+
 #include <ddraw.h>
 
 // Forward declarations
@@ -58,7 +60,7 @@ public:
     static void MapCoord2ScreenCoord_Flat(int& Y, int& X) { JMP_STD(0x476240); }
     static void MapCoord2ScreenCoord(int& Y, int& X)
     {
-        if (*(bool*)0x7EDF08 + 0xDC) // CFinalSunApp::Instance->FlatToGround
+        if (CFinalSunApp::Instance->FlatToGround) // CFinalSunApp::Instance->FlatToGround
             MapCoord2ScreenCoord_Flat(Y, X);
         else
             MapCoord2ScreenCoord_Height(Y, X);

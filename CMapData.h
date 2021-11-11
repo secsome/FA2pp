@@ -35,7 +35,14 @@ struct CellData
     short Tube;
     unsigned char TubeDataIndex;
     unsigned char StatusFlag;
-    unsigned char LAT; // uses high 4 bit, see https://modenc.renegadeprojects.com/images/ConnectingLATSetSubTileSelection.png
+    struct CellDataFlag
+    {
+        char IsValidCell : 1;
+        char IsHiddenCell : 1;
+        char IgnoreAltImages : 1;
+        char : 1;
+        char AltIndex : 4;
+    } Flag;
 };
 
 #pragma pack(push, 1)
@@ -189,6 +196,8 @@ public:
     unsigned char MapPreview[0x40000];
     BITMAPINFO MapPreviewInfo;
     int nSomeMapPreviewData_C0274;
+
+    // Well, things from now on shouldn't quite belongs to this class, but for some reason I decide to leave them here.
     CINI Desert;
     CINI Lunar;
     CINI NewUrban;
@@ -203,7 +212,7 @@ public:
     CINI Sound;
     CINI AI;
     CINI Art;
-    int Unknown_C11C8;
+    int ShorePieces;
     int Unknown_C11CC;
     FAMap<int, int, 0x5D8CB8, 0> HeightDatas;
     CINI Rules;

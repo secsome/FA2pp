@@ -2,33 +2,58 @@
 
 #include "FA2PP.h"
 
+#include "Drawing.h"
+
 class ImageDataClass;
+
+enum LandType : char
+{
+    Clear0 = 0x0,
+    Clear1 = 0x1,
+    Clear13 = 0xD,
+    Ice0 = 0x0,
+    Ice1 = 0x1,
+    Ice2 = 0x2,
+    Ice3 = 0x3,
+    Ice4 = 0x4,
+    Tunnel = 0x5,
+    Railroad = 0x6,
+    Rock7 = 0x7,
+    Rock8 = 0x8,
+    CliffRock = 0xF,
+    Water = 0x9,
+    Beach = 0xA,
+    Road11 = 0xB,
+    Road12 = 0xC,
+    Rough = 0xE,
+    Cliff = 0xF,
+};
 
 class CTileBlockClass
 {
 public:
-    
+    BOOL HasValidImage;
+    unsigned char* ImageData; // Had been drawn already at 48E9E7
+    struct ValidRangeData
+    {
+        short First;
+        short Last;
+    } *pPixelValidRanges;
+    short BlockWidth;
+    short BlockHeight;
+    short XMinusExX;
+    short YMinusExY;
+    unsigned char Height;
+    unsigned char RampType;
+    LandType TerrainType;
+    RGBClass RadarColorLeft;
+    RGBClass RadarColorRight;
+    LandType TerrainTypeAlt; // Beach -> Water, Rough->Clear13, ShoreTerrainRA2/TS -> Water/Rough, WaterSet -> Water
 
-    ImageDataClass* AnotherImage;
-    ImageDataClass* NormalImage;
-    void* Pointer_8;
-    int Unknown_C;
-    int Unknown_10;
-    unsigned __int8 Height;
-    unsigned __int8 Byte_15;
-    unsigned __int8 Byte_16;
-    unsigned __int8 ColorLeft_Red;
-    unsigned __int8 ColorLeft_Green;
-    unsigned __int8 ColorLeft_Blue;
-    unsigned __int8 ColorRight_Red;
-    unsigned __int8 ColorRight_Green;
-    unsigned __int8 ColorRight_Blue;
-    unsigned __int8 Byte_1D;
-    unsigned __int8 Byte_1E;
-    unsigned __int8 Byte_1F;
+    PROTECTED_PROPERTY(char, align_1E[2]);
 };
 
-struct CTileTypeClass
+struct NOVTABLE CTileTypeClass
 {
 public:
     static constexpr reference<CTileTypeClass**, 0x7EE070> const Instance{};
@@ -36,26 +61,30 @@ public:
     static constexpr reference<int*, 0x7EE074> const InstanceCount{};
     static constexpr reference<int*, 0x7EE074> const CurrentTileTypeCount{};
 
+    static int GetTileIndex(int nTileSet, int nTileBlock) { JMP_STD(0x4F2620); }
+
     int TileSet;
-    CTileBlockClass* SubTileDatas;
-    __int16 SubTileCount;
-    __int16 Short_A;
-    int Unknown_C;
-    int Unknown_10;
-    int Unknown_14;
-    int Unknown_18;
-    int Unknown_1C;
-    int Unknown_20;
-    int Unknown_24;
-    int Unknown_28;
-    int Unknown_2C;
-    int Unknown_30;
-    int Unknown_34;
-    CTileTypeClass* SomeData;
-    unsigned __int8 SomeCount;
-    unsigned __int8 Byte_3D;
-    unsigned __int8 Byte_3E;
-    unsigned __int8 Byte_3F;
+    CTileBlockClass* TileBlockDatas;
+    unsigned short TileBlockCount;
+    short Height;
+    short Width;
+    
+    PROTECTED_PROPERTY(unsigned char, align_E[2]);
+    
+    int AllowTiberium;
+    int AllowToPlace;
+    int Morphable;
+    BOOL IsHidden; // Is this tileset being hidden, which means which being drawn transparently
+    int NonMarbleMadness;
+    unsigned short FrameModeIndex;
+
+    PROTECTED_PROPERTY(unsigned char, align_26[2]);
+
+    RECT Bounds; // The pixel range
+    CTileTypeClass* AltTypes; // clear01a, clear01b, clear01c and so on
+    unsigned char AltTypeCount; // we have 3 if ends to 'c'
+
+    PROTECTED_PROPERTY(unsigned char, align_3D[3]);
 };
 
 struct CTileTypeInfo
