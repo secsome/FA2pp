@@ -110,6 +110,8 @@ public:
         return &Instance->INI;
     }
 
+    bool IsMultiOnly() { JMP_THIS(0x4C30C0); }
+
     const wchar_t* QueryUIName(const char* pRegName) { JMP_THIS(0x4B2610); }
     static ppmfc::CString GetUIName(const char* pRegName) { return ppmfc::CString(Instance->QueryUIName(pRegName)); }
 
