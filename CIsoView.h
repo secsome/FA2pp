@@ -93,8 +93,8 @@ public:
     void UpdateStatusBar(int X, int Y) { JMP_THIS(0x469E70); }
     void UpdateSurfaceLayer(int X, int Y, int unused) { JMP_THIS(0x46BC80); }
 
-    int MouseCellY; // Which cell does the mouse at now
-    int MouseCellX; // Which cell does the mouse at now
+    int StartCellY;
+    int StartCellX; // which cell the left button clicked on
     int Unknown_48;
     int Unknown_4C;
     int Unknown_50;
