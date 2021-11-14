@@ -2,7 +2,7 @@
 
 #include "FA2PP.h"
 
-#include "CWndView.h"
+#include "CMinimap.h"
 
 class CIsoView;
 class CTileSetBrowserFrame;
@@ -22,7 +22,7 @@ public:
 class CMyViewFrame : public FA2CFrameWnd
 {
 public:
-    CWndView Minimap;
+    CMinimap Minimap;
     FA2CStatusBar StatusBar;
     ObjectBrowserControl* pObjectBrowserControl;
     CIsoView* pIsoView;

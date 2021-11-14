@@ -1,6 +1,8 @@
 #pragma once
 #include "FA2PP.h"
 
+#include <ddraw.h>
+
 // CScorllView Size 140
 class NOVTABLE CTileSetBrowserView : public FA2CScrollView
 {
@@ -9,10 +11,10 @@ class NOVTABLE CTileSetBrowserView : public FA2CScrollView
 public:
 	int SelectedOverlayIndex;
 	int ScrollWidth;
-	int Unknown_74;
+	LPDIRECTDRAWSURFACE7* TileSurfaces;
 	int CurrentTileset;
 	int CurrentMode;
-	int Unknown_80;
+	int TileSurfacesCount;
 	int CurrentImageHeight;
 	int CurrentImageWidth;
 };

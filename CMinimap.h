@@ -2,8 +2,7 @@
 
 #include "FA2PP.h"
 
-// CMinimap
-class CWndView : public FA2CView
+class CMinimap : public FA2CView
 {
 protected:
     virtual void OnDraw(CDC* pDC) override
