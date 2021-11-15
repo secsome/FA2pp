@@ -8,10 +8,10 @@ public:
 	CCreateMap3A() = default;
 
 	//member properties
-	ppmfc::CString			CString_Height; // 92
-	ppmfc::CString			CString_Width; // 96
-	INT				INT_StartingHeight; // 100
-	INT				INT_TheaterIndex; // 104
+	INT				MapHeight; // 92
+	INT				MapWidth; // 96
+	INT				DefaultHeight; // 100
+	INT				TheaterIndex; // 104
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
 	{
