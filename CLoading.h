@@ -182,6 +182,8 @@ public:
 		string.SetAt(1, 'G');
 	}
 
+	static bool __cdecl IsFileExists(ppmfc::CString lpFileName) { JMP_STD(0x43D920); }
+
 	//member properties
 	char TheaterIdentifier; // T, A(SNOW), U, N, D, L
 	//align 3 bytes
