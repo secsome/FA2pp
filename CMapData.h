@@ -125,6 +125,8 @@ public:
     int GetXFromCoordIndex(int CoordIndex) { return CoordIndex / MapWidthPlusHeight; }
     int GetYFromCoordIndex(int CoordIndex) { return CoordIndex % MapWidthPlusHeight; }
 
+    void sub_416550(unsigned nIndex, unsigned int nTileCount, bool bUnk = false) { JMP_THIS(0x416550); }
+
     void SetStructureData(CStructureData& data, LPCSTR lpNewTypeID, LPCSTR lpNewHouse, int nCoord, ppmfc::CString Unk1)
         { JMP_THIS(0x4ACB60); }
     void DeleteStructureData(int structureID) { JMP_THIS(0x4A8FB0); }

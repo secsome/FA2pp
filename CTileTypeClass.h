@@ -61,7 +61,9 @@ public:
     static constexpr reference<int*, 0x7EE074> const InstanceCount{};
     static constexpr reference<int*, 0x7EE074> const CurrentTileTypeCount{};
 
-    static int GetTileIndex(int nTileSet, int nTileBlock) { JMP_STD(0x4F2620); }
+    // These two are technically same
+    static int __stdcall GetTileIndexAlt(int nTileset, int nTileBlock = 0) { JMP_STD(0x4BA0A0); }
+    static int __stdcall GetTileIndex(int nTileSet, int nTileBlock = 0) { JMP_STD(0x4F2620); }
 
     int TileSet;
     CTileBlockClass* TileBlockDatas;
