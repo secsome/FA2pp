@@ -94,6 +94,8 @@ public:
 		{ ASSERT(::IsWindow(this->m_hWnd)); return this->SendMessage(CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(lpszString)); }
 	int DeleteString(UINT nIndex) 
 		{ ASSERT(::IsWindow(this->m_hWnd)); return this->SendMessage(CB_DELETESTRING, nIndex, 0); }
+	void DeleteAllStrings()
+		{ while (this->DeleteString(0) != CB_ERR); }
 	int InsertString(int nIndex, LPCTSTR lpszString) 
 		{ ASSERT(::IsWindow(this->m_hWnd)); return this->SendMessage(CB_INSERTSTRING, nIndex, reinterpret_cast<LPARAM>(lpszString)); }
 	void ResetContent() 
