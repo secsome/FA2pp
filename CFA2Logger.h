@@ -9,7 +9,7 @@
 class CFA2Logger
 {
 public:
-    static void __cdecl Write(const char* pFormat, ...)
+    static void __cdecl WriteLine(const char* pFormat, ...)
     {
         va_list args;
         va_start(args, pFormat);
@@ -49,7 +49,7 @@ private:
         int v4;
         int*& p = *reinterpret_cast<int**>(0x5E7CA0);
         v4 = p[1];
-        if (((unsigned __int8)*(char**)((char*)&p + v4 + 4) & 6) == 0
+        if (((int)*(char**)((char*)&p + v4 + 4) & 6) == 0
             && (*(int(__thiscall**)(DWORD))(**(DWORD**)((char*)(0x5E7CC8) + v4) + 44))(*(int*)((char*)(0x5E7CC8)
                 + v4)) == -1)
         {
