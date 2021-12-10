@@ -56,8 +56,8 @@ public:
     static int GetCoord(int X, int Y) { return X * 1000 + Y; }
 
     static void ScreenCoord2MapCoord(int& Y, int& X) { JMP_STD(0x466890); }
-    static void MapCoord2ScreenCoord_Height(int& Y, int& X) { JMP_STD(0x45E880); }
-    static void MapCoord2ScreenCoord_Flat(int& Y, int& X) { JMP_STD(0x476240); }
+    static void __cdecl MapCoord2ScreenCoord_Height(int& Y, int& X) { JMP_STD(0x45E880); }
+    static void __cdecl MapCoord2ScreenCoord_Flat(int& Y, int& X) { JMP_STD(0x476240); }
     static void MapCoord2ScreenCoord(int& Y, int& X)
     {
         if (CFinalSunApp::Instance->FlatToGround) // CFinalSunApp::Instance->FlatToGround
