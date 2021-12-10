@@ -4,6 +4,14 @@
 
 struct BGRStruct 
 { 
+    BGRStruct(unsigned char b = 0, unsigned char g = 0, unsigned char r = 0)
+    {
+        B = b;
+        G = g;
+        R = r;
+        Zero = 0;
+    }
+
     unsigned char B, G, R, Zero;
     bool operator< (const BGRStruct& rhs) const { return *(int*)this < *(int*)&rhs; }
     bool operator==(const BGRStruct& rhs) const { return *(int*)this == *(int*)&rhs; }

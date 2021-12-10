@@ -62,6 +62,10 @@ public:
 		int* OutEnd, BOOL bUnknown = FALSE, int* pUnknown = nullptr) // Last one is realtived to tmp drawing
 		{ JMP_THIS(0x4965B0); }
 
+	void FreeTMPs() { JMP_THIS(0x491B00); }
+	void InitTMPs(void* pProgress = nullptr) { JMP_THIS(0x48C3D0); }
+	void InitTMPs_Reset() { JMP_THIS(0x4959F0); }
+
 	void Release() { JMP_THIS(0x491D00); }
 	int GetPaletteISO()
 	{
