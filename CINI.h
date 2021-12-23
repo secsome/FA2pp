@@ -58,7 +58,8 @@ struct FAINIIndiceMap : private INIIndiceDict
 		{ JMP_THIS(0x4081F0); }
 };
 
-class NOVTABLE INISection {
+class NOVTABLE INISection 
+{
 public:
 	INISection() { JMP_THIS(0x452880); }
 	INISection(INISection& another) { JMP_THIS(0x4021C0); }
@@ -68,8 +69,18 @@ public:
 	ppmfc::CString* GetValueAt(unsigned int nIndex) { JMP_THIS(0x453590); }
 	ppmfc::CString* GetKeyAt(unsigned int nIndex) { JMP_THIS(0x453650); }
 public:
-	INIStringDict EntitiesDictionary;
-	INIIndiceDict IndicesDictionary;
+	INIStringDict& GetEntities()
+		{ return *reinterpret_cast<INIStringDict*>(&this->EntitiesDictionary); }
+	INIIndiceDict& GetIndices()
+		{ return *reinterpret_cast<INIIndiceDict*>(&this->IndicesDictionary); }
+
+
+private:
+	char EntitiesDictionary[sizeof(INIStringDict)];
+	char IndicesDictionary[sizeof(INIIndiceDict)];
+
+	// INIStringDict EntitiesDictionary;
+	// INIIndiceDict IndicesDictionary;
 };
 
 class NOVTABLE CINI
@@ -94,12 +105,10 @@ public:
 	static constexpr reference<CINI, 0x7ACC80> const CurrentDocument{}; // Current map file, without update
 	static constexpr reference<CINI*, 0x7EE03C> const CurrentTheater{}; // Current theater file
 
-private:
-	// ~CINI() { JMP_THIS(0x4527E0); }
-
-private:
-	void* vftable_align; // for align
 public:
+	CINI() { JMP_THIS(0x452270); }
+	virtual ~CINI() { JMP_THIS(0x4527E0); }
+
 	INIDict Dict;
 	char Path[MAX_PATH];
 
@@ -146,7 +155,7 @@ public:
 	{
 		auto itr = Dict.find(pSection);
 		if (itr != Dict.end())
-			return itr->second.EntitiesDictionary.size();
+			return itr->second.GetEntities().size();
 		return 0;
 	}
 
@@ -155,7 +164,7 @@ public:
 		auto itr = Dict.find(pSection);
 		if (itr != Dict.end())
 		{
-			auto& EntriesMap = itr->second.EntitiesDictionary;
+			auto& EntriesMap = itr->second.GetEntities();
 			auto result = EntriesMap.begin();
 			int idx = 0;
 			while (result != EntriesMap.end())
@@ -177,7 +186,7 @@ public:
 	bool KeyExists(ppmfc::CString pSection, ppmfc::CString pKey)
 	{
 		if (auto section = GetSection(pSection))
-			return section->EntitiesDictionary.find(pKey) != section->EntitiesDictionary.end();
+			return section->GetEntities().find(pKey) != section->GetEntities().end();
 		return false;
 	}
 	
@@ -195,8 +204,8 @@ public:
 		auto insertPair = GameCreate<TMP>();
 		insertPair->Text = pSectionName;
 		
-		((FAINICStringMap*)(&((INISection*)&insertPair->Section)->EntitiesDictionary))->CopyCTOR(&pSection->EntitiesDictionary);
-		((FAINIIndiceMap*)(&((INISection*)&insertPair->Section)->IndicesDictionary))->CopyCTOR(&pSection->IndicesDictionary);
+		((FAINICStringMap*)(&((INISection*)&insertPair->Section)->GetEntities()))->CopyCTOR(&pSection->GetEntities());
+		((FAINIIndiceMap*)(&((INISection*)&insertPair->Section)->GetIndices()))->CopyCTOR(&pSection->GetIndices());
 		std::pair<INIDict::iterator, bool> ret;
 		auto itrpair = ((FAINIMap*)&Dict)->insert(&ret, (std::pair<ppmfc::CString, INISection>*)& insertPair);
 		((INISection*)&insertPair->Section)->~INISection();
@@ -226,7 +235,7 @@ public:
 		if (itr.second)
 			bExisted = false;
 
-		auto itr2 = InsertPair(itr.first->second.EntitiesDictionary, pKey, ppmfc::CString());
+		auto itr2 = InsertPair(itr.first->second.GetEntities(), pKey, ppmfc::CString());
 		if (itr2.second)
 			bExisted = false;
 
@@ -251,10 +260,10 @@ public:
 	{
 		if (auto section = GetSection(pSection))
 		{
-			auto itr = section->EntitiesDictionary.find(pKey);
-			if (itr != section->EntitiesDictionary.end())
+			auto itr = section->GetEntities().find(pKey);
+			if (itr != section->GetEntities().end())
 			{
-				section->EntitiesDictionary.manual_erase(itr);
+				section->GetEntities().manual_erase(itr);
 				itr->second.~CString();
 				return true;
 			}
@@ -279,7 +288,7 @@ public:
 	ppmfc::CString* TryGetString(ppmfc::CString pSection, ppmfc::CString pKey) {
 		auto itrSection = Dict.find(pSection);
 		if (itrSection != Dict.end()) {
-			auto pEntries = &itrSection->second.EntitiesDictionary;
+			auto pEntries = &itrSection->second.GetEntities();
 			auto itrKey = pEntries->find(pKey);
 			if (itrKey != pEntries->end())
 				return (ppmfc::CString*)(&itrKey->second);
@@ -351,9 +360,9 @@ public:
 		if (section == Dict.end())
 			return ret;
 		std::map<unsigned int, ppmfc::CString> tmp;
-		for (auto& ent : section->second.EntitiesDictionary)
+		for (auto& ent : section->second.GetEntities())
 		{
-			auto& indexDict = section->second.IndicesDictionary;
+			auto& indexDict = section->second.GetIndices();
 			auto& idxitr = indexDict.find(ent.first);
 			if (idxitr != indexDict.end())
 				tmp[idxitr->second] = idxitr->first;

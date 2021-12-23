@@ -10,23 +10,23 @@
 
 template<class _A, class _R>
 struct unary_function {
-	typedef _A argument_type;
-	typedef _R result_type;
+	using argument_type = _A;
+	using result_type = _R;
 };
 // TEMPLATE STRUCT binary_function
 template<class _A1, class _A2, class _R>
 struct binary_function {
-	typedef _A1 first_argument_type;
-	typedef _A2 second_argument_type;
-	typedef _R result_type;
+	using first_argument_type = _A1;
+	using second_argument_type = _A2;
+	using result_type = _R;
 };
 
 	template<class _K, class _Ty, DWORD nil_addr, DWORD nilrefs_addr,
 		class _Pr = std::less<_K>,class _A = std::allocator<_Ty> >
 		class FAMap {
 		public:
-			typedef FAMap<_K, _Ty, nil_addr, nilrefs_addr, _Pr, _A> _Myt;
-			typedef std::pair<const _K, _Ty> value_type;
+			using _Myt = FAMap<_K, _Ty, nil_addr, nilrefs_addr, _Pr, _A>;
+			using value_type = std::pair<const _K, _Ty>;
 			struct _Kfn : public unary_function<value_type, _K> {
 				const _K& operator()(const value_type& _X) const
 				{
@@ -47,22 +47,25 @@ struct binary_function {
 					: comp(_Pred) {}
 				_Pr comp;
 			};
-			typedef _K key_type;
-			typedef _Ty referent_type;
-			typedef _Pr key_compare;
-			typedef _A allocator_type;
-			typedef _Ty& _Tref;
-			typedef FATree<_K, value_type, _Kfn, _Pr, _A, nil_addr, nilrefs_addr> _Imp;
-			typedef size_t size_type;
-			typedef ptrdiff_t difference_type;
-			typedef value_type& reference;
-			typedef const value_type& const_reference;
-			typedef typename _Imp::iterator iterator;
-			typedef std::pair<iterator, bool> _Pairib;
-			typedef std::pair<iterator, iterator> _Pairii;
+			using key_type = _K;
+			using referent_type = _Ty;
+			using key_compare = _Pr;
+			using allocator_type = _A;
+			using _Tref = _Ty&;
+			using _Imp = FATree<_K, value_type, _Kfn, _Pr, _A, nil_addr, nilrefs_addr>;
+			using size_type = size_t;
+			using difference_type = ptrdiff_t;
+			using reference = value_type&;
+			using const_reference = const value_type&;
+
+			using iterator = typename _Imp::iterator;
+			
+			using _Pairib = std::pair<iterator, bool>;
+			using _Pairii = std::pair<iterator, iterator>;
+
 			explicit FAMap(const _Pr& _Pred = _Pr(), const _A& _Al = _A())
 				: _Tr(_Pred, false, _Al) {}
-			typedef const value_type* _It;
+			using _It = const value_type*;
 			FAMap(_It _F, _It _L, const _Pr& _Pred = _Pr(),
 				const _A& _Al = _A())
 				: _Tr(_Pred, false, _Al)

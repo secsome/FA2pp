@@ -13,17 +13,20 @@
 template<class _Ty, class _A = std::allocator<_Ty> >
 class FAVector {
 public:
-	typedef FAVector<_Ty, _A> _Myt;
-	typedef typename _A allocator_type;
-	typedef typename _A::size_type size_type;
-	typedef typename _A::difference_type difference_type;
-	typedef typename _A::pointer _Tptr;
-	typedef typename _A::const_pointer _Ctptr;
-	typedef typename _A::reference reference;
-	typedef typename _A::const_reference const_reference;
-	typedef typename _A::value_type value_type;
-	typedef typename _Tptr iterator;
-	typedef typename _Ctptr const_iterator;
+	using _Myt = typename FAVector<_Ty, _A>;
+	using allocator_type = _A;
+	using size_type = typename _A::size_type;
+	using difference_type = typename _A::difference_type;
+	using value_type = typename _A::value_type;
+
+	using _Tptr = value_type*;
+	using _Ctptr = const value_type*;
+	using reference = value_type&;
+	using const_reference = const value_type&;
+	
+	using iterator = _Tptr;
+	using const_iterator = _Ctptr;
+
 	explicit FAVector(const _A& _Al = _A())
 		: allocator(_Al), _First(0), _Last(0), _End(0) {}
 	explicit FAVector(size_type _N, const _Ty& _V = _Ty(),
