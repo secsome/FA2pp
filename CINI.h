@@ -76,6 +76,9 @@ public:
 
 
 private:
+	// In fact we can use a union here. However, to make it
+	// being more secured, just use a char array here and 
+	// access it by using functions.
 	char EntitiesDictionary[sizeof(INIStringDict)];
 	char IndicesDictionary[sizeof(INIIndiceDict)];
 
