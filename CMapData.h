@@ -73,12 +73,13 @@ struct StructureData
 
 struct TubeData
 {
-    short Unknown_0;
-    short DestY;
-    short DestX;
-    short TubeDir;
-    short Unknown_8; // X related?
-    char Data[102];
+    unsigned short Short_0;
+    unsigned short EnterY;
+    unsigned short EnterX;
+    unsigned short EnterFacing;
+    unsigned short ExitY;
+    unsigned short ExitX;
+    char Directions[100];
 };
 
 class NOVTABLE CMapData
@@ -146,6 +147,7 @@ public:
 
     void GetStructureData(int structureID, StructureData* pRet) { JMP_THIS(0x4C3C20); } // Type
     TubeData* GetTubeData(int tubeID) { JMP_THIS(0x4753C0); }
+    void AddTube(TubeData* pTubeData) { JMP_THIS(0x4BAF20); }
 
     ppmfc::CString* FindAvailableOwner(ppmfc::CString* buffer, int nUnknown, bool bUseCountries) { JMP_THIS(0x49B2D0); }
     ppmfc::CString FindAvailableOwner(int nUnknown, bool bUseCountries)
