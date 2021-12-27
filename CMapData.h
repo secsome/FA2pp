@@ -1,13 +1,83 @@
 #pragma once
 
+#include <Helpers/EnumFlags.h>
+
 #include <CINI.h>
 #include <CObjectDatas.h>
 #include <CPalette.h>
 
 #include <Structures/FAVector.h>
 
+enum class SaveMapFlag : int
+{
+    Default = 0x0,
+    ValidateMap = 0x1,
+    UpdateMapFieldData = 0x2,
+    UpdatePreview = 0x4,
+    Description = 0x8,
+};
+MAKE_ENUM_FLAGS(SaveMapFlag);
+
+enum FacingType
+{
+    FACING_NORTHEAST = 0,
+    FACING_EAST,
+    FACING_SOUTHEAST,
+    FACING_SOUTH,
+    FACING_SOUTHWEST,
+    FACING_WEST,
+    FACING_NORTHWEST,
+    FACING_NORTH,
+    FACING_COUNT,
+    FACING_INVALID = -1
+};
+
+struct MapCoord
+{
+    static const MapCoord Facings[FACING_COUNT];
+
+    auto operator<=>(const MapCoord& another) const = default;
+
+    int X;
+    int Y;
+};
+MapCoord operator+(const MapCoord& l, const MapCoord& r);
+MapCoord operator*(const MapCoord& coord, int factor);
+
+struct MapRect
+{
+    int Left;
+    int Top;
+    int Width;
+    int Height;
+};
+
 struct CellData
 {
+private:
+    struct BaseNodeData
+    {
+        BaseNodeData() {}
+        BaseNodeData(BaseNodeData& another) { JMP_THIS(0x475420); }
+        ~BaseNodeData() {}
+
+        int BuildingID;
+        int BasenodeID;
+        union
+        {
+            char __House[4]; // avoid CTOR
+            ppmfc::CString House;
+        };
+    };
+
+public:
+
+    CellData() { JMP_THIS(0x49A120); }
+    CellData(const CellData& another) { JMP_THIS(0x416EB0); }
+    ~CellData() { JMP_THIS(0x416FC0); }
+
+    CellData& operator=(const CellData& another) { new(this) CellData(another); return *this; }
+
     short Unit;
     short Infantry[3];
     short Aircraft;
@@ -18,12 +88,7 @@ struct CellData
     short Smudge;
     int SmudgeType;
     short Waypoint;
-    struct BaseNodeData
-    {
-        int BuildingID;
-        int BasenodeID;
-        ppmfc::CString House;
-    } BaseNode;
+    BaseNodeData BaseNode;
     unsigned char Overlay;
     unsigned char OverlayData; // [0, 59]
     short TileIndex;
@@ -82,6 +147,23 @@ struct TubeData
     char Directions[100];
 };
 
+struct UndoRedoData
+{
+    int Unknown_0;
+    int Unknown_4;
+    int Unknown_8;
+    int Unknown_C;
+    int* Pointer_10;
+    int* Pointer_14;
+    int* Pointer_18;
+    int* Pointer_1C;
+    int* Pointer_20;
+    int* Pointer_24;
+    int* Pointer_28;
+    int* Pointer_2C;
+    int Unknown_30;
+};
+
 class NOVTABLE CMapData
 {
 public:
@@ -102,12 +184,32 @@ public:
     static constexpr reference<int, 0x7EDF00> const RampBase{};
     static constexpr reference<int, 0x7EDF04> const RampBaseCount{};
 
-    void UpdateMapFieldData(bool bFlag) { JMP_THIS(0x49C280); }
+#define DEFINE_FIELDUPDATE(name,addr) \
+void UpdateMapFieldData_##name (bool bMapToINI) {JMP_THIS(addr);}
+
+    DEFINE_FIELDUPDATE(Infantry, 0x4A2AB0);
+    DEFINE_FIELDUPDATE(Aircraft, 0x4A4270);
+    DEFINE_FIELDUPDATE(Structure, 0x4A4A40);
+    DEFINE_FIELDUPDATE(Terrain, 0x4A5850);
+    DEFINE_FIELDUPDATE(Unit, 0x4A6040);
+    DEFINE_FIELDUPDATE(Waypoint, 0x4A67D0);
+    DEFINE_FIELDUPDATE(House, 0x4A6FB0);
+    DEFINE_FIELDUPDATE(Overlay, 0x4A7830);
+    DEFINE_FIELDUPDATE(Celltag, 0x4A7930);
+    DEFINE_FIELDUPDATE(Tube, 0x4BA5F0);
+    DEFINE_FIELDUPDATE(Smudge, 0x4C9FA0);
+
+#undef DEFINE_FIELDUPDATE
+
+    void InitMinimap() { JMP_THIS(0x4C3D40); }
+    void UpdateMapPreviewAt(int Y, int X) { JMP_THIS(0x4A23A0); }
+
+    void UpdateMapFieldData(SaveMapFlag eFlags) { JMP_THIS(0x49C280); }
     CINI* UpdateCurrentDocument() { JMP_THIS(0x49C260); }
     static CINI* GetMapDocument(bool bUpdateMapField = false)
     {
         if (bUpdateMapField)
-            Instance->UpdateMapFieldData(1);
+            Instance->UpdateMapFieldData(SaveMapFlag::ValidateMap);
         return &Instance->INI;
     }
 
@@ -125,6 +227,14 @@ public:
     int GetCoordIndex(int X, int Y) { return Y + X * MapWidthPlusHeight; }  
     int GetXFromCoordIndex(int CoordIndex) { return CoordIndex / MapWidthPlusHeight; }
     int GetYFromCoordIndex(int CoordIndex) { return CoordIndex % MapWidthPlusHeight; }
+    bool IsCoordInMap(int X, int Y)
+    {
+        return
+            X + Y > this->Size.Width&&
+            X - Y < this->Size.Width&&
+            Y - X < this->Size.Width&&
+            X + Y <= this->Size.Width + 2 * this->Size.Height;
+    }
 
     void sub_416550(unsigned nIndex, unsigned int nTileCount, bool bUnk = false) { JMP_THIS(0x416550); }
 
@@ -184,11 +294,11 @@ public:
     TileStruct* IsoPackData;
     int IsoPackDataCount;
     CINI INI;
-    RECT Size;
-    RECT LocalSize; // Visible Area
+    MapRect Size;
+    MapRect LocalSize; // Visible Area
     CellData* CellDatas; // see 4BB920 validate the map, dtor at 416FC0
     int CellDataCount; // see 4BB920 validate the map
-    void* UndoRedoData;
+    UndoRedoData* UndoRedoData;
     int UndoRedoDataCount; // undo redo count related
     int UndoRedoCurrentDataIndex; // undo redo count related, UndoRedoDataCount - 1
     int MoneyCount;

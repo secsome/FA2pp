@@ -98,7 +98,7 @@ class CTerrainData
 {
 public:
     ppmfc::CString TypeID;
-    ppmfc::CString X; // maybe
-    ppmfc::CString Y; // maybe
+    int X;
+    int Y;
     int Flag;
 };

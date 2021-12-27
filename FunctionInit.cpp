@@ -1,5 +1,6 @@
 #include "Drawing.h"
 
+#include "CMapData.h"
 #include "CMixFile.h"
 #include "CLoading.h"
 #include "CCRC.h"
@@ -7,6 +8,32 @@
 #include "CFinalSunApp.h"
 
 #include <fstream>
+
+const MapCoord MapCoord::Facings[FACING_COUNT] =
+{
+	{0, -1},
+	{1, -1},
+	{1, 0},
+	{1, 1},
+	{0, 1},
+	{-1, 1},
+	{-1, 0},
+	{-1, -1}
+};
+MapCoord operator+(const MapCoord& l, const MapCoord& r)
+{
+	MapCoord ret;
+	ret.X = l.X + r.X;
+	ret.Y = l.Y + r.Y;
+	return ret;
+}
+MapCoord operator*(const MapCoord& coord, int factor)
+{
+	MapCoord ret;
+	ret.X = coord.X * factor;
+	ret.Y = coord.Y * factor;
+	return ret;
+}
 
 HSVClass::operator RGBClass() const
 {

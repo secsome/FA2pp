@@ -200,21 +200,9 @@ public:
 
 		auto pSection = GameCreate<INISection>();
 
-		struct TMP { // Avoid CTOR
-			ppmfc::CString Text;
-			char Section[sizeof INISection];
-		};
-		auto insertPair = GameCreate<TMP>();
-		insertPair->Text = pSectionName;
-		
-		((FAINICStringMap*)(&((INISection*)&insertPair->Section)->GetEntities()))->CopyCTOR(&pSection->GetEntities());
-		((FAINIIndiceMap*)(&((INISection*)&insertPair->Section)->GetIndices()))->CopyCTOR(&pSection->GetIndices());
-		std::pair<INIDict::iterator, bool> ret;
-		auto itrpair = ((FAINIMap*)&Dict)->insert(&ret, (std::pair<ppmfc::CString, INISection>*)& insertPair);
-		((INISection*)&insertPair->Section)->~INISection();
-		GameDelete(insertPair);
-		GameDelete(pSection);
+		auto itr = InsertSection(pSectionName, pSection);
 
+		return &itr.first->second;
 	}
 
 	/// <summary>
@@ -247,6 +235,19 @@ public:
 		return bExisted;
 	}
 
+	bool WriteString(INISection* pSection, ppmfc::CString pKey, ppmfc::CString pValue)
+	{
+		bool bExisted = true;
+
+		auto itr = InsertPair(pSection->GetEntities(), pKey, ppmfc::CString());
+		if (itr.second)
+			bExisted = false;
+
+		new(&itr.first->second) ppmfc::CString(pValue);
+
+		return bExisted;
+	}
+
 	bool DeleteSection(ppmfc::CString pSection)
 	{
 		auto itr = Dict.find(pSection);
@@ -270,6 +271,18 @@ public:
 				itr->second.~CString();
 				return true;
 			}
+		}
+		return false;
+	}
+
+	bool DeleteKey(INISection* pSection, ppmfc::CString pKey)
+	{
+		auto itr = pSection->GetEntities().find(pKey);
+		if (itr != pSection->GetEntities().end())
+		{
+			pSection->GetEntities().manual_erase(itr);
+			itr->second.~CString();
+			return true;
 		}
 		return false;
 	}

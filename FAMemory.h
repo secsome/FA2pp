@@ -129,12 +129,38 @@ static inline void GameDelete(T* ptr) {
 	Memory::Delete(alloc, ptr);
 }
 
+template <typename T>
+static inline T* GameCreateVector(size_t capacity) {
+	auto ptr = &reinterpret_cast<size_t*>(FAMemory::AllocateChecked(capacity * sizeof(T) + 4))[1];
+	ptr[-1] = capacity;
+
+	GameAllocator<T> alloc;
+	T* p = (T*)ptr;
+	for (size_t i = 0; i < capacity; ++i)
+		std::allocator_traits<GameAllocator<T>>::construct(alloc, &p[i]);
+
+	return p;
+}
+
 template <typename T, typename... TArgs>
 static inline T* GameCreateArray(size_t capacity, TArgs&&... args) {
 	static_assert(std::is_constructible<T, TArgs...>::value, "Cannot construct T from TArgs.");
 
 	GameAllocator<T> alloc;
 	return Memory::CreateArray<T>(alloc, capacity, std::forward<TArgs>(args)...);
+}
+
+template<typename T>
+static inline void GameDeleteVector(T* ptr) {
+	if (ptr) {
+
+		size_t capacity = reinterpret_cast<size_t*>(ptr)[-1];
+		
+		for (size_t i = 0; i < capacity; ++i)
+			ptr[i].~T();
+
+		FAMemory::Deallocate(&reinterpret_cast<size_t*>(ptr)[-1]);
+	}
 }
 
 template<typename T>
