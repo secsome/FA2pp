@@ -9,6 +9,8 @@ class NOVTABLE CTileSetBrowserView : public FA2CScrollView
 	virtual void OnDraw(CDC* pDC) {};
 
 public:
+	void SelectTileSet(int nTileSet, bool bNotInvokeUpdate) { JMP_THIS(0x4F2B10); }
+
 	int SelectedOverlayIndex;
 	int ScrollWidth;
 	LPDIRECTDRAWSURFACE7* TileSurfaces;
