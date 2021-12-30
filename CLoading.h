@@ -143,6 +143,25 @@ public:
 			return ".tem";
 		}
 	}
+	const char* GetTheaterSuffix()
+	{
+		switch (this->TheaterIdentifier)
+		{
+		case 'A':
+			return "SNO";
+		case 'U':
+			return "URB";
+		case 'N':
+			return "UBN";
+		case 'D':
+			return "DES";
+		case 'L':
+			return "LUN";
+		case 'T':
+		default:
+			return "TEM";
+		}
+	}
 	Palette* GetPalette(int id)
 	{
 		if (id == PAL_UNITTEM || id == PAL_UNITSNO || id == PAL_UNITURB || 
