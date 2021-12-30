@@ -7,7 +7,7 @@ class NOVTABLE CPropertyBuilding : public FA2CDialog
 public:
 
 	//member properties
-	ppmfc::CString			CString_Unknown_92; // ;/ Fill 92 - 100
+	ppmfc::CString			CString_ObjectID; // ;/ Fill 92 - 100
 	ppmfc::CString			CString_HealthPoint;
 	CSliderCtrl		CSCStrength;// 100
 	ppmfc::CString			CString_Direction; // 160
@@ -30,10 +30,9 @@ public:
 	}
 
 	// Should be ppmfc::CWnd*
-	CPropertyBuilding(void* pParent)
-	{
-		JMP_THIS(0x417480);
-	}
+	CPropertyBuilding(void* pParent) { JMP_THIS(0x417480); }
+
+	void Translate() { JMP_THIS(0x41A750); }
 
 private:
 	CPropertyBuilding(noinit_t) {}
