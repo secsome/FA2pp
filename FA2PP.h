@@ -59,6 +59,11 @@ public:
 	}
 
 	//CDialog
+	virtual void OnOK() override
+	{
+		JMP_THIS(0x55210D);
+	}
+
 	virtual int DoModal() override
 	{
 		JMP_THIS(0x551E20);

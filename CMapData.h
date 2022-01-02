@@ -10,7 +10,7 @@
 
 enum class SaveMapFlag : int
 {
-    Default = 0x0,
+    LoadFromINI = 0x0,
     ValidateMap = 0x1,
     UpdateMapFieldData = 0x2,
     UpdatePreview = 0x4,
@@ -171,12 +171,15 @@ public:
 
     static constexpr reference<bool, 0x5E7C08> const MapNotLoaded{};
 
+    static constexpr reference<int, 0x5E7C48> const CliffWaters2{};
+    static constexpr reference<int, 0x5E7C4C> const Cliffs2Count{};
+    static constexpr reference<int, 0x5E7C50> const Cliff2{};
     static constexpr reference<int, 0x5E7C54> const WaterSet{};
     static constexpr reference<int, 0x5E7C68> const SlopeSetPieces{};
     static constexpr reference<int, 0x5E7C6C> const RampSmooth{};
     static constexpr reference<int, 0x5E7C70> const CliffSetCount{};
     static constexpr reference<int, 0x5E7C74> const CliffSet{};
-    static constexpr reference<int, 0x5E7C50> const Cliff2{};
+    
     static constexpr reference<int, 0x7EDEF0> const Ramps2Count{};
     static constexpr reference<int, 0x7EDEF4> const Morphable2Count{};
     static constexpr reference<int, 0x7EDEF8> const Morphable2{};
@@ -196,38 +199,45 @@ void UpdateMapFieldData_##name (bool bMapToINI) {JMP_THIS(addr);}
     DEFINE_FIELDUPDATE(House, 0x4A6FB0);
     DEFINE_FIELDUPDATE(Overlay, 0x4A7830);
     DEFINE_FIELDUPDATE(Celltag, 0x4A7930);
+    DEFINE_FIELDUPDATE(Field, 0x4B4810);
     DEFINE_FIELDUPDATE(Tube, 0x4BA5F0);
     DEFINE_FIELDUPDATE(Smudge, 0x4C9FA0);
 
 #undef DEFINE_FIELDUPDATE
 
+    void UpdateSize() { JMP_THIS(0x49AA30); }
     void InitMinimap() { JMP_THIS(0x4C3D40); }
     void UpdateMapPreviewAt(int Y, int X) { JMP_THIS(0x4A23A0); }
 
-    void UpdateMapFieldData(SaveMapFlag eFlags) { JMP_THIS(0x49C280); }
+    void UpdateINIFile(SaveMapFlag eFlags) { JMP_THIS(0x49C280); }
     CINI* UpdateCurrentDocument() { JMP_THIS(0x49C260); }
     static CINI* GetMapDocument(bool bUpdateMapField = false)
     {
         if (bUpdateMapField)
-            Instance->UpdateMapFieldData(SaveMapFlag::ValidateMap);
+            Instance->UpdateINIFile(SaveMapFlag::ValidateMap);
         return &Instance->INI;
     }
 
     bool IsMultiOnly() { JMP_THIS(0x4C30C0); }
 
     const wchar_t* QueryUIName(const char* pRegName) { JMP_THIS(0x4B2610); }
-    static ppmfc::CString GetUIName(const char* pRegName) { return ppmfc::CString(Instance->QueryUIName(pRegName)); }
+    inline static ppmfc::CString GetUIName(const char* pRegName) { return ppmfc::CString(Instance->QueryUIName(pRegName)); }
 
     void LoadMap(const char* pMapPath) { JMP_THIS(0x49D2C0); }
     void UnpackData() { JMP_THIS(0x49EE50); } // called in LoadMap
 
-    void InitializeBuildingTypes(const char* ID) { JMP_THIS(0x4B5460); } // use nullptr to reload all
+    // use nullptr to reload all
+    void InitializeBuildingTypes(const char* ID) { JMP_THIS(0x4B5460); } 
+    void InitializeTerrainTypes(const char* ID) { JMP_THIS(0x4B6D00); }
+    void InitializeSmudges(const char* ID) { JMP_THIS(0x4CA7E0); }
+
+    void TypesInit_4AD930() { JMP_THIS(0x4AD930); }
 
     // FA2 magics
-    int GetCoordIndex(int X, int Y) { return Y + X * MapWidthPlusHeight; }  
-    int GetXFromCoordIndex(int CoordIndex) { return CoordIndex / MapWidthPlusHeight; }
-    int GetYFromCoordIndex(int CoordIndex) { return CoordIndex % MapWidthPlusHeight; }
-    bool IsCoordInMap(int X, int Y)
+    inline int GetCoordIndex(int X, int Y) { return Y + X * MapWidthPlusHeight; }  
+    inline int GetXFromCoordIndex(int CoordIndex) { return CoordIndex / MapWidthPlusHeight; }
+    inline int GetYFromCoordIndex(int CoordIndex) { return CoordIndex % MapWidthPlusHeight; }
+    inline bool IsCoordInMap(int X, int Y)
     {
         return
             X + Y > this->Size.Width&&
@@ -238,19 +248,19 @@ void UpdateMapFieldData_##name (bool bMapToINI) {JMP_THIS(addr);}
 
     void sub_416550(unsigned nIndex, unsigned int nTileCount, bool bUnk = false) { JMP_THIS(0x416550); }
 
-    void SetStructureData(CStructureData& data, LPCSTR lpNewTypeID, LPCSTR lpNewHouse, int nCoord, ppmfc::CString Unk1)
+    void SetStructureData(CStructureData* pData, LPCSTR lpNewTypeID, LPCSTR lpNewHouse, int nCoord, ppmfc::CString Unk1)
         { JMP_THIS(0x4ACB60); }
     void DeleteStructureData(int structureID) { JMP_THIS(0x4A8FB0); }
     void QueryStructureData(int structureID, CStructureData& data) { JMP_THIS(0x4AADB0); }
-    void SetInfantryData(CInfantryData& data, LPCSTR lpNewTypeID, LPCSTR lpNewHouse, int nCoord, int ManualinfID)
+    void SetInfantryData(CInfantryData* pData, LPCSTR lpNewTypeID, LPCSTR lpNewHouse, int nCoord, int ManualinfID)
         { JMP_THIS(0x4AC210); }
     void DeleteInfantryData(int infID) { JMP_THIS(0x4A7B60); }
     void QueryInfantryData(int infID, CInfantryData& data) { JMP_THIS(0x4AEC30); }
-    void SetUnitData(CUnitData& data, LPCSTR lpNewTypeID, LPCSTR lpNewHouse, int nCoord, ppmfc::CString Unk1)
+    void SetUnitData(CUnitData* pData, LPCSTR lpNewTypeID, LPCSTR lpNewHouse, int nCoord, ppmfc::CString Unk1)
         { JMP_THIS(0x4B0B30); }
     void DeleteUnitData(int unitID) { JMP_THIS(0x4A87A0); }
     void QueryUnitData(int unitID, CUnitData& data) { JMP_THIS(0x4AED40); }
-    void SetAircraftData(CAircraftData& data, LPCSTR lpNewTypeID, LPCSTR lpNewHouse, int nCoord, ppmfc::CString Unk1)
+    void SetAircraftData(CAircraftData* pData, LPCSTR lpNewTypeID, LPCSTR lpNewHouse, int nCoord, ppmfc::CString Unk1)
         { JMP_THIS(0x4B0060); }
     void DeleteAircraftData(int aircraftID) { JMP_THIS(0x4A98B0); }
     void QueryAircraftData(int aircraftID, CAircraftData& data) { JMP_THIS(0x4AF430); }
@@ -260,7 +270,7 @@ void UpdateMapFieldData_##name (bool bMapToINI) {JMP_THIS(addr);}
     void AddTube(TubeData* pTubeData) { JMP_THIS(0x4BAF20); }
 
     ppmfc::CString* FindAvailableOwner(ppmfc::CString* buffer, int nUnknown, bool bUseCountries) { JMP_THIS(0x49B2D0); }
-    ppmfc::CString FindAvailableOwner(int nUnknown, bool bUseCountries)
+    inline ppmfc::CString FindAvailableOwner(int nUnknown, bool bUseCountries)
     {
         ppmfc::CString ret;
         this->FindAvailableOwner(&ret, nUnknown, bUseCountries);
@@ -309,9 +319,9 @@ void UpdateMapFieldData_##name (bool bMapToINI) {JMP_THIS(addr);}
     FAVector<CInfantryData> InfantryDatas;
     FAVector<CUnitData> UnitDatas;
     FAVector<int> vector_80238;    // Seems never used except DTOR
-    unsigned char MapPreview[0x40000];
+    unsigned char MapPreviewData[0x40000];
     BITMAPINFO MapPreviewInfo;
-    int MapPreviewWidth; // Probably is the width I guess (Unknown_C0274)
+    int MapPreviewStride;
 
     // Well, things from now on shouldn't quite belongs to this class, but for some reason I decide to leave them here.
     CINI Desert;

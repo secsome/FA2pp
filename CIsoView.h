@@ -50,6 +50,7 @@ public:
     static constexpr reference<int, 0x72CBE8> const CurrentOverlayData{};
     static constexpr reference<int, 0x72CBEC> const CurrentHeight{}; // maybe ? have some validate ensure it less than 14
     static constexpr reference<ppmfc::CString, 0x72CBF0> const CurrentObjectID{};
+    static constexpr reference<ppmfc::CString, 0x5E7C98> const CurrentHouse{};
 
     static int GetCoordX(int nCoord) { return nCoord % 1000; }
     static int GetCoordY(int nCoord) { return nCoord / 1000; }
