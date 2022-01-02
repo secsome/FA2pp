@@ -17,7 +17,7 @@ public:
         JMP_THIS(0x552C7E);
     }
 
-    BOOL Update()
+    void Update()
     {
         JMP_THIS(0x4D1D60);
     }

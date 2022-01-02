@@ -9,19 +9,11 @@
 
 #include "Helpers/CompileTime.h"
 
-class NOVTABLE FA2PP
+class FA2PP
 {
 public:
-	int UpdateDialogs(void* pThis)
-	{
-		return UpdateDialogs(pThis, 0, 0);
-	}
-	
-private:
-	int __thiscall UpdateDialogs(void* pThis, int a2, int a3)
-	{
-		JMP_THIS(0x4261E0)
-	}
+	static void __stdcall DDX_Text(CDataExchange* pDX, int nIDC, int& value) { JMP_STD(0x55A53D); }
+
 };
 
 class NOVTABLE FA2CWnd : public ppmfc::CWnd

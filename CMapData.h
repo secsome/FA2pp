@@ -208,6 +208,16 @@ void UpdateMapFieldData_##name (bool bMapToINI) {JMP_THIS(addr);}
     void UpdateSize() { JMP_THIS(0x49AA30); }
     void InitMinimap() { JMP_THIS(0x4C3D40); }
     void UpdateMapPreviewAt(int Y, int X) { JMP_THIS(0x4A23A0); }
+    void GetMapPreview(void*& pBuffer, LPBITMAPINFO lpBitmapInfo, int& nStride) { JMP_THIS(0x4C3DF0); }
+    void* GetMapPreview(LPBITMAPINFO lpBitmapInfo)
+    {
+        int nStride;
+        void* pRet = nullptr;
+        this->GetMapPreview(pRet, lpBitmapInfo, nStride);
+        return pRet;
+    }
+
+    void ResizeMap(int L, int T, int W, int H) { JMP_THIS(0x4C45F0); }
 
     void UpdateINIFile(SaveMapFlag eFlags) { JMP_THIS(0x49C280); }
     CINI* UpdateCurrentDocument() { JMP_THIS(0x49C260); }
