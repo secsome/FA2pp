@@ -20,6 +20,12 @@ const MapCoord MapCoord::Facings[FACING_COUNT] =
 	{-1, 0},
 	{-1, -1}
 };
+MapCoord& operator+=(MapCoord& l, const MapCoord& r)
+{
+	l.X += r.X;
+	l.Y += r.Y;
+	return l;
+}
 MapCoord operator+(const MapCoord& l, const MapCoord& r)
 {
 	MapCoord ret;

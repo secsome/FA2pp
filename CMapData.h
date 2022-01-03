@@ -41,6 +41,7 @@ struct MapCoord
     int X;
     int Y;
 };
+MapCoord& operator+=(MapCoord& l, const MapCoord& r);
 MapCoord operator+(const MapCoord& l, const MapCoord& r);
 MapCoord operator*(const MapCoord& coord, int factor);
 

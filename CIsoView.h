@@ -103,15 +103,14 @@ public:
     int Unknown_58;
     CPoint ViewPosition; // where the view center at
     CPoint MoveCenterPosition; // where right button down
-    int Unknown_6C;
-    int Unknown_70;
+    CPoint MouseCurrentPosition;
     BOOL IsScrolling;
     int Unknown_78;
     int Unknown_7C;
     int Unknown_80;
     int Unknown_84;
     int Unknown_88;
-    int Unknown_8C;
+    int LeftButtonDoubleClick_8C;
     int Unknown_90;
     int Unknown_94;
     CMyViewFrame* pParent;
@@ -132,6 +131,6 @@ public:
     int Unknown_E0;
     int CurrentCellObjectType;
     int CurrentCellObjectIndex;
-    int Unknown_EC;
+    int Flag_EC;
     int Unknown_F0;
 };
