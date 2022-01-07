@@ -351,6 +351,6 @@ void UpdateMapFieldData_##name (bool bMapToINI) {JMP_THIS(addr);}
     CINI Art;
     int ShorePieces;
     int Unknown_C11CC;
-    FAMap<int, int, 0x5D8CB8, 0> HeightDatas;
+    FAMap<int, int, 0x5D8CB8, 0> MarbleMadnessDatas;
     CINI Rules;
 };
