@@ -148,7 +148,7 @@ struct TubeData
     char Directions[100];
 };
 
-struct CopyPasteDataHeader
+struct ClipboardHeader
 {
     int One_0;          // Not used in paste
     int Zero_4;         // Not used in paste
@@ -158,7 +158,7 @@ struct CopyPasteDataHeader
     int Height;
 };
 
-struct CopyPasteData
+struct Clipboard
 {
     BOOL IgnoreAltImages;
     unsigned char Overlay;

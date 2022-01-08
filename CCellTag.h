@@ -8,7 +8,7 @@ public:
 	CCellTag() = default;
 
 	//member properties
-	ppmfc::CComboBox	CCBTag; // 92
+	ppmfc::CString	Tag; // 92
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
 	{
