@@ -148,6 +148,31 @@ struct TubeData
     char Directions[100];
 };
 
+struct CopyPasteDataHeader
+{
+    int One_0;          // Not used in paste
+    int Zero_4;         // Not used in paste
+    int Zero_8;         // Not used in paste
+    bool SomeBoolean_C; // Not used in paste
+    int Width;
+    int Height;
+};
+
+struct CopyPasteData
+{
+    BOOL IgnoreAltImages;
+    unsigned char Overlay;
+    unsigned char OverlayData;
+    unsigned short TileIndex;
+    unsigned short Short_30; // CellData Short_30
+    unsigned char TileSubIndex;
+    unsigned char Height;
+    unsigned char IceGrowth;
+    unsigned char Unknown_D; // 221 mostly, dunno what, cannot find it is being used
+    unsigned short TileSet;
+    unsigned char NthTileSetFile;
+};
+
 struct UndoRedoData
 {
     int Unknown_0;
