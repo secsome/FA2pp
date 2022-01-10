@@ -19,7 +19,13 @@ using dword = DWORD;
 #define DECLARE_PROPERTY(type,name)\
 union{\
 	type name; \
-	char _unionhide_##name[sizeof(type)]; \
+	char __##name[sizeof(type)]; \
+}
+
+#define DECLARE_PROPERTY_ARRAY(type,name,cnt)\
+union{\
+	type name[cnt]; \
+	char __##name[sizeof(type) * cnt]; \
 }
 
 //Not gettable/settable members

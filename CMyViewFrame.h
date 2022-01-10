@@ -7,7 +7,7 @@
 class CIsoView;
 class CTileSetBrowserFrame;
 
-class ObjectBrowserControl : public CTreeCtrl
+class CViewObjects : public CTreeCtrl
 {
 public:
     void Update() { JMP_THIS(0x51CD20); }
@@ -24,7 +24,7 @@ class CMyViewFrame : public FA2CFrameWnd
 public:
     CMinimap Minimap;
     FA2CStatusBar StatusBar;
-    ObjectBrowserControl* pObjectBrowserControl;
+    CViewObjects* pViewObjects;
     CIsoView* pIsoView;
     FA2CSplitterWnd SplitterWnd;
     CTileSetBrowserFrame* pTileSetBrowserFrame;

@@ -31,7 +31,7 @@ public:
 
 	static constexpr reference<DWORD, 0x7EE084> const LastSucceededOperation{};
 	static constexpr reference<DWORD, 0x88403C> const LastSucceededLibraryOperation{};
-	static constexpr reference<DWORD, 0x7EE078> const SE2KMODE{};
+	static constexpr reference<BOOL, 0x7EE078> const SE2KMODE{};
 
 protected:
 	
@@ -71,6 +71,6 @@ public:
 	DECLARE_PROPERTY(CBasic ,Basic);
 	DECLARE_PROPERTY(CMapD ,MapD);
 	DECLARE_PROPERTY(CINI ,INIMap);
-	DECLARE_PROPERTY(ObjectBrowserControl ,ObjectBrowserView);
+	DECLARE_PROPERTY(CViewObjects, ViewObjects);
 	DECLARE_PROPERTY(HICON ,hIcon);
 };
