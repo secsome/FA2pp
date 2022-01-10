@@ -206,12 +206,17 @@ public:
     static constexpr reference<int, 0x5E7C70> const CliffSetCount{};
     static constexpr reference<int, 0x5E7C74> const CliffSet{};
     
+    static constexpr reference<FAMap<int, int, 0x5D8CB8, 0>, 0x7EDDC8> MarbleMadnessDatas{};
+
+    static constexpr reference<int, 0x7EDDC0> const ShorePieces{};
     static constexpr reference<int, 0x7EDEF0> const Ramps2Count{};
     static constexpr reference<int, 0x7EDEF4> const Morphable2Count{};
     static constexpr reference<int, 0x7EDEF8> const Morphable2{};
     static constexpr reference<int, 0x7EDEFC> const Ramps2{};
     static constexpr reference<int, 0x7EDF00> const RampBase{};
     static constexpr reference<int, 0x7EDF04> const RampBaseCount{};
+
+    
 
 #define DEFINE_FIELDUPDATE(name,addr) \
 void UpdateMapFieldData_##name (bool bMapToINI) {JMP_THIS(addr);}
@@ -345,37 +350,17 @@ void UpdateMapFieldData_##name (bool bMapToINI) {JMP_THIS(addr);}
     CellData* CellDatas; // see 4BB920 validate the map, dtor at 416FC0
     int CellDataCount; // see 4BB920 validate the map
     UndoRedoData* UndoRedoData;
-    int UndoRedoDataCount; // undo redo count related
-    int UndoRedoCurrentDataIndex; // undo redo count related, UndoRedoDataCount - 1
+    int UndoRedoDataCount;
+    int UndoRedoCurrentDataIndex;
     int MoneyCount;
     FAVector<StructureData> StructureDatas; // being used in 4C3C20
     FAVector<TubeData> TubeDatas; // see 4753C0
-    FAVector<int> vector_801F8;
+    FAVector<CSmudgeData> SmudgeDatas;
     FAVector<CTerrainData> TerrainDatas;
     FAVector<CInfantryData> InfantryDatas;
     FAVector<CUnitData> UnitDatas;
-    FAVector<int> vector_80238;    // Seems never used except DTOR
+    FAVector<CStructureData> BuildingDatas; // Never being really used in fact, but can be guessed from 4CDDE0
     unsigned char MapPreviewData[0x40000];
     BITMAPINFO MapPreviewInfo;
     int MapPreviewStride;
-
-    // Well, things from now on shouldn't quite belongs to this class, but for some reason I decide to leave them here.
-    CINI Desert;
-    CINI Lunar;
-    CINI NewUrban;
-    CINI Urban;
-    CINI Snow;
-    CINI Temperate;
-    CINI FALanguage;
-    CINI FAData;
-    CINI Theme;
-    CINI EVA;
-    CINI Turtorial;
-    CINI Sound;
-    CINI AI;
-    CINI Art;
-    int ShorePieces;
-    int Unknown_C11CC;
-    FAMap<int, int, 0x5D8CB8, 0> MarbleMadnessDatas;
-    CINI Rules;
 };

@@ -7,11 +7,19 @@
 
 class Palette;
 
-enum class ImageDataFlag : unsigned int
+enum class ImageDataFlag : unsigned char
 {
     SurfaceData = 0,
     SHP = 1,
     VXL = 2
+};
+
+enum class BuildingImageFlag : unsigned char
+{
+    All = 0,
+    First = 1,
+    Second = 2,
+    Third = 3
 };
 
 class NOVTABLE ImageDataClass
@@ -45,7 +53,8 @@ public:
     short FullWidth;
     short FullHeight;
     ImageDataFlag Flag;
-    bool IsOverlay; // Only OVRLXX_XX will set this true
+    BuildingImageFlag BuildingFlag; // see BuildingData
+    BOOL IsOverlay; // Only OVRLXX_XX will set this true
 };
 
 struct BuildingData
@@ -56,9 +65,9 @@ struct BuildingData
     int FacingCount;
     unsigned __int8 Foundation_Width;
     unsigned __int8 Foundation_Height;
-    int Unknown_108;
-    int Unknown_10C;
-    int Unknown_110;
+    BOOL BuildingFlag1;
+    BOOL BuildingFlag2;
+    BOOL BuildingFlag3;
 };
 
 struct OverlayData
@@ -69,8 +78,8 @@ struct OverlayData
     ImageDataClass* Frames[60];
 };
 
-using ImageDataMap = FAMap<ppmfc::CString, ImageDataClass, 0x5E7C18, 0>;
-using SomeDataMap = FAMap<ppmfc::CString, bool, 0x5D8CD0, 0>;
+using ImageDataMap = FAMap<ppmfc::CString, ImageDataClass, 0x5E7C18, 0x5E7C1C>;
+using CStringBoolMap = FAMap<ppmfc::CString, bool, 0x5D8CD0, 0x5D8CCC>;
 
 class ImageDataMapHelper
 {
@@ -100,7 +109,7 @@ private:
 public:
     static void SetSomeData(ppmfc::CString name, bool value)
     {
-        SomeDataMap& someDatas = *reinterpret_cast<SomeDataMap*>(0x72A870);
+        CStringBoolMap& someDatas = *reinterpret_cast<CStringBoolMap*>(0x72A870);
         *((SomeDataMapHelper*)&someDatas)->GetSomeDataFromMap(&name) = value;
     }
 };

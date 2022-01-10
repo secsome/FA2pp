@@ -102,3 +102,12 @@ public:
     int Y;
     int Flag;
 };
+
+class CSmudgeData
+{
+public:
+    ppmfc::CString TypeID;
+    int X;
+    int Y;
+    int Flag;
+};
