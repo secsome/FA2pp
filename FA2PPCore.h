@@ -15,6 +15,13 @@ using dword = DWORD;
 #include <wchar.h>
 #include <cstdio>
 
+//Avoid default CTOR trick
+#define DECLARE_PROPERTY(type,name)\
+union{\
+	type name; \
+	char _unionhide_##name[sizeof(type)]; \
+}
+
 //Not gettable/settable members
 #define PROTECTED_PROPERTY(type,name)\
 	protected:\

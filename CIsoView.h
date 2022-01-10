@@ -43,13 +43,18 @@ public:
     static constexpr reference<bool, 0x5E7C10> const Destoryed{};
     static constexpr reference<bool, 0x5E7C14> const ScrollingRelatedFlag{};
 
-    static constexpr reference<int, 0x72CBD8> const CurrentCommand{};
-    static constexpr reference<int, 0x72CBDC> const CurrentType{};
-    static constexpr reference<int, 0x72CBE0> const CurrentParam{};
-    static constexpr reference<int, 0x72CBE4> const CurrentOverlay{};
-    static constexpr reference<int, 0x72CBE8> const CurrentOverlayData{};
-    static constexpr reference<int, 0x72CBEC> const CurrentHeight{}; // maybe ? have some validate ensure it less than 14
-    static constexpr reference<ppmfc::CString, 0x72CBF0> const CurrentObjectID{};
+    struct CurrentCommand // 518CB0 is the evidence
+    {
+        int Command;
+        int Type;
+        int Param;
+        int Overlay;
+        int OverlayData;
+        int Height;
+        ppmfc::CString ObjectID;
+    };
+
+    static constexpr reference<CurrentCommand, 0x72CBD8> const CurrentCommand{};
     static constexpr reference<ppmfc::CString, 0x5E7C98> const CurrentHouse{};
 
     static int GetCoordX(int nCoord) { return nCoord % 1000; }

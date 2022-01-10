@@ -14,6 +14,8 @@ public:
 
 	static constexpr reference<CFinalSunApp, 0x7EDF08> const Instance{};
 
+	CFinalSunDlg* GetDlg() { return reinterpret_cast<CFinalSunDlg*>(this->m_pMainWnd); }
+
 	//member properties
 	DWORD Unknown_C0; // never seen it huh
 	ppmfc::CString InstallPath; // Will be copied into FilePath at the end of InitInstance

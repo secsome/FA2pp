@@ -36,35 +36,41 @@ public:
 protected:
 	
 public:
+	CFinalSunDlg(CWnd* pParentWnd) { JMP_THIS(0x423B40); }
+	~CFinalSunDlg() { JMP_THIS(0x422070); }
+
+	virtual int DoModal() override { JMP_THIS(0x435270); }
 	void UpdateDialogs(BOOL bSkipUpdateSelf, BOOL bSkipUpdateIsoView) { JMP_THIS(0x4261E0); }
 	void SaveMap(LPCSTR lpPath) { JMP_THIS(0x426E50); }
 	void Update() { JMP_THIS(0x432010); }
+	void LoadMap(LPCSTR lpPath) { JMP_THIS(0x4374B0); }
+	void Settings() { JMP_THIS(0x43D0E0); }
 public:
 	//member properties
-	CTileSetBrowserFrame TileSetBrowserFrame;
-	CToolBar ToolBar1;
-	CToolBar ToolBar2;
-	CToolBar ToolBar3;
-	CBrushSize BrushSize;
-	CWnd ReBarCtrl;
-	CSingleplayerSettings SingleplayerSettings;
-	CAITriggerTypes AITriggerTypes;
-	CAITriggerTypesEnable AITriggerTypesEnable;
-	CScriptTypes ScriptTypes;
+	DECLARE_PROPERTY(CTileSetBrowserFrame, TileSetBrowserFrame);
+	DECLARE_PROPERTY(CToolBar, ToolBar1);
+	DECLARE_PROPERTY(CToolBar, ToolBar2);
+	DECLARE_PROPERTY(CToolBar, ToolBar3);
+	DECLARE_PROPERTY(CBrushSize, BrushSize);
+	DECLARE_PROPERTY(CWnd, ReBarCtrl);
+	DECLARE_PROPERTY(CSingleplayerSettings, SingleplayerSettings);
+	DECLARE_PROPERTY(CAITriggerTypes, AITriggerTypes);
+	DECLARE_PROPERTY(CAITriggerTypesEnable ,AITriggerTypesEnable);
+	DECLARE_PROPERTY(CScriptTypes ,ScriptTypes);
 	char COldTriggerEditor[1112]; // I just don't want to analyse it, for it's obsoluted
-	CTriggerFrame TriggerFrame;
-	CTags Tags;
-	CTaskForce TaskForce;
-	CTeamTypes TeamTypes;
-	CHouses Houses;
-	CSplitterWnd SplitterWnd;
-	CMyViewFrame MyViewFrame;
-	CSpecialFlags SpecialFlags;
-	CLighting Lighting;
-	CINIEditor INIEditor;
-	CBasic Basic;
-	CMapD MapD;
-	CINI INIMap;
-	ObjectBrowserControl ObjectBrowserView;
-	HICON hIcon;
+	DECLARE_PROPERTY(CTriggerFrame ,TriggerFrame);
+	DECLARE_PROPERTY(CTags ,Tags);
+	DECLARE_PROPERTY(CTaskForce ,TaskForce);
+	DECLARE_PROPERTY(CTeamTypes ,TeamTypes);
+	DECLARE_PROPERTY(CHouses ,Houses);
+	DECLARE_PROPERTY(CSplitterWnd ,SplitterWnd);
+	DECLARE_PROPERTY(CMyViewFrame ,MyViewFrame);
+	DECLARE_PROPERTY(CSpecialFlags ,SpecialFlags);
+	DECLARE_PROPERTY(CLighting ,Lighting);
+	DECLARE_PROPERTY(CINIEditor ,INIEditor);
+	DECLARE_PROPERTY(CBasic ,Basic);
+	DECLARE_PROPERTY(CMapD ,MapD);
+	DECLARE_PROPERTY(CINI ,INIMap);
+	DECLARE_PROPERTY(ObjectBrowserControl ,ObjectBrowserView);
+	DECLARE_PROPERTY(HICON ,hIcon);
 };

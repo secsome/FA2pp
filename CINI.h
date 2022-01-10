@@ -112,7 +112,7 @@ public:
 	CINI() { JMP_THIS(0x452270); }
 	virtual ~CINI() { JMP_THIS(0x4527E0); }
 
-	INIDict Dict;
+	DECLARE_PROPERTY(INIDict, Dict);
 	char Path[MAX_PATH];
 
 	static ppmfc::CString* GetAvailableIndex(ppmfc::CString* ret)
@@ -123,6 +123,13 @@ public:
 
 public:
 	void Release() { JMP_THIS(0x4527E0); } // DTOR
+	int ClearAndLoad(const char* lpPath, int nUnused = 0) { JMP_THIS(0x4526D0); }
+	bool WriteToFile(const char* lpPath) { JMP_THIS(0x4536B0); }
+	// return values:
+	// 0 for success
+	// 1 for path not available
+	// 2 for fail to read file
+	int ParseINI(const char* lpPath, bool bTrimSpace, int nUnused = 0) { JMP_THIS(0x452CC0); }
 
 	std::pair<INIDict::iterator, bool> InsertSection(ppmfc::CString pSection, INISection* section)
 	{

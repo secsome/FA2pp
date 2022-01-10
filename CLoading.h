@@ -48,9 +48,8 @@ public:
 
 	static constexpr reference<bool, 0x5D32AC> const HasMdFile{};
 
-	CLoading() = default;
-
 	CLoading(CWnd* pParentWnd) { JMP_THIS(0x479A40) }
+	~CLoading() { JMP_THIS(0x48A330); }
 
 	//Returns : The index of mixfile in the global array, 0 for not found.
 	//pTheaterType:
@@ -210,10 +209,10 @@ public:
 	//member properties
 	char TheaterIdentifier; // T, A(SNOW), U, N, D, L
 	//align 3 bytes
-	CStatic CSCVersion;
-	CStatic CSCBuiltby;
-	CStatic CSCLoading;
-	CProgressCtrl CPCProgress;
+	DECLARE_PROPERTY(CStatic, CSCVersion);
+	DECLARE_PROPERTY(CStatic, CSCBuiltby);
+	DECLARE_PROPERTY(CStatic, CSCLoading);
+	DECLARE_PROPERTY(CProgressCtrl, CPCProgress);
 	int Unknown_150;
 	int Unknown_154;
 	int PAL_ISOTEM; // index in the array at 0x7EDD9C BytePalette[]
