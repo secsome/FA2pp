@@ -11,8 +11,6 @@ public:
 	INT			INT_SelectedWaypoint; // 92
 	ppmfc::CString		CString_Waypoint; // 96
 
-	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
-	{
-		JMP_THIS(0x4D8EC0);
-	}
+	virtual void DoDataExchange(ppmfc::CDataExchange* pDX) override
+		{ JMP_THIS(0x4D8EC0); }
 };

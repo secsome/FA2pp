@@ -38,8 +38,16 @@
 #define _PPMFC_STDCALL(addr) { JMP_STD(addr); }
 #endif // _PPMFC_STDCALL
 
+#ifndef _PPMFC_CDECLCALL
+#define _PPMFC_CDECLCALL(addr) { JMP_STD(addr); }
+#endif // _PPMFC_STDCALL
+
 #ifndef _PPMFC_API
 #define _PPMFC_API __stdcall
+#endif // _PPMFC_API
+
+#ifndef _PPMFC_CDECL
+#define _PPMFC_CDECL __cdecl
 #endif // _PPMFC_API
 
 #define MAX(a,b) a>b?a:b;
@@ -74,7 +82,7 @@ _PPMFC_CLASS(CObject)
 {
 private:
 public:
-    virtual CRuntimeClass* GetRuntimeClass() { return reinterpret_cast<CRuntimeClass*>(0x59D988); }
+    virtual CRuntimeClass* GetRuntimeClass() const { return reinterpret_cast<CRuntimeClass*>(0x59D988); }
     virtual ~CObject() {}
     virtual void Serialize(const CArchive* ar) {};
 };
@@ -102,6 +110,7 @@ public:
 _PPMFC_CLASS(CPoint) _PPMFC_INHERIT(tagPOINT)
 {
 public:
+    CPoint() { this->x = this->y = 0; }
     CPoint(DWORD dwPoint) _PPMFC_THISCALL(0x5338A9);
 };
 

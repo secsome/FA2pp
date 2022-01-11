@@ -17,15 +17,10 @@ public:
 	ppmfc::CString			CString_Status; // 180
 	ppmfc::CString			CString_Tag;  // 184
 
-	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
-	{
-		JMP_THIS(0x401250);
-	}
+	virtual void DoDataExchange(ppmfc::CDataExchange* pDX) override
+		{ JMP_THIS(0x401250); }
 
-	CPropertyAircraft(void* pParent)
-	{
-		JMP_THIS(0x401000);
-	}
+	CPropertyAircraft(ppmfc::CWnd* pParent) { JMP_THIS(0x401000); }
 
 private:
 	CPropertyAircraft(noinit_t) {}

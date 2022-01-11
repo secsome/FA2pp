@@ -35,7 +35,7 @@ enum FACurrentCommand : int
 };
 
 
-class CIsoView : public FA2CView
+class CIsoView : public ppmfc::CView
 {
 public:
     

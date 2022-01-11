@@ -33,8 +33,6 @@ public:
 	//member properties
 	CGamePanel GamePanel;
 
-	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
-	{
-		JMP_THIS(0x41E7E0);
-	}
+	virtual void DoDataExchange(ppmfc::CDataExchange* pDX) override
+		{ JMP_THIS(0x41E7E0); }
 };

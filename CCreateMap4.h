@@ -12,8 +12,6 @@ public:
 	INT			INT_PlayerHouseIndex; // 96
 	BOOL		BOOL_PrepareStandardHouses; // 100
 
-	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
-	{
-		JMP_THIS(0x4D3350);
-	}
+	virtual void DoDataExchange(ppmfc::CDataExchange* pDX) override
+		{ JMP_THIS(0x4D3350); }
 };

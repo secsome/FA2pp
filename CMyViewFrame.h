@@ -23,7 +23,7 @@ class CMyViewFrame : public FA2CFrameWnd
 {
 public:
     CMinimap Minimap;
-    FA2CStatusBar StatusBar;
+    ppmfc::CStatusBar StatusBar;
     CViewObjects* pViewObjects;
     CIsoView* pIsoView;
     FA2CSplitterWnd SplitterWnd;

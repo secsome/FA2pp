@@ -20,8 +20,6 @@ public:
 	BOOL			BOOL_NukeWar; // 128
 	BOOL			BOOL_Standard; // 132
 
-	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
-	{
-		JMP_THIS(0x4D2240);
-	}
+	virtual void DoDataExchange(ppmfc::CDataExchange* pDX) override
+		{ JMP_THIS(0x4D2240); }
 };

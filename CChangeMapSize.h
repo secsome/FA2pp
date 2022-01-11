@@ -13,8 +13,6 @@ public:
 	int		INT_Top; // 100
 	int		INT_Width; // 104, range [0, 511]
 
-	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
-	{
-		JMP_STD(0x41B0E0);
-	}
+	virtual void DoDataExchange(ppmfc::CDataExchange* pDX) override
+		{ JMP_THIS(0x41B0E0); }
 };

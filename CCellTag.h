@@ -10,8 +10,6 @@ public:
 	//member properties
 	ppmfc::CString	Tag; // 92
 
-	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
-	{
-		JMP_THIS(0x41ADF0);
-	}
+	virtual void DoDataExchange(ppmfc::CDataExchange* pDX) override
+		{ JMP_THIS(0x41ADF0); }
 };

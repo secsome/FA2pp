@@ -19,15 +19,10 @@ public:
 	ppmfc::CString			CString_State; // 188
 	ppmfc::CString			CString_Tag; // 192
 
-	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
-	{
-		JMP_THIS(0x50EA90);
-	}
+	virtual void DoDataExchange(ppmfc::CDataExchange* pDX) override
+		{ JMP_THIS(0x50EA90); }
 
-	CPropertyUnit(void* pParent)
-	{
-		JMP_THIS(0x50E8E0);
-	}
+	CPropertyUnit(ppmfc::CWnd* pParent = nullptr) { JMP_THIS(0x50E8E0); }
 
 private:
 	CPropertyUnit(noinit_t) {}

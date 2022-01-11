@@ -13,8 +13,6 @@ public:
 	BOOL			BOOL_ImportTrees; // 100
 	BOOL			BOOL_ImportUnitsAndBuildings; // 104
 
-	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
-	{
-		JMP_THIS(0x4D3070);
-	}
+	virtual void DoDataExchange(ppmfc::CDataExchange* pDX) override
+		{ JMP_THIS(0x4D3070); }
 };

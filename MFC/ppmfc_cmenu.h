@@ -12,7 +12,7 @@ public:
     CMenu() { this->m_hMenu = NULL; }
 
     // virtual functions
-    virtual CRuntimeClass* GetRuntimeClass() override { return reinterpret_cast<CRuntimeClass*>(0x59C850); }
+    virtual CRuntimeClass* GetRuntimeClass() const override { return reinterpret_cast<CRuntimeClass*>(0x59C850); }
 
     virtual ~CMenu() override _PPMFC_THISCALL(0x432620);
 

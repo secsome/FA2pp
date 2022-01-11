@@ -19,9 +19,6 @@ public:
 	ppmfc::CEdit CETLightingIon; // 572
 	ppmfc::CEdit CETNormalIon; // 632
 
-
-	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
-	{
-		JMP_THIS(0x4775E0);
-	}
+	virtual void DoDataExchange(ppmfc::CDataExchange* pDX) override
+		{ JMP_THIS(0x4775E0); }
 };

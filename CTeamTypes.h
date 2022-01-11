@@ -45,10 +45,8 @@ public:
 	ppmfc::CString		CString_MindControlDecision; // 340
 
 
-	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
-	{
-		JMP_THIS(0x5971EC);
-	}
+	virtual void DoDataExchange(ppmfc::CDataExchange* pDX) override
+		{ JMP_THIS(0x5971EC); }
 
 	void OnBNNewTeamClicked()
 	{

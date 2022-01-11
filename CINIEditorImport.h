@@ -12,8 +12,6 @@ public:
 	ppmfc::CListBox	CLBAvailableSections;
 	unsigned short SectionCount;
 
-	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
-	{
-		JMP_THIS(0x4513D0);
-	}
+	virtual void DoDataExchange(ppmfc::CDataExchange* pDX) override
+		{ JMP_THIS(0x4513D0); }
 };

@@ -13,8 +13,6 @@ public:
 	INT				DefaultHeight; // 100
 	INT				TheaterIndex; // 104
 
-	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
-	{
-		JMP_THIS(0x4D2E20);
-	}
+	virtual void DoDataExchange(ppmfc::CDataExchange* pDX) override
+		{ JMP_THIS(0x4D2E20); }
 };

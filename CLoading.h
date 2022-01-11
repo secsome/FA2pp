@@ -265,9 +265,7 @@ public:
 	int MIX_MARBLE;
 	int Unknown_32F8;
 
-	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
-	{
-		JMP_STD(0x479C70);
-	}
+	virtual void DoDataExchange(ppmfc::CDataExchange* pDX) override
+		{ JMP_THIS(0x479C70); }
 
 };

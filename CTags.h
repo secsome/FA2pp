@@ -13,8 +13,6 @@ public:
 	ppmfc::CComboBox	CCBTrigger; // 212
 	ppmfc::CString			CString_Name; // 272
 
-	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
-	{
-		JMP_THIS(0x4DE780);
-	}
+	virtual void DoDataExchange(ppmfc::CDataExchange* pDX) override
+		{ JMP_THIS(0x4DE780); }
 };

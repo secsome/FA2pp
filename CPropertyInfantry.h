@@ -18,15 +18,10 @@ public:
 	ppmfc::CString			CString_Tag; // 184
 	ppmfc::CString			CString_AutoCreateYesRecruitable;  // 188
 
-	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
-	{
-		JMP_THIS(0x4519A0);
-	}
+	virtual void DoDataExchange(ppmfc::CDataExchange* pDX) override
+		{ JMP_THIS(0x4519A0); }
 
-	CPropertyInfantry(void* pParent)
-	{
-		JMP_THIS(0x451640);
-	}
+	CPropertyInfantry(ppmfc::CWnd* pParent = nullptr) { JMP_THIS(0x451640); }
 
 private:
 	CPropertyInfantry(noinit_t) {}

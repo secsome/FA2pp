@@ -3,6 +3,7 @@
 #include <WinUser.h>
 
 #include "ppmfc_ccmdtarget.h"
+#include "ppmfc_cdataexchange.h"
 
 _PPMFC_BEGIN
 
@@ -15,6 +16,7 @@ class CDC;
 class COleControlSite;
 class CHandleMap;
 class CScrollBar;
+class CDataExchange;
 
 _PPMFC_CLASS(CWnd) _PPMFC_INHERIT(CCmdTarget)
 {
@@ -23,7 +25,7 @@ public:
     CWnd(HWND hWnd) _PPMFC_THISCALL(0x55235B);
 
     // virtual functions
-    virtual CRuntimeClass* GetRuntimeClass() override { return reinterpret_cast<CRuntimeClass*>(0x59A758); }
+    virtual CRuntimeClass* GetRuntimeClass() const override { return reinterpret_cast<CRuntimeClass*>(0x59A758); }
 
     virtual ~CWnd() override _PPMFC_THISCALL(0x552DF7);
 
@@ -107,8 +109,7 @@ public:
 
     virtual BOOL CheckAutoCenter() R0;
 
-    virtual BOOL IsFrameWnd() const
-        _PPMFC_THISCALL(0x55689D);
+    virtual BOOL IsFrameWnd() const R0;
 
     virtual BOOL SetOccDialogInfo(struct _AFX_OCC_DIALOG_INFO* pOccDialogInfo) R0;
 
@@ -427,6 +428,21 @@ public:
 
     void UnlockWindowUpdate()
         { ASSERT(::IsWindow(m_hWnd)); ::LockWindowUpdate(NULL); }
+
+    void CWnd::GetWindowRect(LPRECT lpRect) const
+        { ASSERT(::IsWindow(m_hWnd)); ::GetWindowRect(m_hWnd, lpRect); }
+
+    BOOL CWnd::RedrawWindow(LPCRECT lpRectUpdate, CRgn* prgnUpdate, UINT flags)
+        { ASSERT(::IsWindow(m_hWnd)); return ::RedrawWindow(m_hWnd, lpRectUpdate, (HRGN)prgnUpdate->GetSafeHandle(), flags); }
+
+    void UpdateWindow()
+        { ASSERT(::IsWindow(m_hWnd)); ::UpdateWindow(m_hWnd); }
+
+    void MoveWindow(int x, int y, int nWidth, int nHeight, BOOL bRepaint)
+        { ASSERT(::IsWindow(m_hWnd)); ::MoveWindow(m_hWnd, x, y, nWidth, nHeight, bRepaint); }
+    
+    void MoveWindow(LPCRECT lpRect, BOOL bRepaint)
+        { MoveWindow(lpRect->left, lpRect->top, lpRect->right - lpRect->left, lpRect->bottom - lpRect->top, bRepaint); }
 
     HWND GetSafeHwnd() const
         { ASSERT(::IsWindow(m_hWnd)); return this->m_hWnd; }

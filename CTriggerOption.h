@@ -24,10 +24,8 @@ public:
 		JMP_THIS(0x502DC0);
 	}
 
-	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
-	{
-		JMP_THIS(0x5008C0);
-	}
+	virtual void DoDataExchange(ppmfc::CDataExchange* pDX) override
+		{ JMP_THIS(0x5008C0); }
 
 	void Update() { JMP_THIS(0x500970); }
 };

@@ -23,10 +23,8 @@ public:
 		JMP_THIS(0x4FA250);
 	}
 
-	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
-	{
-		JMP_THIS(0x4FA1F0);
-	}
+	virtual void DoDataExchange(ppmfc::CDataExchange* pDX) override 
+		{ JMP_THIS(0x4FA1F0); }
 
 	void OnBNNewTriggerClicked() { JMP_THIS(0x4FAAD0); }
 	void OnBNDelTriggerClicked() { JMP_THIS(0x4FB1B0); }

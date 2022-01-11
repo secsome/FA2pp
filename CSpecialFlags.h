@@ -22,8 +22,6 @@ public:
 	ppmfc::CComboBox			CCBFixedAlliance; // 752
 	ppmfc::CComboBox			CCBDestoryableBridges; // 812
 
-	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
-	{
-		JMP_THIS(0x4DBDD0);
-	}
+	virtual void DoDataExchange(ppmfc::CDataExchange* pDX) override
+		{ JMP_THIS(0x4DBDD0); }
 };

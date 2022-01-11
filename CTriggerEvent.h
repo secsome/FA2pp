@@ -15,10 +15,8 @@ public:
 	ppmfc::CEdit		CETDescription; // 276
 	ppmfc::CComboBox	CCBCurrentEvent; // 336
 
-	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
-	{
-		JMP_THIS(0x4FD0B0);
-	}
+	virtual void DoDataExchange(ppmfc::CDataExchange* pDX) override
+		{ JMP_THIS(0x4FD0B0); }
 
 	void OnBNNewEventClicked() { JMP_THIS(0x4FD1D0); }
 	void OnBNDelEventClicked() { JMP_THIS(0x4FD630); }

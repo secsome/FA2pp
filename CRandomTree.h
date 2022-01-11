@@ -41,8 +41,6 @@ public:
 	ppmfc::CListBox	CLBAvailable; // 212
 	ppmfc::CString		CString_Terrain; // 272
 
-	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
-	{
-		JMP_THIS(0x4D4100);
-	}
+	virtual void DoDataExchange(ppmfc::CDataExchange* pDX) override
+		{ JMP_THIS(0x4D4100); }
 };

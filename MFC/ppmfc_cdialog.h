@@ -16,7 +16,7 @@ public:
 		_PPMFC_THISCALL(0x551D6B);
 
 	// virtual functions
-	virtual CRuntimeClass* GetRuntimeClass() override { return reinterpret_cast<CRuntimeClass*>(0x59A528); }
+	virtual CRuntimeClass* GetRuntimeClass() const override { return reinterpret_cast<CRuntimeClass*>(0x59A528); }
 
 	virtual ~CDialog() override _PPMFC_THISCALL(0x551A1D);
 

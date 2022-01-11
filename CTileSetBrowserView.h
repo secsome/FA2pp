@@ -4,9 +4,10 @@
 #include <ddraw.h>
 
 // CScorllView Size 140
-class NOVTABLE CTileSetBrowserView : public FA2CScrollView
+class NOVTABLE CTileSetBrowserView : public ppmfc::CScrollView
 {
-	virtual void OnDraw(CDC* pDC) {};
+	virtual void OnDraw(ppmfc::CDC* pDC) override
+		{ JMP_THIS(0x4F1D70); }
 
 public:
 	void SelectTileSet(int nTileSet, bool bNotInvokeUpdate) { JMP_THIS(0x4F2B10); }

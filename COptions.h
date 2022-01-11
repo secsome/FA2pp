@@ -13,8 +13,6 @@ public:
 	ppmfc::CEdit		CETPath; // 160
 	BOOL		BOOL_SelectMode; // 220
 
-	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
-	{
-		JMP_THIS(0x50E1D0);
-	}
+	virtual void DoDataExchange(ppmfc::CDataExchange* pDX) override
+		{ JMP_THIS(0x50E1D0); }
 };

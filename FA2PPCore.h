@@ -7,7 +7,10 @@ using byte = BYTE;
 using word = WORD;
 using dword = DWORD;
 
+struct noinit_t final {};
+
 //Assembly macros
+#include "Helpers/CompileTime.h"
 #include "Helpers/ASMMacros.h"
 
 #include <Memory.h>
@@ -54,6 +57,3 @@ virtual void alla(double malla) RX;
 
 #define elif else if
 #define SAFE_RELEASE(ptr) {if(ptr) delete[] ptr;}
-
- // use SOMECTOR() = delete instead of this
- struct noinit_t final {};

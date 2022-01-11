@@ -18,8 +18,6 @@ public:
 	ppmfc::CComboBox	CCBSectionList; // 512
 
 
-	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
-	{
-		JMP_THIS(0x40A440);
-	}
+	virtual void DoDataExchange(ppmfc::CDataExchange* pDX) override
+		{ JMP_THIS(0x40A440); }
 };

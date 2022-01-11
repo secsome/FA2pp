@@ -2,13 +2,11 @@
 
 #include "FA2PP.h"
 
-class CMinimap : public FA2CView
+class CMinimap : public ppmfc::CView
 {
 protected:
-    virtual void OnDraw(CDC* pDC) override
-    {
-        JMP_THIS(0x4691C0);
-    }
+    virtual void OnDraw(ppmfc::CDC* pDC) override
+        { JMP_THIS(0x4691C0); }
 
 public:
     BOOL CreateEx(DWORD dwExStyle, LPCTSTR lpszClassName, LPCTSTR lpszWindowName, 

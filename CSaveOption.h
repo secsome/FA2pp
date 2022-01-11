@@ -21,8 +21,6 @@ public:
 	BOOL		BOOL_Standard; // 132
 	BOOL		BOOL_TeamAlliance; // 136
 
-	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
-	{
-		JMP_THIS(0x4D56E0);
-	}
+	virtual void DoDataExchange(ppmfc::CDataExchange* pDX) override
+		{ JMP_THIS(0x4D56E0); }
 };

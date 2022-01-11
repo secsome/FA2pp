@@ -24,13 +24,10 @@ public:
 	ppmfc::CString			CString_ShowName; // 204
 	ppmfc::CString			CString_Tag; // 208
 
-	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
-	{
-		JMP_THIS(0x417910);
-	}
+	virtual void DoDataExchange(ppmfc::CDataExchange* pDX) override
+		{ JMP_THIS(0x417910); }
 
-	// Should be ppmfc::CWnd*
-	CPropertyBuilding(void* pParent) { JMP_THIS(0x417480); }
+	CPropertyBuilding(ppmfc::CWnd* pParent) { JMP_THIS(0x417480); }
 
 	void Translate() { JMP_THIS(0x41A750); }
 

@@ -13,8 +13,6 @@ public:
 	ppmfc::CString CString_Title;
 	ppmfc::CString CString_Buffer;
 
-	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
-	{
-		JMP_THIS(0x4D3BE0);
-	}
+	virtual void DoDataExchange(ppmfc::CDataExchange* pDX) override
+		{ JMP_THIS(0x4D3BE0); }
 };

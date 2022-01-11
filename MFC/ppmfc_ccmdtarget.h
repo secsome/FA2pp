@@ -18,15 +18,15 @@ class CTypeLibCache;
 _PPMFC_CLASS(CCmdTarget) _PPMFC_INHERIT(CObject)
 {
 public:
+
     CCmdTarget() _PPMFC_THISCALL(0x555771);
 
     // virtual functions
-    virtual CRuntimeClass* GetRuntimeClass() override { return reinterpret_cast<CRuntimeClass*>(0x59AD08); }
+    virtual CRuntimeClass* GetRuntimeClass() const override { return reinterpret_cast<CRuntimeClass*>(0x59AD08); }
 
     virtual ~CCmdTarget() override _PPMFC_THISCALL(0x55578B);
 
-    virtual BOOL OnCmdMsg(UINT nID, int nCode, void* pExtra,
-        AFX_CMDHANDLERINFO * pHandlerInfo)
+    virtual BOOL OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO * pHandlerInfo)
         _PPMFC_THISCALL(0x5558BD);
 
     virtual void OnFinalRelease()

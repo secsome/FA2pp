@@ -7,55 +7,6 @@
 
 #include "MFC/ppmfc_include.h"
 
-#include "Helpers/CompileTime.h"
-
-class FA2PP
-{
-public:
-	static void __stdcall DDX_Text(CDataExchange* pDX, int nIDC, int& value) { JMP_STD(0x55A53D); }
-
-};
-
-class NOVTABLE FA2CWinApp : public CWinApp
-{
-
-};
-
-class NOVTABLE FA2CScrollView : public CScrollView
-{
-public:
-	void Create(LPCTSTR lpszClassName, LPCTSTR lpszWindowName, DWORD dwStyle, const RECT* rect, 
-		CWnd* pParentWnd, UINT nID, CCreateContext* pContext)
-	{
-		JMP_THIS(0x552DAB);
-	}
-
-	void SetScrollSizes(int a2, SIZE a3, SIZE* a4, SIZE* a5)
-	{
-		JMP_THIS(0x559720);
-	}
-	
-};
-
-class NOVTABLE FA2CView : public CView
-{
-public:
-	// Cwnd
-	virtual BOOL PreTransateMessage(MSG* pMsg)
-	{
-		JMP_THIS(0x55304D);
-	}
-};
-
-class FA2CStatusBar : public CStatusBar
-{
-public:
-	BOOL Create(CWnd* pParent, unsigned int a3, unsigned int a4, int nID)
-	{
-		JMP_THIS(0x565951);
-	}
-};
-
 class NOVTABLE FA2CFrameWnd : public CFrameWnd
 {
 public:
@@ -113,14 +64,5 @@ public:
 	void SetRowInfo(int row, int cyIdeal, int cyMin)
 	{
 		JMP_THIS(0x55C1B6);
-	}
-};
-
-class FA2CDialogBar : public CDialogBar
-{
-public:
-	BOOL Create(CWnd* pParent, LPCSTR Name, int a4, LONG dwNewLong)
-	{
-		JMP_THIS(0x55BBB9);
 	}
 };

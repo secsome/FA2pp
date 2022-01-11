@@ -10,8 +10,6 @@ public:
 	//member properties
 	BOOL		BOOL_SinglePlayerMap; // 92
 
-	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
-	{
-		JMP_THIS(0x4D36C0);
-	}
+	virtual void DoDataExchange(ppmfc::CDataExchange* pDX) override
+		{ JMP_THIS(0x4D36C0); }
 };

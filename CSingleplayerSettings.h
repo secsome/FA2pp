@@ -20,10 +20,8 @@ public:
 	ppmfc::CComboBox			CCBMovieBrief; // 632
 	ppmfc::CComboBox			CCBMovieAction; // 692
 
-	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
-	{
-		JMP_THIS(0x4D9380);
-	}
+	virtual void DoDataExchange(ppmfc::CDataExchange* pDX) override
+		{ JMP_THIS(0x4D9380); }
 
 
 };
