@@ -2,7 +2,7 @@
 
 #include "FA2PP.h"
 
-class NOVTABLE CBrushSize : public CDialogBar
+class NOVTABLE CBrushSize : public ppmfc::CDialogBar
 {
 public:
 	CBrushSize() = default;

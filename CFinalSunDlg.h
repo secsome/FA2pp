@@ -36,7 +36,7 @@ public:
 protected:
 	
 public:
-	CFinalSunDlg(CWnd* pParentWnd) { JMP_THIS(0x423B40); }
+	CFinalSunDlg(ppmfc::CWnd* pParentWnd) { JMP_THIS(0x423B40); }
 	~CFinalSunDlg() { JMP_THIS(0x422070); }
 
 	virtual int DoModal() override { JMP_THIS(0x435270); }
@@ -52,7 +52,7 @@ public:
 	DECLARE_PROPERTY(CToolBar, ToolBar2);
 	DECLARE_PROPERTY(CToolBar, ToolBar3);
 	DECLARE_PROPERTY(CBrushSize, BrushSize);
-	DECLARE_PROPERTY(CWnd, ReBarCtrl);
+	DECLARE_PROPERTY(ppmfc::CWnd, ReBarCtrl);
 	DECLARE_PROPERTY(CSingleplayerSettings, SingleplayerSettings);
 	DECLARE_PROPERTY(CAITriggerTypes, AITriggerTypes);
 	DECLARE_PROPERTY(CAITriggerTypesEnable ,AITriggerTypesEnable);

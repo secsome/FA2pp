@@ -3,6 +3,7 @@
 #include "ppmfc_forward.h"
 
 // CObject
+#include "ppmfc_objects.h"
 #include "ppmfc_cmenu.h"
 #include "ppmfc_ccmdtarget.h"
 
@@ -11,6 +12,8 @@
 #include "ppmfc_cwinthread.h"
 
 // CWnd
+#include "ppmfc_cframewnd.h"
+#include "ppmfc_csplitterwnd.h"
 #include "ppmfc_ccontrolbar.h"
 #include "ppmfc_cdialog.h"
 #include "ppmfc_cview.h"
