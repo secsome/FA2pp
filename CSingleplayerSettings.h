@@ -2,7 +2,7 @@
 
 #include "FA2PP.h"
 
-class NOVTABLE CSingleplayerSettings : public FA2CDialog
+class NOVTABLE CSingleplayerSettings : public ppmfc::CDialog
 {
 public:
 	CSingleplayerSettings() = default;

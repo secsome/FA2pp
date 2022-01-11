@@ -2,7 +2,7 @@
 
 #include "FA2PP.h"
 
-class NOVTABLE CUpdateProgress : public FA2CDialog
+class NOVTABLE CUpdateProgress : public ppmfc::CDialog
 {
 public:
 	CUpdateProgress() = default;

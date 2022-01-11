@@ -2,7 +2,7 @@
 
 #include "FA2PP.h"
 
-class NOVTABLE CTriggerEvent : public FA2CDialog
+class NOVTABLE CTriggerEvent : public ppmfc::CDialog
 {
 public:
 	CTriggerEvent() = default;

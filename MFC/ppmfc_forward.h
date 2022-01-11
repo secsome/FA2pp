@@ -47,11 +47,56 @@
 
 _PPMFC_BEGIN
 
+typedef LONG HRESULT;
+
+struct IUnknown;
+typedef IUnknown* LPUNKNOWN;
+
+struct IDispatch;
+typedef IDispatch* LPDISPATCH;
+
+struct IConnectionPoint;
+typedef IConnectionPoint* LPCONNECTIONPOINT;
+
+struct IEnumOLEVERB;
+typedef IEnumOLEVERB* LPENUMOLEVERB;
+
+struct ITypeLib;
+typedef ITypeLib* LPTYPELIB;
+
+typedef struct _GUID GUID;
+typedef GUID IID;
+typedef GUID CLSID;
+
+struct CRuntimeClass;
+
 _PPMFC_CLASS(CObject)
 {
 private:
 public:
+    virtual CRuntimeClass* GetRuntimeClass() { return reinterpret_cast<CRuntimeClass*>(0x59D988); }
     virtual ~CObject() {}
+    virtual void Serialize(const CArchive* ar) {};
+};
+
+_PPMFC_STRUCT(CRuntimeClass)
+{
+    LPCSTR m_lpszClassName;
+    int m_nObjectSize;
+    UINT m_wSchema;
+    CObject* (PASCAL * m_pfnCreateObject)();
+    CRuntimeClass* m_pBaseClass;
+    CRuntimeClass* m_pNextClass;
+};
+
+_PPMFC_CLASS(CRect) _PPMFC_INHERIT(tagRECT)
+{
+public:
+};
+
+_PPMFC_CLASS(CSize) _PPMFC_INHERIT(tagSIZE)
+{
+public:
 };
 
 _PPMFC_CLASS(CPoint) _PPMFC_INHERIT(tagPOINT)

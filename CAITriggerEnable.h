@@ -3,7 +3,7 @@
 #include "FA2PP.h"
 
 // the sub window of CAITriggerTypesEnable
-class NOVTABLE CAITriggerEnable : public FA2CDialog
+class NOVTABLE CAITriggerEnable : public ppmfc::CDialog
 {
 public:
 	CAITriggerEnable() = default;

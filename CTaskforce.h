@@ -2,7 +2,7 @@
 
 #include "FA2PP.h"
 
-class NOVTABLE CTaskForce : public FA2CDialog
+class NOVTABLE CTaskForce : public ppmfc::CDialog
 {
 public:
 	void OnCBCurrentTaskforceEditChanged()

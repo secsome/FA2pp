@@ -2,7 +2,7 @@
 
 #include "FA2PP.h"
 
-class NOVTABLE CLoadingGraphics : public FA2CDialog
+class NOVTABLE CLoadingGraphics : public ppmfc::CDialog
 {
 public:
 	CLoadingGraphics() = default;

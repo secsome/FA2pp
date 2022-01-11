@@ -2,7 +2,7 @@
 
 #include "FA2PP.h"
 
-class NOVTABLE CSearchWaypoint : public FA2CDialog
+class NOVTABLE CSearchWaypoint : public ppmfc::CDialog
 {
 public:
 	CSearchWaypoint() = default;

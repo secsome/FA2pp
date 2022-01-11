@@ -2,7 +2,7 @@
 
 #include "FA2PP.h"
 
-class NOVTABLE CSaveOption : public FA2CDialog
+class NOVTABLE CSaveOption : public ppmfc::CDialog
 {
 public:
 	CSaveOption() = default;

@@ -41,7 +41,7 @@ struct ExpandMixStruct
 
 class Palette;
 
-class NOVTABLE CLoading : public FA2CDialog
+class NOVTABLE CLoading : public ppmfc::CDialog
 {
 public:
 	static constexpr reference<CLoading*, 0x7EE030> const Instance{};

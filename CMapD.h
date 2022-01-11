@@ -2,7 +2,7 @@
 
 #include "FA2PP.h"
 
-class NOVTABLE CMapD : public FA2CDialog
+class NOVTABLE CMapD : public ppmfc::CDialog
 {
 public:
 	CMapD() = default;

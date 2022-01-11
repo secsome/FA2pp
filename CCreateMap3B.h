@@ -2,7 +2,7 @@
 
 #include "FA2PP.h"
 
-class NOVTABLE CCreateMap3B : public FA2CDialog // Import map
+class NOVTABLE CCreateMap3B : public ppmfc::CDialog // Import map
 {
 public:
 	CCreateMap3B() = default;

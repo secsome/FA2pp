@@ -169,22 +169,21 @@ public:
 		return 0;
 	}
 
-	ppmfc::CString GetKeyName(ppmfc::CString pSection, int nIndex)
+	ppmfc::CString GetKeyAt(ppmfc::CString lpSection, int nIndex)
 	{
-		auto itr = Dict.find(pSection);
-		if (itr != Dict.end())
-		{
-			auto& EntriesMap = itr->second.GetEntities();
-			auto result = EntriesMap.begin();
-			int idx = 0;
-			while (result != EntriesMap.end())
-			{
-				if (idx == nIndex)
-					return result->first;
-				++idx;
-				++result;
-			}
-		}
+		if (auto pSection = GetSection(lpSection))
+			if (nIndex < pSection->GetEntities().size())
+				return *pSection->GetKeyAt(nIndex);
+
+		return "";
+	}
+
+	ppmfc::CString GetValueAt(ppmfc::CString lpSection, int nIndex)
+	{
+		if (auto pSection = GetSection(lpSection))
+			if (nIndex < pSection->GetEntities().size())
+				return *pSection->GetValueAt(nIndex);
+
 		return "";
 	}
 

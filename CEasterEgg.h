@@ -2,9 +2,12 @@
 
 #include "FA2PP.h"
 
-class NOVTABLE CGamePanel : public FA2CStatic
+class NOVTABLE CGamePanel : public ppmfc::CStatic
 {
 public:
+	CGamePanel() { JMP_THIS(0x41E890); }
+	virtual ~CGamePanel() override { JMP_THIS(0x41E8D0); }
+
 	enum BlockType : int
 	{
 		None = 0x0,
@@ -22,7 +25,7 @@ public:
 	void OnLButtonDown(UINT nFlags, int X, int Y) { JMP_THIS(0x41E8F0); }
 };
 
-class NOVTABLE CEasterEgg : public FA2CDialog
+class NOVTABLE CEasterEgg : public ppmfc::CDialog
 {
 public:
 	CEasterEgg() = default;

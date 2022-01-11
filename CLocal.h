@@ -2,7 +2,7 @@
 
 #include "FA2PP.h"
 
-class NOVTABLE CLocal : public FA2CDialog
+class NOVTABLE CLocal : public ppmfc::CDialog
 {
 public:
 	CLocal() = default;

@@ -2,7 +2,7 @@
 
 #include "FA2PP.h"
 
-class NOVTABLE CRandomTree : public FA2CDialog
+class NOVTABLE CRandomTree : public ppmfc::CDialog
 {
 public:
 	CRandomTree() = default;

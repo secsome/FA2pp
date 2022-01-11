@@ -2,14 +2,15 @@
 
 #include "FA2PP.h"
 
-class NOVTABLE CINIEditorImport : public FA2CDialog
+class NOVTABLE CINIEditorImport : public ppmfc::CDialog
 {
 public:
 	CINIEditorImport() = default;
 
 	//member properties
-	INT			Unknown_92; // Fill 92 - 96
-	ppmfc::CListBox	CLBAvailableSections; // 96
+	ppmfc::CString	INIPath;
+	ppmfc::CListBox	CLBAvailableSections;
+	unsigned short SectionCount;
 
 	virtual void __thiscall DoDataExchange(CDataExchange* pDX) override
 	{

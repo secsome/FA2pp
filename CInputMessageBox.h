@@ -2,7 +2,7 @@
 
 #include "FA2PP.h"
 
-class NOVTABLE CInputMessageBox : public FA2CDialog
+class NOVTABLE CInputMessageBox : public ppmfc::CDialog
 {
 public:
     static ppmfc::CString* __cdecl GetString(ppmfc::CString* pRet, LPCSTR lpMessage, LPCSTR lpTitle) { JMP_THIS(0x456350); }

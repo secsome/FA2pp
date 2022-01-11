@@ -2,7 +2,7 @@
 
 #include "FA2PP.h"
 
-class NOVTABLE CMapScripts : public FA2CDialog
+class NOVTABLE CMapScripts : public ppmfc::CDialog
 {
 public:
 	CMapScripts() = default;

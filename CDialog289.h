@@ -4,14 +4,14 @@
 
 // FAScript related dialog
 
-class NOVTABLE CDialog289 : public FA2CDialog // Dialog 289, don't know where uses
+class NOVTABLE CDialog289 : public ppmfc::CDialog // Dialog 289, don't know where uses
 {
 public:
 	CDialog289() = default;
 
 	//member properties
 	BYTE Unknown_92[4]; // Fill 92 - 116
-	FA2CWnd* pParentWnd;
+	ppmfc::CWnd* pParentWnd;
 	int Unknown_100;
 	int Unknown_104;
 	int Unknown_108;

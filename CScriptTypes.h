@@ -2,7 +2,7 @@
 
 #include "FA2PP.h"
 
-class NOVTABLE CScriptTypes : public FA2CDialog
+class NOVTABLE CScriptTypes : public ppmfc::CDialog
 {
 public:
 	CScriptTypes() = default;

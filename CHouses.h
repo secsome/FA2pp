@@ -2,7 +2,7 @@
 
 #include "FA2PP.h"
 
-class NOVTABLE CHouses : public FA2CDialog
+class NOVTABLE CHouses : public ppmfc::CDialog
 {
 public:
 	CHouses() = default;

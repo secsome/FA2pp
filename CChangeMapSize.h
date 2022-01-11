@@ -2,7 +2,7 @@
 
 #include "FA2PP.h"
 
-class NOVTABLE CChangeMapSize : public FA2CDialog
+class NOVTABLE CChangeMapSize : public ppmfc::CDialog
 {
 public:
 	CChangeMapSize() = default;

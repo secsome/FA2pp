@@ -2,7 +2,7 @@
 
 #include "FA2PP.h"
 
-class NOVTABLE CPropertyBuilding : public FA2CDialog
+class NOVTABLE CPropertyBuilding : public ppmfc::CDialog
 {
 public:
 

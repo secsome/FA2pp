@@ -2,7 +2,7 @@
 
 #include "FA2PP.h"
 
-class NOVTABLE CBasic : public FA2CDialog
+class NOVTABLE CBasic : public ppmfc::CDialog
 {
 public:
 	CBasic() = default;

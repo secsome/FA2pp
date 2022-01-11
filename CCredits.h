@@ -2,7 +2,7 @@
 
 #include "FA2PP.h"
 
-class NOVTABLE CCredits : public FA2CDialog
+class NOVTABLE CCredits : public ppmfc::CDialog
 {
 public:
 	CCredits() = default;

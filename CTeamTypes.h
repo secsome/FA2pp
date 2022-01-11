@@ -2,7 +2,7 @@
 
 #include "FA2PP.h"
 
-class NOVTABLE CTeamTypes : public FA2CDialog
+class NOVTABLE CTeamTypes : public ppmfc::CDialog
 {
 public:
 	CTeamTypes() = default;

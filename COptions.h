@@ -2,7 +2,7 @@
 
 #include "FA2PP.h"
 
-class NOVTABLE COptions : public FA2CDialog
+class NOVTABLE COptions : public ppmfc::CDialog
 {
 public:
 	COptions() = default;

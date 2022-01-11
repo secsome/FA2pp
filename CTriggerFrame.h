@@ -6,7 +6,7 @@
 #include "CTriggerEvent.h"
 #include "CTriggerAction.h"
 
-class NOVTABLE CTriggerFrame : public FA2CDialog
+class NOVTABLE CTriggerFrame : public ppmfc::CDialog
 {
 public:
 	CTriggerFrame() = default;

@@ -2,7 +2,7 @@
 
 #include "FA2PP.h"
 
-class NOVTABLE CCellTag : public FA2CDialog
+class NOVTABLE CCellTag : public ppmfc::CDialog
 {
 public:
 	CCellTag() = default;

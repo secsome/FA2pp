@@ -2,7 +2,7 @@
 
 #include "FA2PP.h"
 
-class NOVTABLE CINIEditor : public FA2CDialog
+class NOVTABLE CINIEditor : public ppmfc::CDialog
 {
 public:
 	CINIEditor() = default;

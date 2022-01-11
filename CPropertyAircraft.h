@@ -2,7 +2,7 @@
 
 #include "FA2PP.h"
 
-class NOVTABLE CPropertyAircraft : public FA2CDialog
+class NOVTABLE CPropertyAircraft : public ppmfc::CDialog
 {
 public:
 	//member properties

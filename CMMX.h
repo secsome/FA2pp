@@ -2,7 +2,7 @@
 
 #include "FA2PP.h"
 
-class NOVTABLE CMMX : public FA2CDialog
+class NOVTABLE CMMX : public ppmfc::CDialog
 {
 public:
 	CMMX() = default;

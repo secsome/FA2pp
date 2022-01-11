@@ -14,13 +14,105 @@ class CFrameWnd;
 class CDC;
 class COleControlSite;
 class CHandleMap;
+class CScrollBar;
 
 _PPMFC_CLASS(CWnd) _PPMFC_INHERIT(CCmdTarget)
 {
 public:
     CWnd() _PPMFC_THISCALL(0x55231D);
     CWnd(HWND hWnd) _PPMFC_THISCALL(0x55235B);
-    ~CWnd() _PPMFC_THISCALL(0x552DF7);
+
+    // virtual functions
+    virtual CRuntimeClass* GetRuntimeClass() override { return reinterpret_cast<CRuntimeClass*>(0x59A758); }
+
+    virtual ~CWnd() override _PPMFC_THISCALL(0x552DF7);
+
+    virtual void OnFinalRelease() override
+        _PPMFC_THISCALL(0x552FA4);
+
+    virtual const AFX_MSGMAP* GetMessageMap() const override
+        _PPMFC_THISCALL(0x553586);
+
+    virtual void PreSubclassWindow() RX;
+
+    virtual BOOL Create(LPCTSTR lpszClassName,
+        LPCTSTR lpszWindowName, DWORD dwStyle,
+        const RECT& rect,
+        CWnd* pParentWnd, UINT nID,
+        CCreateContext* pContext = NULL)
+        _PPMFC_THISCALL(0x552DAB);
+
+    virtual BOOL DestroyWindow()
+        _PPMFC_THISCALL(0x552FB5);
+
+    virtual BOOL PreCreateWindow(CREATESTRUCT & cs)
+        _PPMFC_STDCALL(0x552D8B);
+
+    enum AdjustType { adjustBorder = 0, adjustOutside = 1 };
+    virtual void CalcWindowRect(LPRECT lpClientRect,
+        UINT nAdjustType = adjustBorder)
+        _PPMFC_THISCALL(0x5543D4);
+
+    virtual int OnToolHitTest(CPoint point, TOOLINFO* pTI) const
+        _PPMFC_THISCALL(0x5530C3);
+
+    virtual CScrollBar* GetScrollBarCtrl(int nBar) const R0;
+
+    virtual void WinHelp(DWORD dwData, UINT nCmd = HELP_CONTEXT)
+        _PPMFC_THISCALL(0x5534A4);
+
+    virtual BOOL ContinueModal()
+        _PPMFC_THISCALL(0x55502B);
+
+    virtual void EndModalLoop(int nResult)
+        _PPMFC_THISCALL(0x555032);
+
+    virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam)
+        _PPMFC_THISCALL(0x553BAC);
+
+    virtual BOOL OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
+        _PPMFC_THISCALL(0x553C38);
+
+    virtual WNDPROC* GetSuperWndProcAddr()
+        _PPMFC_THISCALL(0x553049);
+
+    virtual void DoDataExchange(CDataExchange* pDX) RX;
+
+    virtual void BeginModalState()
+        _PPMFC_THISCALL(0x401A30);
+
+    virtual void EndModalState()
+        _PPMFC_THISCALL(0x401A40);
+
+    virtual BOOL PreTranslateMessage(MSG* pMsg)
+        _PPMFC_THISCALL(0x55304D);
+
+    virtual BOOL OnAmbientProperty(COleControlSite* pSite, DISPID dispid,
+        VARIANT* pvar)
+        _PPMFC_THISCALL(0x55543B);
+
+    virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
+        _PPMFC_THISCALL(0x5535CC);
+
+    virtual BOOL OnWndMsg(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* pResult)
+        _PPMFC_THISCALL(0x553610);
+
+    virtual LRESULT DefWindowProc(UINT nMsg, WPARAM wParam, LPARAM lParam)
+        _PPMFC_THISCALL(0x553002);
+
+    virtual void PostNcDestroy() RX;
+
+    virtual BOOL OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* pResult)
+        _PPMFC_THISCALL(0x554512);
+
+    virtual BOOL CheckAutoCenter() R0;
+
+    virtual BOOL IsFrameWnd() const
+        _PPMFC_THISCALL(0x55689D);
+
+    virtual BOOL SetOccDialogInfo(struct _AFX_OCC_DIALOG_INFO* pOccDialogInfo) R0;
+
+    // normal functions
 
     LRESULT PASCAL SendMessage(UINT Msg, WPARAM wParam, LPARAM lParam) const
         { return ::SendMessage(this->m_hWnd, Msg, wParam, lParam); }
@@ -77,39 +169,14 @@ public:
         HWND hWndParent, HMENU nIDorHMenu, LPVOID lpParam = NULL)
         _PPMFC_THISCALL(0x552CC5);
 
-    virtual BOOL PreCreateWindow(CREATESTRUCT & cs)
-        _PPMFC_STDCALL(0x552D8B);
-
-    virtual BOOL Create(LPCTSTR lpszClassName,
-        LPCTSTR lpszWindowName, DWORD dwStyle,
-        const RECT & rect,
-        CWnd * pParentWnd, UINT nID,
-        CCreateContext * pContext = NULL)
-        _PPMFC_THISCALL(0x552DAB);
-
     void OnDestroy()
         _PPMFC_THISCALL(0x552E73);
 
     void OnNcDestroy()
         _PPMFC_THISCALL(0x552E91);
 
-    virtual void OnFinalRelease()
-        _PPMFC_THISCALL(0x552FA4);
-
-    virtual BOOL DestroyWindow()
-        _PPMFC_THISCALL(0x552FB5);
-
-    virtual LRESULT DefWindowProc(UINT nMsg, WPARAM wParam, LPARAM lParam)
-        _PPMFC_THISCALL(0x553002);
-
-    virtual BOOL PreTranslateMessage(MSG * pMsg)
-        _PPMFC_THISCALL(0x55304D);
-
     static void PASCAL CancelToolTips(BOOL bKeys = FALSE)
         _PPMFC_STDCALL(0x55306C);
-
-    virtual int OnToolHitTest(CPoint point, TOOLINFO * pTI) const
-        _PPMFC_THISCALL(0x5530C3);
 
     void GetWindowText(CString & rString) const
         _PPMFC_THISCALL(0x553134);
@@ -128,21 +195,6 @@ public:
 
     LRESULT OnNTCtlColor(WPARAM wParam, LPARAM lParam)
         _PPMFC_THISCALL(0x55345E);
-
-    virtual void WinHelp(DWORD dwData, UINT nCmd = HELP_CONTEXT)
-        _PPMFC_THISCALL(0x5534A4);
-
-    virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
-        _PPMFC_THISCALL(0x5535CC);
-
-    virtual BOOL OnWndMsg(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* pResult)
-        _PPMFC_THISCALL(0x553610);
-
-    virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam)
-        _PPMFC_THISCALL(0x553BAC);
-
-    virtual BOOL OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
-        _PPMFC_THISCALL(0x553C38);
 
     CFrameWnd* GetParentFrame() const
         _PPMFC_THISCALL(0x553CB2);
@@ -212,11 +264,6 @@ public:
         LPCRECT lpRectClient = NULL, BOOL bStretch = TRUE)
         _PPMFC_THISCALL(0x554200);
 
-    enum AdjustType { adjustBorder = 0, adjustOutside = 1 };
-    virtual void CalcWindowRect(LPRECT lpClientRect,
-        UINT nAdjustType = adjustBorder)
-        _PPMFC_THISCALL(0x5543D4);
-
     static BOOL PASCAL WalkPreTranslateTree(HWND hWndStop, MSG* pMsg)
         _PPMFC_STDCALL(0x5543FF);
 
@@ -225,9 +272,6 @@ public:
 
     static BOOL PASCAL ReflectLastMsg(HWND hWndChild, LRESULT* pResult = NULL)
         _PPMFC_STDCALL(0x55446E);
-
-    virtual BOOL OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* pResult)
-        _PPMFC_THISCALL(0x554512);
 
     BOOL ReflectChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* pResult)
         _PPMFC_THISCALL(0x55456D);
@@ -293,18 +337,8 @@ public:
     int RunModalLoop(DWORD dwFlags = 0)
         _PPMFC_THISCALL(0x554ECC);
 
-    virtual BOOL ContinueModal()
-        _PPMFC_THISCALL(0x55502B);
-
-    virtual void EndModalLoop(int nResult)
-        _PPMFC_THISCALL(0x555032);
-
     BOOL SubclassWindow(HWND hWnd)
         _PPMFC_THISCALL(0x5553E9);
-
-    virtual BOOL OnAmbientProperty(COleControlSite* pSite, DISPID dispid,
-        VARIANT* pvar)
-        _PPMFC_THISCALL(0x55543B);
 
     CWnd* GetDlgItem(int nID) const
         _PPMFC_THISCALL(0x555452);
@@ -379,6 +413,9 @@ public:
     static CWnd* _PPMFC_API CreateObject()
         _PPMFC_STDCALL(0x564309);
 
+    CMenu* GetMenu() const
+        { ASSERT(::IsWindow(m_hWnd)); return CMenu::FromHandle(::GetMenu(m_hWnd)); }
+
     CWnd* GetWindow(UINT nCmd) const
         { ASSERT(::IsWindow(m_hWnd)); return CWnd::FromHandle(::GetWindow(m_hWnd, nCmd)); }
 
@@ -387,8 +424,15 @@ public:
 
     BOOL LockWindowUpdate()    // for backward compatibility
         { ASSERT(::IsWindow(m_hWnd)); return ::LockWindowUpdate(m_hWnd); }
+
     void UnlockWindowUpdate()
         { ASSERT(::IsWindow(m_hWnd)); ::LockWindowUpdate(NULL); }
+
+    HWND GetSafeHwnd() const
+        { ASSERT(::IsWindow(m_hWnd)); return this->m_hWnd; }
+
+    operator HWND()
+        { return this->m_hWnd; }
 
 public:
     HWND m_hWnd;

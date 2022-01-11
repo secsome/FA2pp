@@ -21,7 +21,7 @@
 #include "CMapD.h"
 #include "CINI.h"
 
-class NOVTABLE CFinalSunDlg : public FA2CDialog
+class NOVTABLE CFinalSunDlg : public ppmfc::CDialog
 {
 public:
 	static constexpr reference<CFinalSunDlg*, 0x7EDF24> const Instance{}; // CFinalSunApp->MainWnd
