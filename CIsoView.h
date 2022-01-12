@@ -41,19 +41,22 @@ public:
     virtual ppmfc::CRuntimeClass* GetRuntimeClass() const override { return reinterpret_cast<ppmfc::CRuntimeClass*>(0x5942B8); }
 
     static constexpr reference<ppmfc::CRuntimeClass, 0x5942B8> RuntimeClass{};
-    static constexpr reference<bool, 0x5E7C10> const RButtonDownOrFocusKilled{};
+    static constexpr reference<bool, 0x5E7C0C> const RButtonDownOrFocusKilled{};
     static constexpr reference<bool, 0x5E7C10> const Destoryed{};
     static constexpr reference<bool, 0x5E7C14> const ScrollingRelatedFlag{};
 
     struct CurrentCommand // 518CB0 is the evidence
     {
+        CurrentCommand() { JMP_THIS(0x518CF0); }
+        ~CurrentCommand() { JMP_THIS(0x518CD0); }
+
         int Command;
         int Type;
         int Param;
         int Overlay;
         int OverlayData;
         int Height;
-        ppmfc::CString ObjectID;
+        DECLARE_PROPERTY(ppmfc::CString, ObjectID);
     };
 
     static constexpr reference<CurrentCommand, 0x72CBD8> const CurrentCommand{};
@@ -63,12 +66,12 @@ public:
     static int GetCoordY(int nCoord) { return nCoord / 1000; }
     static int GetCoord(int X, int Y) { return X * 1000 + Y; }
 
-    static void ScreenCoord2MapCoord(int& Y, int& X) { JMP_STD(0x466890); }
+    static void __cdecl ScreenCoord2MapCoord(int& Y, int& X) { JMP_STD(0x466890); }
     static void __cdecl MapCoord2ScreenCoord_Height(int& Y, int& X) { JMP_STD(0x45E880); }
     static void __cdecl MapCoord2ScreenCoord_Flat(int& Y, int& X) { JMP_STD(0x476240); }
     static void MapCoord2ScreenCoord(int& Y, int& X)
     {
-        if (CFinalSunApp::Instance->FlatToGround) // CFinalSunApp::Instance->FlatToGround
+        if (CFinalSunApp::Instance->FlatToGround)
             MapCoord2ScreenCoord_Flat(Y, X);
         else
             MapCoord2ScreenCoord_Height(Y, X);
@@ -76,7 +79,7 @@ public:
 
     void MoveToWP(UINT nWaypoint) { JMP_THIS(0x4766A0); }
     void MoveTo(int X, int Y) { JMP_THIS(0x4763D0); }
-    void MoveToCoord(int X, int Y) 
+    void MoveToMapCoord(int X, int Y) 
     {
         int nMapCoord = CMapData::Instance->GetCoordIndex(X, Y);
         RECT rect;
@@ -95,22 +98,24 @@ public:
     
     void AfterUpdate(BOOL bSomeValidate) { JMP_THIS(0x456C10); }
 
-    void DrawCellOutline(int X, int Y,int someDeltaX,int someDeltaY,COLORREF color,BOOL bDot,BOOL bDrawOnPrimarySurface)
+    void DrawCellOutline(int X, int Y,int W,int H,COLORREF color,BOOL bDot,BOOL bDrawOnPrimarySurface)
         { JMP_THIS(0x469C60); }
 
-    void UpdateStatusBar(int X, int Y) { JMP_THIS(0x469E70); }
-    void UpdateSurfaceLayer(int X, int Y, int unused) { JMP_THIS(0x46BC80); }
+    void UpdateStatusBar(int Y, int X) { JMP_THIS(0x469E70); }
+    void DrawMouseAttachedStuff(int Y, int X, LPDIRECTDRAWSURFACE7 lpSurface) { JMP_THIS(0x46BC80); }
+
+    void AutoConnectOverlayAt(int Y, int X) { JMP_THIS(0x469B20); }
 
     int StartCellY;
     int StartCellX; // which cell the left button clicked on
-    int Unknown_48;
+    int Height_48;
     int Unknown_4C;
     int Unknown_50;
     int Unknown_54;
     int Unknown_58;
-    CPoint ViewPosition; // where the view center at
-    CPoint MoveCenterPosition; // where right button down
-    CPoint MouseCurrentPosition;
+    ppmfc::CPoint ViewPosition; // where the view center at
+    ppmfc::CPoint MoveCenterPosition; // where right button down
+    ppmfc::CPoint MouseCurrentPosition;
     BOOL IsScrolling;
     int Unknown_78;
     int Unknown_7C;
@@ -127,15 +132,12 @@ public:
     IDirectDraw7* lpDD7;
     LPDIRECTDRAW lpDirectDraw;
     int Unknown_B0;
-    CMenu Menu;
+    ppmfc::CMenu Menu;
     BOOL IsInitializing;
     RECT Rect_C0;
-    int Unknown_CC;
     int Unknown_D0;
-    int Unknown_D4;
-    int Unknown_D8;
-    int Unknown_DC;
-    int Unknown_E0;
+    ppmfc::CPoint LineFrom;
+    ppmfc::CPoint LineTo;
     int CurrentCellObjectType;
     int CurrentCellObjectIndex;
     int Flag_EC;
