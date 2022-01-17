@@ -10,6 +10,12 @@ public:
     { 
         GetString(&lpStr, lpMessage, lpTitle); 
     }
+    static inline ppmfc::CString GetString(LPCSTR lpMessage, LPCSTR lpTitle)
+    {
+        ppmfc::CString buffer;
+        GetString(buffer, lpMessage, lpTitle);
+        return buffer;
+    }
 
 protected:
     CInputMessageBox() = delete; // No manual construct

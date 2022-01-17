@@ -281,9 +281,9 @@ void UpdateMapFieldData_##name (bool bMapToINI) {JMP_THIS(addr);}
     inline bool IsCoordInMap(int X, int Y)
     {
         return
-            X + Y > this->Size.Width&&
-            X - Y < this->Size.Width&&
-            Y - X < this->Size.Width&&
+            X + Y > this->Size.Width &&
+            X - Y < this->Size.Width &&
+            Y - X < this->Size.Width &&
             X + Y <= this->Size.Width + 2 * this->Size.Height;
     }
 

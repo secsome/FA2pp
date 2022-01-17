@@ -45,6 +45,8 @@ public:
 	void Update() { JMP_THIS(0x432010); }
 	void LoadMap(LPCSTR lpPath) { JMP_THIS(0x4374B0); }
 	void Settings() { JMP_THIS(0x43D0E0); }
+	enum class FASoundType { Normal = 1, Error, Warning };
+	void __cdecl PlaySound(FASoundType eSound) { JMP_STD(0x43CE00); }
 public:
 	//member properties
 	DECLARE_PROPERTY(CTileSetBrowserFrame, TileSetBrowserFrame);
