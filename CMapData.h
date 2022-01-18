@@ -62,13 +62,17 @@ private:
         BaseNodeData(BaseNodeData& another) { JMP_THIS(0x475420); }
         ~BaseNodeData() {}
 
+        BaseNodeData& operator=(BaseNodeData& another)
+        {
+            BuildingID = another.BuildingID;
+            BasenodeID = another.BasenodeID;
+            House = another.House;
+            return *this;
+        }
+
         int BuildingID;
         int BasenodeID;
-        union
-        {
-            char __House[4]; // avoid CTOR
-            ppmfc::CString House;
-        };
+        DECLARE_PROPERTY(ppmfc::CString, House);
     };
 
 public:
@@ -216,25 +220,18 @@ public:
     static constexpr reference<int, 0x7EDF00> const RampBase{};
     static constexpr reference<int, 0x7EDF04> const RampBaseCount{};
 
-    
-
-#define DEFINE_FIELDUPDATE(name,addr) \
-void UpdateMapFieldData_##name (bool bMapToINI) {JMP_THIS(addr);}
-
-    DEFINE_FIELDUPDATE(Infantry, 0x4A2AB0);
-    DEFINE_FIELDUPDATE(Aircraft, 0x4A4270);
-    DEFINE_FIELDUPDATE(Structure, 0x4A4A40);
-    DEFINE_FIELDUPDATE(Terrain, 0x4A5850);
-    DEFINE_FIELDUPDATE(Unit, 0x4A6040);
-    DEFINE_FIELDUPDATE(Waypoint, 0x4A67D0);
-    DEFINE_FIELDUPDATE(House, 0x4A6FB0);
-    DEFINE_FIELDUPDATE(Overlay, 0x4A7830);
-    DEFINE_FIELDUPDATE(Celltag, 0x4A7930);
-    DEFINE_FIELDUPDATE(Field, 0x4B4810);
-    DEFINE_FIELDUPDATE(Tube, 0x4BA5F0);
-    DEFINE_FIELDUPDATE(Smudge, 0x4C9FA0);
-
-#undef DEFINE_FIELDUPDATE
+    void UpdateFieldInfantryData(bool bMapToINI) JMP_THIS(0x4A2AB0); // MapToINI not implemented 
+    void UpdateFieldAircraftData(bool bMapToINI) JMP_THIS(0x4A4270); // MapToINI not implemented
+    void UpdateFieldStructureData(bool bMapToINI) JMP_THIS(0x4A4A40); // MapToINI not implemented
+    void UpdateFieldTerrainData(bool bMapToINI, int nSomeIdx = -1) JMP_THIS(0x4A5850); // MapToINI not implemented
+    void UpdateFieldUnitData(bool bMapToINI) JMP_THIS(0x4A6040); // MapToINI not implemented
+    void UpdateFieldWaypointData(bool bMapToINI) JMP_THIS(0x4A67D0); // MapToINI not implemented 
+    void UpdateFieldBasenodeData(bool bMapToINI) JMP_THIS(0x4A6FB0); // MapToINI not implemented 
+    void UpdateFieldOverlayData(bool bMapToINI) JMP_THIS(0x4A7830);
+    void UpdateFieldCelltagData(bool bMapToINI) JMP_THIS(0x4A7930); // MapToINI not implemented 
+    void UpdateFieldTubeData(bool bMapToINI) JMP_THIS(0x4BA5F0); // MapToINI not implemented 
+    void UpdateMapFieldData(bool bMapToINI) JMP_THIS(0x4B4810); // MapToINI not implemented 
+    void UpdateFieldSmudgeData(bool bMapToINI, int nSomeIdx = -1) JMP_THIS(0x4C9FA0); // MapToINI not implemented 
 
     void UpdateSize() { JMP_THIS(0x49AA30); }
     void InitMinimap() { JMP_THIS(0x4C3D40); }
