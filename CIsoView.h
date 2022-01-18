@@ -4,6 +4,7 @@
 #include "CMapData.h"
 
 #include "CFinalSunApp.h"
+#include "CFinalSunDlg.h"
 
 #include <ddraw.h>
 
@@ -45,6 +46,11 @@ public:
     static constexpr reference<bool, 0x5E7C10> const Destoryed{};
     static constexpr reference<bool, 0x5E7C14> const ScrollingRelatedFlag{};
 
+    static CIsoView* GetInstance()
+    {
+        return CFinalSunDlg::Instance->MyViewFrame.pIsoView;
+    }
+
     struct CurrentCommand // 518CB0 is the evidence
     {
         CurrentCommand() { JMP_THIS(0x518CF0); }
@@ -59,6 +65,7 @@ public:
         DECLARE_PROPERTY(ppmfc::CString, ObjectID);
     };
 
+    static constexpr reference<bool, 0x7EE080> const ControlKeyIsDown{};
     static constexpr reference<CurrentCommand, 0x72CBD8> const CurrentCommand{};
     static constexpr reference<ppmfc::CString, 0x5E7C98> const CurrentHouse{};
 
@@ -66,15 +73,33 @@ public:
     static int GetCoordY(int nCoord) { return nCoord / 1000; }
     static int GetCoord(int X, int Y) { return X * 1000 + Y; }
 
-    static void __cdecl ScreenCoord2MapCoord(int& Y, int& X) { JMP_STD(0x466890); }
+    static void __cdecl ScreenCoord2MapCoord_Flat(int& Y, int& X) { JMP_STD(0x466890); }
+    static void __cdecl ScreenCoord2MapCoord_Height(int& Y, int& X) { JMP_STD(0x460F00); }
+    inline static void ScreenCoord2MapCoord(int& Y, int& X)
+    {
+        if (CFinalSunApp::Instance->FlatToGround)
+            ScreenCoord2MapCoord_Flat(Y, X);
+        else
+            ScreenCoord2MapCoord_Height(Y, X);
+    }
+
     static void __cdecl MapCoord2ScreenCoord_Height(int& Y, int& X) { JMP_STD(0x45E880); }
     static void __cdecl MapCoord2ScreenCoord_Flat(int& Y, int& X) { JMP_STD(0x476240); }
-    static void MapCoord2ScreenCoord(int& Y, int& X)
+    inline static void MapCoord2ScreenCoord(int& Y, int& X)
     {
         if (CFinalSunApp::Instance->FlatToGround)
             MapCoord2ScreenCoord_Flat(Y, X);
         else
             MapCoord2ScreenCoord_Height(Y, X);
+    }
+    inline MapCoord GetCurrentMapCoord(const CPoint& point)
+    {
+        RECT rect;
+        this->GetWindowRect(&rect);
+        int y = point.x + rect.left + this->ViewPosition.x;
+        int x = point.y + rect.top + this->ViewPosition.y;
+        ScreenCoord2MapCoord(y, x);
+        return MapCoord{ x,y };
     }
 
     void MoveToWP(UINT nWaypoint) { JMP_THIS(0x4766A0); }
@@ -117,14 +142,14 @@ public:
     ppmfc::CPoint MoveCenterPosition; // where right button down
     ppmfc::CPoint MouseCurrentPosition;
     BOOL IsScrolling;
-    int Unknown_78;
+    BOOL KeyboardAMode;
     int Unknown_7C;
     int Unknown_80;
     int Unknown_84;
     int Unknown_88;
     int LeftButtonDoubleClick_8C;
-    int Unknown_90;
-    int Unknown_94;
+    int BrushSizeY;
+    int BrushSizeX;
     CMyViewFrame* pParent;
     LPDIRECTDRAWSURFACE7 lpDDBackBufferSurface;
     LPDIRECTDRAWSURFACE7 lpDDTempBufferSurface;

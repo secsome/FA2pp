@@ -15,10 +15,11 @@ public:
 		Computer = 0x2
 	};
 
-	BlockType Map[9];
+	BlockType Map[3][3];
 	bool CanPlayerPlace;
 
-	BlockType& GetBlock(int X, int Y) { return this->Map[3 * X + Y]; }
+	BlockType* operator[](int X) { return this->Map[X]; }
+	BlockType& GetBlock(int X, int Y) { return this->Map[X][Y]; }
 
 	void AI() { JMP_THIS(0x41ECA0); }
 	void OnPaint() { JMP_THIS(0x41E9A0); }

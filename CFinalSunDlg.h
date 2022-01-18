@@ -27,7 +27,6 @@ public:
 	static constexpr reference<CFinalSunDlg*, 0x7EDF24> const Instance{}; // CFinalSunApp->MainWnd
 
 	static constexpr reference<bool, 0x7EE07C> const SomeSettingConfigReadingLock{};
-	static constexpr reference<bool, 0x7EE080> const ControlKeyIsDown{};
 
 	static constexpr reference<DWORD, 0x7EE084> const LastSucceededOperation{};
 	static constexpr reference<DWORD, 0x88403C> const LastSucceededLibraryOperation{};
