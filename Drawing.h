@@ -65,9 +65,10 @@ struct BuildingData
     int FacingCount;
     unsigned __int8 Foundation_Width;
     unsigned __int8 Foundation_Height;
-    BOOL BuildingFlag1;
-    BOOL BuildingFlag2;
-    BOOL BuildingFlag3;
+    // Useless now As FA2sp had overwritten CObjectView
+    BOOL AllowToPlaceInTemperate;
+    BOOL AllowToPlaceInSnow;
+    BOOL AllowToPlaceInUrban;
 };
 
 struct OverlayData
