@@ -9,38 +9,15 @@
 
 #include <fstream>
 
-#define PPMFC_VALIDATE(T) static_assert(sizeof(T) == sizeof(ppmfc::T));
-PPMFC_VALIDATE(CWnd);
-PPMFC_VALIDATE(CCmdTarget);
-PPMFC_VALIDATE(CComboBox);
-PPMFC_VALIDATE(CControlBar);
-PPMFC_VALIDATE(CDataExchange);
-PPMFC_VALIDATE(CDialog);
-PPMFC_VALIDATE(CDialogBar);
-PPMFC_VALIDATE(CEdit);
-PPMFC_VALIDATE(CFrameWnd);
-PPMFC_VALIDATE(CListBox);
-PPMFC_VALIDATE(CMenu);
-PPMFC_VALIDATE(CScrollView);
-PPMFC_VALIDATE(CSplitterWnd);
-PPMFC_VALIDATE(CStatic);
-PPMFC_VALIDATE(CStatusBar);
-PPMFC_VALIDATE(CString);
-PPMFC_VALIDATE(CView);
-PPMFC_VALIDATE(CWinApp);
-PPMFC_VALIDATE(CWinThread);
-PPMFC_VALIDATE(CObject);
-#undef PPMFC_VALIDATE
-
 const MapCoord MapCoord::Facings[FACING_COUNT] =
 {
-	{0, -1},
-	{1, -1},
-	{1, 0},
-	{1, 1},
-	{0, 1},
-	{-1, 1},
 	{-1, 0},
+	{-1, 1},
+	{0, 1},
+	{1, 1},
+	{1, 0},
+	{1, -1},
+	{0, -1},
 	{-1, -1}
 };
 MapCoord& operator+=(MapCoord& l, const MapCoord& r)

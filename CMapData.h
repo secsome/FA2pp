@@ -131,8 +131,8 @@ struct StructureData
 {
     ColorStruct HouseColor;
     ppmfc::CString ID;
-    short Y;
     short X;
+    short Y;
     short Facing;
     unsigned char Strength;
     unsigned char PowerUpCount;
@@ -144,11 +144,11 @@ struct StructureData
 struct TubeData
 {
     unsigned short Short_0;
-    unsigned short EnterY;
     unsigned short EnterX;
+    unsigned short EnterY;
     unsigned short EnterFacing;
-    unsigned short ExitY;
     unsigned short ExitX;
+    unsigned short ExitY;
     char Directions[100];
 };
 
@@ -235,7 +235,7 @@ public:
 
     void UpdateSize() { JMP_THIS(0x49AA30); }
     void InitMinimap() { JMP_THIS(0x4C3D40); }
-    void UpdateMapPreviewAt(int Y, int X) { JMP_THIS(0x4A23A0); }
+    void UpdateMapPreviewAt(int X, int Y) { JMP_THIS(0x4A23A0); }
     void GetMapPreview(void*& pBuffer, LPBITMAPINFO lpBitmapInfo, int& nStride) { JMP_THIS(0x4C3DF0); }
     void* GetMapPreview(LPBITMAPINFO lpBitmapInfo)
     {
@@ -272,9 +272,9 @@ public:
     void TypesInit_4AD930() { JMP_THIS(0x4AD930); }
 
     // FA2 magics
-    inline int GetCoordIndex(int X, int Y) { return Y + X * MapWidthPlusHeight; }  
-    inline int GetXFromCoordIndex(int CoordIndex) { return CoordIndex / MapWidthPlusHeight; }
-    inline int GetYFromCoordIndex(int CoordIndex) { return CoordIndex % MapWidthPlusHeight; }
+    inline int GetCoordIndex(int X, int Y) { return X + Y * MapWidthPlusHeight; }  
+    inline int GetXFromCoordIndex(int CoordIndex) { return CoordIndex % MapWidthPlusHeight; }
+    inline int GetYFromCoordIndex(int CoordIndex) { return CoordIndex / MapWidthPlusHeight; }
     inline bool IsCoordInMap(int X, int Y)
     {
         return

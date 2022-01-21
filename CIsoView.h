@@ -69,36 +69,32 @@ public:
     static constexpr reference<CurrentCommand, 0x72CBD8> const CurrentCommand{};
     static constexpr reference<ppmfc::CString, 0x5E7C98> const CurrentHouse{};
 
-    static int GetCoordX(int nCoord) { return nCoord % 1000; }
-    static int GetCoordY(int nCoord) { return nCoord / 1000; }
-    static int GetCoord(int X, int Y) { return X * 1000 + Y; }
-
-    static void __cdecl ScreenCoord2MapCoord_Flat(int& Y, int& X) { JMP_STD(0x466890); }
-    static void __cdecl ScreenCoord2MapCoord_Height(int& Y, int& X) { JMP_STD(0x460F00); }
-    inline static void ScreenCoord2MapCoord(int& Y, int& X)
+    static void __cdecl ScreenCoord2MapCoord_Flat(int& X, int& Y) { JMP_STD(0x466890); }
+    static void __cdecl ScreenCoord2MapCoord_Height(int& X, int& Y) { JMP_STD(0x460F00); }
+    inline static void ScreenCoord2MapCoord(int& X, int& Y)
     {
         if (CFinalSunApp::Instance->FlatToGround)
-            ScreenCoord2MapCoord_Flat(Y, X);
+            ScreenCoord2MapCoord_Flat(X, Y);
         else
-            ScreenCoord2MapCoord_Height(Y, X);
+            ScreenCoord2MapCoord_Height(X, Y);
     }
 
-    static void __cdecl MapCoord2ScreenCoord_Height(int& Y, int& X) { JMP_STD(0x45E880); }
-    static void __cdecl MapCoord2ScreenCoord_Flat(int& Y, int& X) { JMP_STD(0x476240); }
-    inline static void MapCoord2ScreenCoord(int& Y, int& X)
+    static void __cdecl MapCoord2ScreenCoord_Height(int& X, int& Y) { JMP_STD(0x45E880); }
+    static void __cdecl MapCoord2ScreenCoord_Flat(int& X, int& Y) { JMP_STD(0x476240); }
+    inline static void MapCoord2ScreenCoord(int& X, int& Y)
     {
         if (CFinalSunApp::Instance->FlatToGround)
-            MapCoord2ScreenCoord_Flat(Y, X);
+            MapCoord2ScreenCoord_Flat(X, Y);
         else
-            MapCoord2ScreenCoord_Height(Y, X);
+            MapCoord2ScreenCoord_Height(X, Y);
     }
     inline MapCoord GetCurrentMapCoord(const CPoint& point)
     {
         RECT rect;
         this->GetWindowRect(&rect);
-        int y = point.x + rect.left + this->ViewPosition.x;
-        int x = point.y + rect.top + this->ViewPosition.y;
-        ScreenCoord2MapCoord(y, x);
+        int x = point.x + rect.left + this->ViewPosition.x;
+        int y = point.y + rect.top + this->ViewPosition.y;
+        ScreenCoord2MapCoord(x, y);
         return MapCoord{ x,y };
     }
 
@@ -126,13 +122,12 @@ public:
     void DrawCellOutline(int X, int Y,int W,int H,COLORREF color,BOOL bDot,BOOL bDrawOnPrimarySurface)
         { JMP_THIS(0x469C60); }
 
-    void UpdateStatusBar(int Y, int X) { JMP_THIS(0x469E70); }
-    void DrawMouseAttachedStuff(int Y, int X, LPDIRECTDRAWSURFACE7 lpSurface) { JMP_THIS(0x46BC80); }
+    void UpdateStatusBar(int X, int Y) { JMP_THIS(0x469E70); }
+    void DrawMouseAttachedStuff(int X, int Y, LPDIRECTDRAWSURFACE7 lpSurface) { JMP_THIS(0x46BC80); }
 
-    void AutoConnectOverlayAt(int Y, int X) { JMP_THIS(0x469B20); }
+    void AutoConnectOverlayAt(int X, int Y) { JMP_THIS(0x469B20); }
 
-    int StartCellY;
-    int StartCellX; // which cell the left button clicked on
+    MapCoord StartCell; // which cell the left button clicked on
     int Height_48;
     int Unknown_4C;
     int Unknown_50;
@@ -148,8 +143,8 @@ public:
     int Unknown_84;
     int Unknown_88;
     int LeftButtonDoubleClick_8C;
-    int BrushSizeY;
     int BrushSizeX;
+    int BrushSizeY;
     CMyViewFrame* pParent;
     LPDIRECTDRAWSURFACE7 lpDDBackBufferSurface;
     LPDIRECTDRAWSURFACE7 lpDDTempBufferSurface;

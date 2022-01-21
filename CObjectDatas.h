@@ -19,8 +19,8 @@ public:
     ppmfc::CString House;
     ppmfc::CString TypeID;
     ppmfc::CString Health;
-    ppmfc::CString X;
     ppmfc::CString Y;
+    ppmfc::CString X;
     ppmfc::CString SubCell;
     ppmfc::CString Status;
     ppmfc::CString Facing;
@@ -39,8 +39,8 @@ public:
     ppmfc::CString House;
     ppmfc::CString TypeID;
     ppmfc::CString Health;
-    ppmfc::CString X;
     ppmfc::CString Y;
+    ppmfc::CString X;
     ppmfc::CString Facing;
     ppmfc::CString Tag;
     ppmfc::CString AISellable;
@@ -62,8 +62,8 @@ public:
     ppmfc::CString House;
     ppmfc::CString TypeID;
     ppmfc::CString Health;
-    ppmfc::CString X;
     ppmfc::CString Y;
+    ppmfc::CString X;
     ppmfc::CString Facing;
     ppmfc::CString Status;
     ppmfc::CString Tag;
@@ -82,8 +82,8 @@ public:
     ppmfc::CString House;
     ppmfc::CString TypeID;
     ppmfc::CString Health;
-    ppmfc::CString X;
     ppmfc::CString Y;
+    ppmfc::CString X;
     ppmfc::CString Facing;
     ppmfc::CString Status;
     ppmfc::CString Tag;
@@ -98,8 +98,8 @@ class CTerrainData
 {
 public:
     ppmfc::CString TypeID;
-    int X;
     int Y;
+    int X;
     int Flag;
 };
 
@@ -107,7 +107,7 @@ class CSmudgeData
 {
 public:
     ppmfc::CString TypeID;
-    int X;
     int Y;
+    int X;
     int Flag;
 };

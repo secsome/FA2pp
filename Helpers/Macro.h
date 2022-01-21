@@ -36,14 +36,3 @@
 
 #define LESS_EQUAL(x, y) \
 	((x - y) <= 0.001)
-
-// FA2 stuffs
-
-#define GET_COORD_X(coord) \
-	(coord / 1000)
-
-#define GET_COORD_Y(coord) \
-	(coord % 1000)
-
-#define XY_TO_COORD(x, y) \
-	(y + x * 1000)
