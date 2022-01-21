@@ -69,7 +69,7 @@ public:
     static constexpr reference<CurrentCommand, 0x72CBD8> const CurrentCommand{};
     static constexpr reference<ppmfc::CString, 0x5E7C98> const CurrentHouse{};
 
-    static void __cdecl ScreenCoord2MapCoord_Flat(int& X, int& Y) { JMP_STD(0x466890); }
+    /*static void __cdecl ScreenCoord2MapCoord_Flat(int& X, int& Y) { JMP_STD(0x466890); }
     static void __cdecl ScreenCoord2MapCoord_Height(int& X, int& Y) { JMP_STD(0x460F00); }
     inline static void ScreenCoord2MapCoord(int& X, int& Y)
     {
@@ -96,7 +96,7 @@ public:
         int y = point.y + rect.top + this->ViewPosition.y;
         ScreenCoord2MapCoord(x, y);
         return MapCoord{ x,y };
-    }
+    }*/
 
     void MoveToWP(UINT nWaypoint) { JMP_THIS(0x4766A0); }
     void MoveTo(int X, int Y) { JMP_THIS(0x4763D0); }

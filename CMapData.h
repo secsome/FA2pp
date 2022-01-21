@@ -96,7 +96,7 @@ public:
     BaseNodeData BaseNode;
     unsigned char Overlay;
     unsigned char OverlayData; // [0, 59]
-    short TileIndex;
+    unsigned short TileIndex;
     short Short_30;
     unsigned char TileSubIndex;
     unsigned char Height;
