@@ -1,13 +1,4 @@
-// cc_file.h: interface for the Ccc_file class.
-//
-//////////////////////////////////////////////////////////////////////
-
-#if !defined(AFX_CC_FILE_H__DB898AD2_D338_11D3_867E_0000F81AF605__INCLUDED_)
-#define AFX_CC_FILE_H__DB898AD2_D338_11D3_867E_0000F81AF605__INCLUDED_
-
-#if _MSC_VER >= 1000
 #pragma once
-#endif // _MSC_VER >= 1000
 
 #include "file32.h"
 
@@ -30,18 +21,18 @@ public:
     HANDLE handle();
     int attach(HANDLE handle);
     void detach();
-    int open(unsigned int id, Cmix_file& mix_f);
-    int open(const std::string& name, Cmix_file& mix_f);
-    int open(const std::string& name);
+    int open(unsigned int id, Cmix_file& mix_f) JMP_THIS(0x529900);
+    int open(const xcc_string& name, Cmix_file& mix_f) JMP_THIS(0x5299C0);
+    int open(const xcc_string& name);
     void load(const byte* data, int size);
     void load(const Ccc_file& f);
     t_file_type get_file_type(bool fast = true);
     int read();
     int read(void* data, int size);
-    int extract(const std::string& name);
-    virtual void close();
-    Ccc_file(bool read_on_open = false);
-    ~Ccc_file();
+    int extract(const xcc_string& name);
+    virtual void close() JMP_THIS(0x529D00);
+    Ccc_file(bool read_on_open = false) JMP_THIS(0x5298C0);
+    ~Ccc_file() JMP_THIS(0x5298F0);
 
     const byte* get_data() const
     {
@@ -89,13 +80,11 @@ private:
 
     bool m_attached;
     byte* m_data;
-    Cfile32 m_f;
+    DECLARE_PROPERTY(Cfile32, m_f);
     Cmix_file* m_mix_f;
     bool m_is_open;
     int m_offset;
     int m_p;
-    const bool m_read_on_open;
+    bool m_read_on_open; // const bool in fact
     int m_size;
 };
-
-#endif // !defined(AFX_CC_FILE_H__DB898AD2_D338_11D3_867E_0000F81AF605__INCLUDED_)

@@ -1,13 +1,4 @@
-// mix_file.h: interface for the Cmix_file class.
-//
-//////////////////////////////////////////////////////////////////////
-
-#if !defined(AFX_MIX_FILE_H__6AA2E061_D405_11D3_8684_0000F81AF605__INCLUDED_)
-#define AFX_MIX_FILE_H__6AA2E061_D405_11D3_8684_0000F81AF605__INCLUDED_
-
-#if _MSC_VER >= 1000
 #pragma once
-#endif // _MSC_VER >= 1000
 
 #include "cc_file.h"
 #include "cc_structures.h"
@@ -19,11 +10,11 @@ class NOVTABLE Cmix_file : public Ccc_file
 public:
 	int post_open() { JMP_THIS(0x527C40) };
 	t_file_type get_type(int id) { JMP_THIS(0x528A20) };
-	std::string get_name(int id);
-	static int get_id(t_game game, std::string name) { JMP_STD(0x528A40) };
+	xcc_string get_name(int id);
+	static int get_id(t_game game, xcc_string name) { JMP_STD(0x528A40) };
 	int get_index(unsigned int id) const { JMP_THIS(0x528C60) };
 	bool is_valid();
-	void close() { JMP_THIS(0x5289F0) };
+	virtual void close() override { JMP_THIS(0x5289F0) };
 	Cmix_file() { JMP_THIS(0x527C10) };
 
 	void enable_mix_expansion()
@@ -85,5 +76,3 @@ public:
 	t_mix_index_entry* m_index;
 	t_file_type* m_index_ft;
 };
-
-#endif // !defined(AFX_MIX_FILE_H__6AA2E061_D405_11D3_8684_0000F81AF605__INCLUDED_)

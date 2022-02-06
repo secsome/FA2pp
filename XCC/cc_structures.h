@@ -1,9 +1,4 @@
-#if !defined(AFX_CC_STRUCTURES_H__D7232160_169C_11D4_A955_0050042229FC__INCLUDED_)
-#define AFX_CC_STRUCTURES_H__D7232160_169C_11D4_A955_0050042229FC__INCLUDED_
-
-#if _MSC_VER > 1000
 #pragma once
-#endif // _MSC_VER > 1000
 
 #include "palet.h"
 
@@ -445,5 +440,3 @@ inline __int32 reverse(__int32 v)
 	}
 	return v;
 }
-
-#endif // !defined(AFX_CC_STRUCTURES_H__D7232160_169C_11D4_A955_0050042229FC__INCLUDED_)

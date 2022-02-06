@@ -118,48 +118,6 @@ RGBClass::operator HSVClass() const
 	return { (unsigned char)hue, (unsigned char)saturation, (unsigned char)value };
 }
 
-struct FakeString
-{
-	void assign(const char* src, unsigned int len) { JMP_THIS(0x4556A0); }
-	void _Tidy(bool bUnk) { JMP_THIS(0x43A650); }
-	char _Grow(unsigned int N, bool Trim) { JMP_THIS(0x43A650); }
-
-	char allocator;
-	char* _Ptr;
-	unsigned int _Len;
-	unsigned int _Res;
-};
-
-struct FakeCccFile
-{
-public:
-	FakeCccFile(bool open = false) { JMP_THIS(0x5298C0); }
-	~FakeCccFile() { JMP_THIS(0x5298F0); }
-	int open(unsigned int crc, Cmix_file* pMix) { JMP_THIS(0x529900); }
-	int open(FakeString* name) { JMP_THIS(0x529A30); }
-	void close() { JMP_THIS(0x529D00); }
-
-	void* vfptr;
-	bool DataLoaded;
-	bool Attached;
-	unsigned char* Data;
-	void* vfptr2;
-	HANDLE Handle;
-	bool IsOpen;
-	int Pointer;
-	void* MixFile;
-	bool IsOpen2;
-	int Offset;
-	int Pointer2;
-	bool ReadOnOpen;
-	unsigned int FileSize;
-};
-
-struct FakeMixFile
-{
-	int read(LPVOID lpBuffer, DWORD nNumberOfBytesToRead) { JMP_THIS(0x529B80); }
-};
-
 void* CLoading::ReadWholeFile(const char* filename, DWORD* pDwSize)
 {
 	ppmfc::CString filepath = CFinalSunApp::FilePath();
@@ -184,27 +142,14 @@ void* CLoading::ReadWholeFile(const char* filename, DWORD* pDwSize)
 	auto nMix = CLoading::Instance->SearchFile(filename);
 	if (CMixFile::HasFile(filename, nMix))
 	{
-		auto pFile = (FakeCccFile*)0x8204B8;
-		char temp[0x34];
-		memcpy(temp, pFile, 0x34);
-		if (CMixFile::LoadSHP(filename, nMix))
-		{
-			auto pBuffer = GameCreateArray<unsigned char>(pFile->FileSize);
-			memcpy(pBuffer, pFile->Data, pFile->FileSize);
-			if (pDwSize)
-				*pDwSize = pFile->FileSize;
-			if (pFile->IsOpen2)
-				pFile->close();
-			memcpy(pFile, temp, 0x34);
-			return pBuffer;
-		}
-		else
-		{
-			if (pFile->IsOpen2)
-				pFile->close();
-			memcpy(pFile, temp, 0x34);
-			return nullptr;
-		}
+		Ccc_file file(true);
+		file.open(filename, CMixFile::Array[nMix]);
+		auto pBuffer = GameCreateArray<unsigned char>(file.get_size());
+		memcpy(pBuffer, file.get_data(), file.get_size());
+		if (pDwSize)
+			*pDwSize = file.get_size();
+
+		return pBuffer;
 	}
 
 	return nullptr;
