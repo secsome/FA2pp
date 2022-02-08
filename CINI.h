@@ -333,6 +333,15 @@ public:
 		return nDefault;
 	}
 
+	CPoint GetPoint(ppmfc::CString pSection, ppmfc::CString pKey, CPoint nDefault = { 0,0 })
+	{
+		ppmfc::CString& pStr = this->GetString(pSection, pKey, "");
+		CPoint ret = { 0,0 };
+		if (sscanf_s(pStr, "%d,%d", &ret.x, &ret.y) == 2)
+			return ret;
+		return nDefault;
+	}
+
 	float GetSingle(ppmfc::CString pSection, ppmfc::CString pKey, float nDefault = 0) {
 		ppmfc::CString& pStr = this->GetString(pSection, pKey, "");
 		float ret = 0;

@@ -28,7 +28,7 @@ public:
     void load(const Ccc_file& f);
     t_file_type get_file_type(bool fast = true);
     int read();
-    int read(void* data, int size);
+    int read(void* data, int size) JMP_THIS(0x529B80);
     int extract(const xcc_string& name);
     virtual void close() JMP_THIS(0x529D00);
     Ccc_file(bool read_on_open = false) JMP_THIS(0x5298C0);
