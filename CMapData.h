@@ -247,6 +247,7 @@ public:
 
     void ResizeMap(int L, int T, int W, int H) { JMP_THIS(0x4C45F0); }
 
+    void Pack(bool UpdatePreview = false, bool Description = false) { JMP_THIS(0x49F7A0); }
     void UpdateINIFile(SaveMapFlag eFlags) { JMP_THIS(0x49C280); }
     CINI* UpdateCurrentDocument() { JMP_THIS(0x49C260); }
     static CINI* GetMapDocument(bool bUpdateMapField = false)
