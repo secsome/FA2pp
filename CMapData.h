@@ -116,7 +116,19 @@ public:
 };
 
 #pragma pack(push, 1)
-struct TileStruct
+// IsoMapPack5Entry without IceGrowth
+struct IsoMapPack4Entry
+{
+    short X;
+    short Y;
+    int TileIndex;
+    unsigned char TileSubIndex;
+    unsigned char Level;
+};
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+struct TileStruct // IsoMapPack5Entry
 {
     short X;
     short Y;
