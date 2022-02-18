@@ -8,7 +8,7 @@ public:
 	CTeamTypes() = default;
 
 	//member properties
-	CStatic		CSTMindControlDecision; // 92
+	ppmfc::CStatic		CSTMindControlDecision; // 92
 	ppmfc::CComboBox	CCBTeamList; // 152
 	BOOL		BOOL_Aggressive; // 212
 	BOOL		BOOL_Annoyance; // 216
@@ -34,7 +34,7 @@ public:
 	BOOL		BOOL_Reinforce; // 296
 	ppmfc::CString		CString_Script; // 300
 	BOOL		BOOL_Suicide; // 304
-	ppmfc::CString		CString_Taskforce; // 308
+	ppmfc::CString		CString_TaskForce; // 308
 	ppmfc::CString		CString_TechLevel; // 312
 	BOOL		BOOL_TransportsReturnOnUnload; // 316
 	ppmfc::CString		CString_Waypoint; // 320

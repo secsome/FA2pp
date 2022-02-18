@@ -8,6 +8,13 @@
 
 #include <Structures/FAVector.h>
 
+class Waypoints
+{
+public:
+    static int __cdecl String_To_Waypoint(const char* a1) JMP_STD(0x4E5F30);
+    static CString* __cdecl Waypoint_To_String(CString* pBuffer, int nWaypoint) JMP_STD(0x4E5F90);
+};
+
 enum class SaveMapFlag : int
 {
     LoadFromINI = 0x0,
