@@ -97,7 +97,7 @@ public:
     unsigned char Overlay;
     unsigned char OverlayData; // [0, 59]
     unsigned short TileIndex;
-    short Short_30;
+    unsigned short TileIndexHiPart; // Used while packing IsoMapPack5, huh
     unsigned char TileSubIndex;
     unsigned char Height;
     unsigned char IceGrowth;
@@ -373,4 +373,83 @@ public:
     unsigned char MapPreviewData[0x40000];
     BITMAPINFO MapPreviewInfo;
     int MapPreviewStride;
+};
+
+class CellDataEnumerator
+{
+public:
+    explicit CellDataEnumerator(){ }
+
+    explicit operator bool() const 
+    {
+        return NextX < CMapData::Instance->MapWidthPlusHeight&& NextY < CMapData::Instance->MapWidthPlusHeight;
+    }
+
+    CellData& operator*() 
+    {
+        return *this->operator->();
+    }
+
+    const CellData& operator*() const 
+    {
+        return *this->operator->();
+    }
+
+    // FA2 Coordinate is just the reverse of the games'
+    int GetX() const
+    {
+        return CMapData::Instance->GetYFromCoordIndex(NextCell);
+    }
+    int GetY() const
+    {
+        return CMapData::Instance->GetXFromCoordIndex(NextCell);
+    }
+
+    CellData* operator->() const 
+    {
+        return CMapData::Instance->GetCellAt(GetX(), GetY());
+    }
+
+    CellDataEnumerator& operator++() 
+    {
+        if (NextColumn)
+        {
+            ++NextY;
+            --NextX;
+            --NextColumn;
+            NextCell -= (CMapData::Instance->MapWidthPlusHeight - 1);
+        }
+        else
+        {
+            const int y = NextY;
+            const int x = NextX;
+            NextX = y;
+            NextY = x;
+            if ((x + y - CMapData::Instance->Size.Width - 1) % 2 != 0)
+            {
+                NextColumn = CMapData::Instance->Size.Width - 1;
+                NextX = y + 1;
+            }
+            else
+            {
+                NextColumn = CMapData::Instance->Size.Width - 2;
+                NextY = x + 1;
+            }
+            NextCell = CMapData::Instance->MapWidthPlusHeight * NextX + NextY;
+        }
+        return *this;
+    }
+
+    CellDataEnumerator operator++(int) 
+    {
+        auto const old = *this;
+        ++*this;
+        return old;
+    }
+
+private:
+    int NextX{ CMapData::Instance->Size.Width };
+    int NextY{ 1 };
+    int NextColumn{ CMapData::Instance->Size.Width - 1 };
+    int NextCell{ CMapData::Instance->MapWidthPlusHeight * CMapData::Instance->Size.Width + 1 };
 };
