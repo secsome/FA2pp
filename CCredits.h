@@ -8,7 +8,8 @@ public:
 	CCredits() = default;
 
 	//member properties
-	BYTE		Unknown_92[8]; // Fill 92 - 100
+	int Unknown_92;
+	BOOL DrawHappyFace;
 	ppmfc::CStatic	CSCEasterEgg; // 100
 
 
