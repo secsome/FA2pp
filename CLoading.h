@@ -65,6 +65,8 @@ public:
 	void InitTMPs(void* pProgress = nullptr) { JMP_THIS(0x48C3D0); }
 	void InitTMPs_Reset() { JMP_THIS(0x4959F0); }
 
+	void InitializeDDraw() { JMP_THIS(0x490EF0); }
+	void PrimarySurfaceLost() { JMP_THIS(0x4691D0); }
 	void Release() { JMP_THIS(0x491D00); }
 	int GetPaletteISO()
 	{
