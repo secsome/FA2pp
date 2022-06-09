@@ -201,27 +201,12 @@ public:
         return dest;
     }
 
-#ifdef _MAC
-#define TCHAR_ARG   int
-#define WCHAR_ARG   unsigned
-#define CHAR_ARG    int
-#else
-#define TCHAR_ARG   TCHAR
-#define WCHAR_ARG   WCHAR
-#define CHAR_ARG    char
-#endif
-
-#if defined(_68K_) || defined(_X86_)
-#define DOUBLE_ARG  _AFX_DOUBLE
-#else
-#define DOUBLE_ARG  double
-#endif
-
-#define FORCE_ANSI      0x10000
-#define FORCE_UNICODE   0x20000
-
+private:
 	void CString::FormatV(LPCTSTR lpszFormat, va_list argList)
 	{
+		constexpr int FORCE_ANSI = 0x10000;
+		constexpr int FORCE_UNICODE = 0x20000;
+
 		ASSERT(AfxIsValidString(lpszFormat, FALSE));
 
 		va_list argListSave = argList;
@@ -314,24 +299,24 @@ public:
 			case 'c':
 			case 'C':
 				nItemLen = 2;
-				va_arg(argList, TCHAR_ARG);
+				va_arg(argList, TCHAR);
 				break;
 			case 'c' | FORCE_ANSI:
 			case 'C' | FORCE_ANSI:
 				nItemLen = 2;
-				va_arg(argList, CHAR_ARG);
+				va_arg(argList, char);
 				break;
 			case 'c' | FORCE_UNICODE:
 			case 'C' | FORCE_UNICODE:
 				nItemLen = 2;
-				va_arg(argList, WCHAR_ARG);
+				va_arg(argList, wchar_t);
 				break;
 
 				// strings
 			case 's':
 			{
 				LPCTSTR pstrNextArg = va_arg(argList, LPCTSTR);
-				if (pstrNextArg == NULL)
+				if (pstrNextArg == nullptr)
 					nItemLen = 6;  // "(null)"
 				else
 				{
@@ -423,7 +408,7 @@ public:
 				case 'f':
 				case 'g':
 				case 'G':
-					va_arg(argList, DOUBLE_ARG);
+					va_arg(argList, double);
 					nItemLen = 128;
 					nItemLen = MAX(nItemLen, nWidth + nPrecision);
 					break;
@@ -454,26 +439,7 @@ public:
 
 		va_end(argListSave);
 	}
-
-#ifdef TCHAR_ARG
-#undef TCHAR_ARG
-#endif
-#ifdef WCHAR_ARG
-#undef WCHAR_ARG
-#endif
-#ifdef CHAR_ARG
-#undef CHAR_ARG
-#endif
-#ifdef DOUBLE_ARG
-#undef DOUBLE_ARG
-#endif
-#ifdef FORCE_ANSI
-#undef FORCE_ANSI
-#endif
-#ifdef FORCE_UNICODE
-#undef FORCE_UNICODE
-#endif
-
+public:
     void AFX_CDECL CString::Format(LPCTSTR lpszFormat, ...)
     {
         ASSERT(AfxIsValidString(lpszFormat, FALSE));
