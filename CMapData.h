@@ -304,7 +304,7 @@ public:
             X + Y <= this->Size.Width + 2 * this->Size.Height;
     }
 
-    void sub_416550(unsigned nIndex, unsigned int nTileCount, bool bUnk = false) { JMP_THIS(0x416550); }
+    void SetTileAt(unsigned nIndex, unsigned int nTileCount, char nTileSubIndex = 0) { JMP_THIS(0x416550); }
 
     void SetStructureData(CStructureData* pData, LPCSTR lpNewTypeID, LPCSTR lpNewHouse, int nCoord, ppmfc::CString Unk1)
         { JMP_THIS(0x4ACB60); }
