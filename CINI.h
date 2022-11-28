@@ -241,6 +241,26 @@ public:
 		return bExisted;
 	}
 
+	int WriteBase64String(ppmfc::CString pSection, const char* data, int slen)
+	{
+		int line = 1;
+		ppmfc::CString key;
+		ppmfc::CString value;
+		while (slen > 0)
+		{
+			const int len = slen < 70 ? slen : 70;
+			key.Format("%d", line++);
+			value.AssignCopy(len, data);
+
+			WriteString(pSection, key, value);
+
+			data += len;
+			slen -= len;
+		}
+
+		return line - 1;
+	}
+
 	bool WriteString(INISection* pSection, ppmfc::CString pKey, ppmfc::CString pValue)
 	{
 		bool bExisted = true;

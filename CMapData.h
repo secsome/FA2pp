@@ -123,7 +123,6 @@ public:
 };
 
 #pragma pack(push, 1)
-// IsoMapPack5Entry without IceGrowth
 struct IsoMapPack4Entry
 {
     short X;
@@ -135,7 +134,7 @@ struct IsoMapPack4Entry
 #pragma pack(pop)
 
 #pragma pack(push, 1)
-struct TileStruct // IsoMapPack5Entry
+struct IsoMapPack5Entry
 {
     short X;
     short Y;
@@ -359,7 +358,7 @@ public:
     FAVector<int> UnitTypes;
     unsigned char Overlay[0x40000];
     unsigned char OverlayData[0x40000];
-    TileStruct* IsoPackData;
+    IsoMapPack5Entry* IsoPackData;
     int IsoPackDataCount;
     CINI INI;
     MapRect Size;
