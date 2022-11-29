@@ -15,7 +15,7 @@ public:
 	BOOL		BOOL_AreTeamMembersRecruitable; // 220
 	BOOL		BOOL_Autocreate; // 224
 	BOOL		BOOL_AvoidThreats; // 228
-	BOOL		BOOL_CargoPlane; // 232
+	BOOL		BOOL_Droppod; // 232 CargoPlane
 	BOOL		BOOL_Full; // 236
 	ppmfc::CString		CString_Group; // 240
 	BOOL		BOOL_GuardSlower; // 244

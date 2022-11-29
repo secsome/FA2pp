@@ -104,7 +104,7 @@ public:
     unsigned char Overlay;
     unsigned char OverlayData; // [0, 59]
     unsigned short TileIndex;
-    unsigned short TileIndexHiPart; // Used while packing IsoMapPack5, huh
+    unsigned short TileIndexHiPart; // Obviously, the author of FA2 dunno it's a int32 in fact.
     unsigned char TileSubIndex;
     unsigned char Height;
     unsigned char IceGrowth;
@@ -138,7 +138,7 @@ struct IsoMapPack5Entry
 {
     short X;
     short Y;
-    int TileIndex;
+    int TileIndex; // Yeah, it's int32, but FA2's author dunno that.
     unsigned char TileSubIndex;
     unsigned char Level;
     unsigned char IceGrowth; // Unused in RA2/YR
@@ -186,7 +186,7 @@ struct Clipboard
     unsigned char Overlay;
     unsigned char OverlayData;
     unsigned short TileIndex;
-    unsigned short Short_30; // CellData Short_30
+    unsigned short TileIndexHiPart;
     unsigned char TileSubIndex;
     unsigned char Height;
     unsigned char IceGrowth;
@@ -197,19 +197,19 @@ struct Clipboard
 
 struct UndoRedoData
 {
-    int Unknown_0;
-    int Unknown_4;
-    int Unknown_8;
-    int Unknown_C;
-    int* Pointer_10;
-    int* Pointer_14;
-    int* Pointer_18;
-    int* Pointer_1C;
-    int* Pointer_20;
-    int* Pointer_24;
-    int* Pointer_28;
-    int* Pointer_2C;
-    int Unknown_30;
+    int Left;
+    int Top;
+    int Bottom;
+    int Right;
+    int* IgnoreAltImages;
+    unsigned char* Overlay;
+    unsigned char* OverlayData;
+    unsigned short* TileIndex;
+    unsigned short* TileIndexHiPart;
+    unsigned char* TilesubIndex;
+    unsigned char* Height;
+    unsigned char* IceGrowth;
+    unsigned char* AltIndex;
 };
 
 class NOVTABLE CMapData
