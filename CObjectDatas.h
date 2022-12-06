@@ -33,7 +33,7 @@ public:
     int Flag;
 };
 
-class CStructureData
+class CBuildingData
 {
 public:
     ppmfc::CString House;

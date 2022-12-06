@@ -145,7 +145,7 @@ struct IsoMapPack5Entry
 };
 #pragma pack(pop)
 
-struct StructureData
+struct CBuildingTypeData
 {
     ColorStruct HouseColor;
     ppmfc::CString ID;
@@ -159,7 +159,7 @@ struct StructureData
     ppmfc::CString PowerUp3;
 };
 
-struct TubeData
+struct CTubeData
 {
     unsigned short Short_0;
     unsigned short EnterX;
@@ -305,26 +305,26 @@ public:
 
     void SetTileAt(unsigned nIndex, unsigned int nTileCount, char nTileSubIndex = 0) { JMP_THIS(0x416550); }
 
-    void SetStructureData(CStructureData* pData, LPCSTR lpNewTypeID, LPCSTR lpNewHouse, int nCoord, ppmfc::CString Unk1)
+    void SetBuildingData(CBuildingData* pData, LPCSTR lpNewTypeID, LPCSTR lpNewHouse, int nCoord, ppmfc::CString Unk1)
         { JMP_THIS(0x4ACB60); }
-    void DeleteStructureData(int structureID) { JMP_THIS(0x4A8FB0); }
-    void QueryStructureData(int structureID, CStructureData& data) { JMP_THIS(0x4AADB0); }
+    void DeleteBuildingData(int bldID) { JMP_THIS(0x4A8FB0); }
+    void GetBuildingData(int bldID, CBuildingData& data) { JMP_THIS(0x4AADB0); }
     void SetInfantryData(CInfantryData* pData, LPCSTR lpNewTypeID, LPCSTR lpNewHouse, int nCoord, int ManualinfID)
         { JMP_THIS(0x4AC210); }
     void DeleteInfantryData(int infID) { JMP_THIS(0x4A7B60); }
-    void QueryInfantryData(int infID, CInfantryData& data) { JMP_THIS(0x4AEC30); }
+    void GetInfantryData(int infID, CInfantryData& data) { JMP_THIS(0x4AEC30); }
     void SetUnitData(CUnitData* pData, LPCSTR lpNewTypeID, LPCSTR lpNewHouse, int nCoord, ppmfc::CString Unk1)
         { JMP_THIS(0x4B0B30); }
     void DeleteUnitData(int unitID) { JMP_THIS(0x4A87A0); }
-    void QueryUnitData(int unitID, CUnitData& data) { JMP_THIS(0x4AED40); }
+    void GetUnitData(int unitID, CUnitData& data) { JMP_THIS(0x4AED40); }
     void SetAircraftData(CAircraftData* pData, LPCSTR lpNewTypeID, LPCSTR lpNewHouse, int nCoord, ppmfc::CString Unk1)
         { JMP_THIS(0x4B0060); }
     void DeleteAircraftData(int aircraftID) { JMP_THIS(0x4A98B0); }
-    void QueryAircraftData(int aircraftID, CAircraftData& data) { JMP_THIS(0x4AF430); }
+    void GetAircraftData(int aircraftID, CAircraftData& data) { JMP_THIS(0x4AF430); }
 
-    void GetStructureData(int structureID, StructureData* pRet) { JMP_THIS(0x4C3C20); } // Type
-    TubeData* GetTubeData(int tubeID) { JMP_THIS(0x4753C0); }
-    void AddTube(TubeData* pTubeData) { JMP_THIS(0x4BAF20); }
+    void GetBuildingTypeData(int bldTypeID, CBuildingTypeData* pRet) { JMP_THIS(0x4C3C20); }
+    CTubeData* GetTubeData(int tubeID) { JMP_THIS(0x4753C0); }
+    void AddTube(CTubeData* pTubeData) { JMP_THIS(0x4BAF20); }
 
     ppmfc::CString* FindAvailableOwner(ppmfc::CString* buffer, int nUnknown, bool bUseCountries) { JMP_THIS(0x49B2D0); }
     inline ppmfc::CString FindAvailableOwner(int nUnknown, bool bUseCountries)
@@ -353,9 +353,9 @@ public:
     int MapWidthPlusHeight;
     CellData TempCellData;
     BOOL FieldDataAllocated;
-    FAVector<int> BuildingTypes;
-    FAVector<int> TerrainTypes;
-    FAVector<int> UnitTypes;
+    FAMap<ppmfc::CString, BOOL, 0x5D8CD0, 0x5D8CCC> BuildingTypes;
+    FAMap<ppmfc::CString, BOOL, 0x5D8CD0, 0x5D8CCC> TerrainTypes;
+    FAMap<ppmfc::CString, BOOL, 0x5D8CD0, 0x5D8CCC> SmudgeTypes;
     unsigned char Overlay[0x40000];
     unsigned char OverlayData[0x40000];
     IsoMapPack5Entry* IsoPackData;
@@ -369,13 +369,13 @@ public:
     int UndoRedoDataCount;
     int UndoRedoCurrentDataIndex;
     int MoneyCount;
-    FAVector<StructureData> StructureDatas; // being used in 4C3C20
-    FAVector<TubeData> TubeDatas; // see 4753C0
+    FAVector<CBuildingTypeData> BuildingTypeDatas; // being used in 4C3C20
+    FAVector<CTubeData> TubeDatas; // see 4753C0
     FAVector<CSmudgeData> SmudgeDatas;
     FAVector<CTerrainData> TerrainDatas;
     FAVector<CInfantryData> InfantryDatas;
     FAVector<CUnitData> UnitDatas;
-    FAVector<CStructureData> BuildingDatas; // Never being really used in fact, but can be guessed from 4CDDE0
+    FAVector<CBuildingData> BuildingDatas; // Never being really used in fact, but can be guessed from 4CDDE0
     unsigned char MapPreviewData[0x40000];
     BITMAPINFO MapPreviewInfo;
     int MapPreviewStride;
