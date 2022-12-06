@@ -172,6 +172,45 @@ public:
     bool operator< (const CString& another) const
         { return strcmp(this->m_pchData, another) < 0; }
 
+	bool operator> (const CString& another) const
+		{ return strcmp(this->m_pchData, another) > 0; }
+
+	bool operator<= (const CString& another) const
+		{ return !(*this > another); }
+
+	bool operator>= (const CString& another) const
+		{ return !(*this < another); }
+
+	bool operator== (const CString& another) const
+		{ return strcmp(this->m_pchData, another) == 0; }
+
+	bool operator!= (const CString& another) const
+		{ return !(*this == another); }
+
+	bool operator< (const char* another) const
+        { return strcmp(this->m_pchData, another) < 0; }
+
+	bool operator> (const char* another) const
+		{ return strcmp(this->m_pchData, another) > 0; }
+
+	bool operator<= (const char* another) const
+		{ return !(*this > another); }
+
+	bool operator>= (const char* another) const
+		{ return !(*this < another); }
+
+	bool operator== (const char* another) const
+		{ return strcmp(this->m_pchData, another) == 0; }
+
+	bool operator!= (const char* another) const
+		{ return !(*this == another); }
+
+	char& operator[] (const int idx)
+		{ return this->m_pchData[idx]; }
+
+	const char operator[] (const int idx) const
+		{ return this->m_pchData[idx]; }
+
     LPTSTR m_pchData;   // pointer to ref counted string data
 
 

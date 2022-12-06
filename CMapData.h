@@ -353,9 +353,10 @@ public:
     int MapWidthPlusHeight;
     CellData TempCellData;
     BOOL FieldDataAllocated;
-    FAMap<ppmfc::CString, BOOL, 0x5D8CD0, 0x5D8CCC> BuildingTypes;
-    FAMap<ppmfc::CString, BOOL, 0x5D8CD0, 0x5D8CCC> TerrainTypes;
-    FAMap<ppmfc::CString, BOOL, 0x5D8CD0, 0x5D8CCC> SmudgeTypes;
+    // ID -> ArrayIndex
+    FAMap<ppmfc::CString, int, 0x5D8CD0, 0x5D8CCC> BuildingTypes;
+    FAMap<ppmfc::CString, int, 0x5D8CD0, 0x5D8CCC> TerrainTypes;
+    FAMap<ppmfc::CString, int, 0x5D8CD0, 0x5D8CCC> SmudgeTypes;
     unsigned char Overlay[0x40000];
     unsigned char OverlayData[0x40000];
     IsoMapPack5Entry* IsoPackData;
