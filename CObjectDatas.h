@@ -30,7 +30,7 @@ public:
     ppmfc::CString IsAboveGround;
     ppmfc::CString AutoNORecruitType;
     ppmfc::CString AutoYESRecruitType;
-    int Flag;
+    bool Flag : 1;
 };
 
 class CBuildingData
@@ -53,7 +53,7 @@ public:
     ppmfc::CString Upgrade3;
     ppmfc::CString AIRepairable;
     ppmfc::CString Nominal;
-    int Flag;
+    bool Flag : 1;
 };
 
 class CUnitData
@@ -73,7 +73,7 @@ public:
     ppmfc::CString FollowsIndex;
     ppmfc::CString AutoNORecruitType;
     ppmfc::CString AutoYESRecruitType;
-    int Flag;
+    bool Flag : 1;
 };
 
 class CAircraftData
@@ -91,7 +91,7 @@ public:
     ppmfc::CString Group;
     ppmfc::CString AutoNORecruitType;
     ppmfc::CString AutoYESRecruitType;
-    int Flag;
+    bool Flag : 1;
 };
 
 class CTerrainData
@@ -100,7 +100,7 @@ public:
     ppmfc::CString TypeID;
     int Y;
     int X;
-    int Flag;
+    bool Flag : 1;
 };
 
 class CSmudgeData
@@ -109,5 +109,12 @@ public:
     ppmfc::CString TypeID;
     int Y;
     int X;
-    int Flag;
+    bool Flag : 1;
 };
+
+static_assert(sizeof(CInfantryData) == 0x3C);
+static_assert(sizeof(CBuildingData) == 0x48);
+static_assert(sizeof(CUnitData) == 0x3C);
+static_assert(sizeof(CAircraftData) == 0x34);
+static_assert(sizeof(CTerrainData) == 0x10);
+static_assert(sizeof(CSmudgeData) == 0x10);
