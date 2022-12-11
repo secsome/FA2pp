@@ -138,10 +138,7 @@ public:
     ppmfc::CPoint MouseCurrentPosition;
     BOOL IsScrolling;
     BOOL KeyboardAMode;
-    int Unknown_7C;
-    int Unknown_80;
-    int Unknown_84;
-    int Unknown_88;
+    MapRect Rect_7C; // Used by 46AB30
     int LeftButtonDoubleClick_8C;
     int BrushSizeX;
     int BrushSizeY;

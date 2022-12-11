@@ -288,19 +288,25 @@ public:
     void InitializeTerrainTypes(const char* ID) { JMP_THIS(0x4B6D00); }
     void InitializeSmudges(const char* ID) { JMP_THIS(0x4CA7E0); }
 
-    void TypesInit_4AD930() { JMP_THIS(0x4AD930); }
+    void UpdateTypeDatas() { JMP_THIS(0x4AD930); }
 
-    // FA2 magics
+    // Again! FA2 coordinate system is just the reverse of the game's.
+    // In FA2pp we just keep FA2's coordinate system naming all the time!
     inline int GetCoordIndex(int X, int Y) { return X + Y * MapWidthPlusHeight; }  
     inline int GetXFromCoordIndex(int CoordIndex) { return CoordIndex % MapWidthPlusHeight; }
     inline int GetYFromCoordIndex(int CoordIndex) { return CoordIndex / MapWidthPlusHeight; }
     inline bool IsCoordInMap(int X, int Y)
     {
         return
-            X + Y > this->Size.Width &&
-            X - Y < this->Size.Width &&
-            Y - X < this->Size.Width &&
-            X + Y <= this->Size.Width + 2 * this->Size.Height;
+            X > 0 && Y > 0 &&
+            X + Y > Size.Width &&
+            X + Y <= Size.Width + 2 * Size.Height &&
+            (Y < Size.Width || X > Y - Size.Width) &&
+            (X < Size.Width || X < Y + Size.Width);
+    }
+    inline bool IsCoordInMap(int CoordIndex) 
+    { 
+        return IsCoordInMap(GetXFromCoordIndex(CoordIndex), GetYFromCoordIndex(CoordIndex)); 
     }
 
     void SetTileAt(unsigned nIndex, unsigned int nTileCount, char nTileSubIndex = 0) { JMP_THIS(0x416550); }
