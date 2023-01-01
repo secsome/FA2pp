@@ -522,3 +522,14 @@ public:
 //    _PPMFC_STDCALL(0x55FD07);
 
 _PPMFC_END
+
+#include <format>
+
+template <class CharT>
+struct std::formatter<ppmfc::CString, CharT> : public std::formatter<const CharT*, CharT>
+{
+	template<class FormatContext>
+	auto format(const ppmfc::CString& t, FormatContext& fc) {
+		return std::formatter<const CharT*, CharT>::format(t.m_pchData, fc);
+	}
+};
