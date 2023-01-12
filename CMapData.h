@@ -5,6 +5,7 @@
 #include <CINI.h>
 #include <CObjectDatas.h>
 #include <CPalette.h>
+#include <CTileTypeClass.h>
 
 #include <Structures/FAVector.h>
 
@@ -89,6 +90,11 @@ public:
     ~CellData() { JMP_THIS(0x416FC0); }
 
     CellData& operator=(const CellData& another) { new(this) CellData(another); return *this; }
+
+    bool IsHidden() const
+    {
+        return Flag.IsHiddenCell || (*CTileTypeClass::Instance)[TileIndex == 0xFFFF ? 0 : TileIndex].IsHidden;
+    }
 
     short Unit;
     short Infantry[3];
@@ -254,6 +260,7 @@ public:
     void UpdateSize() { JMP_THIS(0x49AA30); }
     void InitMinimap() { JMP_THIS(0x4C3D40); }
     void UpdateMapPreviewAt(int X, int Y) { JMP_THIS(0x4A23A0); }
+
     void GetMapPreview(void*& pBuffer, LPBITMAPINFO lpBitmapInfo, int& nStride) { JMP_THIS(0x4C3DF0); }
     void* GetMapPreview(LPBITMAPINFO lpBitmapInfo)
     {
@@ -261,6 +268,11 @@ public:
         void* pRet = nullptr;
         this->GetMapPreview(pRet, lpBitmapInfo, nStride);
         return pRet;
+    }
+    template <typename T>
+    void GetMapPreview(T*& pBuffer, LPBITMAPINFO lpBitmapInfo, int& nStride)
+    {
+        return GetMapPreview((void*&)pBuffer, lpBitmapInfo, nStride);
     }
 
     void ResizeMap(int L, int T, int W, int H) { JMP_THIS(0x4C45F0); }
