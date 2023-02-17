@@ -65,6 +65,8 @@ public:
 	void InitTMPs(void* pProgress = nullptr) { JMP_THIS(0x48C3D0); }
 	void InitTMPs_Reset() { JMP_THIS(0x4959F0); }
 
+	void DrawOverlay(const char* ID, int OverlayIndex) { JMP_THIS(0x48EE60); }
+
 	void InitializeDDraw() { JMP_THIS(0x490EF0); }
 	void PrimarySurfaceLost() { JMP_THIS(0x4691D0); }
 	void Release() { JMP_THIS(0x491D00); }
@@ -215,8 +217,8 @@ public:
 	DECLARE_PROPERTY(CStatic, CSCBuiltby);
 	DECLARE_PROPERTY(CStatic, CSCLoading);
 	DECLARE_PROPERTY(CProgressCtrl, CPCProgress);
-	int Unknown_150;
-	int Unknown_154;
+	int BMPFileCount;
+	int RawBMPFileCount;
 	int PAL_ISOTEM; // index in the array at 0x7EDD9C BytePalette[]
 	int PAL_ISOSNO;
 	int PAL_ISOURB;

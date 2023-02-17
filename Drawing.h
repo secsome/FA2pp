@@ -31,6 +31,9 @@ public:
     void Set(ImageDataClass* another) { JMP_THIS(0x4DE4F0); }
     void Clear() { JMP_THIS(0x4DE510); }
 
+    // Helper to query overlay data
+    static ImageDataClass* GetOverlay(unsigned char OverlayIndex, unsigned char Frame) { JMP_THIS(0x468F90); }
+
     union
     {
         unsigned char* pImageBuffer; // draw from here, size = FullWidth*FullHeight
