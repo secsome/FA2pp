@@ -323,6 +323,7 @@ public:
 
     void SetTileAt(unsigned nIndex, unsigned int nTileCount, char nTileSubIndex = 0) { JMP_THIS(0x416550); }
 
+    int GetBuildingTypeID(const char* ID) { JMP_THIS(0x4AE910); }
     void SetBuildingData(CBuildingData* pData, LPCSTR lpNewTypeID, LPCSTR lpNewHouse, int nCoord, ppmfc::CString Unk1)
         { JMP_THIS(0x4ACB60); }
     void DeleteBuildingData(int bldID) { JMP_THIS(0x4A8FB0); }
