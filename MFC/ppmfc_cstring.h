@@ -240,7 +240,32 @@ public:
         return dest;
     }
 
+	// Process strings contains %1, %2
+	void ReplaceNumString(int value, const char* to)
+	{
+		char buffer[64], num[64];
+		_itoa_s(value, num, 10);
+		buffer[0] = '%';
+		buffer[1] = '\0';
+		strcat_s(buffer, num);
+		buffer[63] = '\0';
+		if (Find(buffer) >= 0)
+			Replace(buffer, to);
+	}
+
+	void ReplaceNumString(int value, int to)
+	{
+		char num[64];
+		sprintf_s(num, "%d", to);
+		ReplaceNumString(value, num);
+	}
+
 private:
+	static CString* __cdecl ReplaceNumString(CString* ret, int value, const char* source, const char* to)
+	{
+		JMP_STD(0x43D960);
+	}
+
 	void CString::FormatV(LPCTSTR lpszFormat, va_list argList)
 	{
 		constexpr int FORCE_ANSI = 0x10000;
