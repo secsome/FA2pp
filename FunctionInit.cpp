@@ -143,7 +143,7 @@ void* CLoading::ReadWholeFile(const char* filename, DWORD* pDwSize)
 	if (CMixFile::HasFile(filename, nMix))
 	{
 		Ccc_file file(true);
-		file.open(filename, CMixFile::Array[nMix]);
+		file.open(filename, CMixFile::Array[nMix - 1]);
 		auto pBuffer = GameCreateArray<unsigned char>(file.get_size());
 		memcpy(pBuffer, file.get_data(), file.get_size());
 		if (pDwSize)
