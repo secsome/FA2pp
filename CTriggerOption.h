@@ -28,4 +28,5 @@ public:
 		{ JMP_THIS(0x5008C0); }
 
 	void Update() { JMP_THIS(0x500970); }
+	void OnETNameEdited() { JMP_THIS(0x501340); }
 };
