@@ -340,6 +340,9 @@ public:
         { JMP_THIS(0x4B0060); }
     void DeleteAircraftData(int aircraftID) { JMP_THIS(0x4A98B0); }
     void GetAircraftData(int aircraftID, CAircraftData& data) { JMP_THIS(0x4AF430); }
+    
+    void AddTiberium(unsigned char overlay, unsigned char overlaydata) { JMP_THIS(0x4A1DB0); }
+    void DeleteTiberium(unsigned char overlay, unsigned char overlaydata) { JMP_THIS(0x4A17C0); }
 
     void GetBuildingTypeData(int bldTypeID, CBuildingTypeData* pRet) { JMP_THIS(0x4C3C20); }
     CTubeData* GetTubeData(int tubeID) { JMP_THIS(0x4753C0); }
