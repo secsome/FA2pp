@@ -176,7 +176,7 @@ public:
 		if (id == PAL_TEMPERAT || id == PAL_SNOW || id == PAL_URBAN ||
 			id == PAL_URBANN || id == PAL_LUNAR || id == PAL_DESERT)
 			return (Palette*)(0x72ACC4);
-		if (id == PAL_LIB_ID2124019542)
+		if (id == PAL_LIBTEM)
 			return (Palette*)(0x72A8C4);
 		return nullptr;
 	}
@@ -228,7 +228,7 @@ public:
 	int PAL_TEMPERAT;
 	int PAL_SNOW;
 	int PAL_URBAN;
-	int PAL_LIB_ID2124019542;
+	int PAL_LIBTEM;
 	int PAL_LUNAR;
 	int PAL_DESERT;
 	int PAL_URBANN;
