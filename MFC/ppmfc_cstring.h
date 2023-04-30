@@ -245,6 +245,7 @@ public:
 	{
 		char buffer[64], num[64];
 		_itoa_s(value, num, 10);
+		num[63] = '\0';
 		buffer[0] = '%';
 		buffer[1] = '\0';
 		strcat_s(buffer, num);
