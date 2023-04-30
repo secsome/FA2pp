@@ -344,6 +344,9 @@ public:
     void AddTiberium(unsigned char overlay, unsigned char overlaydata) { JMP_THIS(0x4A1DB0); }
     void DeleteTiberium(unsigned char overlay, unsigned char overlaydata) { JMP_THIS(0x4A17C0); }
 
+    void SaveUndoRedoData(bool flag, int L, int T, int R, int B) { JMP_THIS(0x4BB990); }
+    void DoUndo() JMP_THIS(0x4BBEC0);
+
     void GetBuildingTypeData(int bldTypeID, CBuildingTypeData* pRet) { JMP_THIS(0x4C3C20); }
     CTubeData* GetTubeData(int tubeID) { JMP_THIS(0x4753C0); }
     void AddTube(CTubeData* pTubeData) { JMP_THIS(0x4BAF20); }
