@@ -400,7 +400,11 @@ public:
 		ppmfc::CString& pStr = this->GetString(pSection, pKey, "");
 		float ret = 0;
 		if (sscanf_s(pStr, "%f", &ret) == 1)
+		{
+			if (strchr(pStr, '%%'))
+				ret *= 0.01f;
 			return ret;
+		}
 		return nDefault;
 	}
 
@@ -408,7 +412,11 @@ public:
 		ppmfc::CString& pStr = this->GetString(pSection, pKey, "");
 		float ret = 0;
 		if (sscanf_s(pStr, "%f", &ret) == 1)
+		{
+			if (strchr(pStr, '%%'))
+				ret *= 0.01f;
 			return ret;
+		}
 		return nDefault;
 	}
 
@@ -416,7 +424,11 @@ public:
 		ppmfc::CString& pStr = this->GetString(pSection, pKey, "");
 		double ret = 0;
 		if (sscanf_s(pStr, "%lf", &ret) == 1)
+		{
+			if (strchr(pStr, '%%'))
+				ret *= 0.01;
 			return ret;
+		}
 		return nDefault;
 	}
 
@@ -424,7 +436,11 @@ public:
 		ppmfc::CString& pStr = this->GetString(pSection, pKey, "");
 		double ret = 0;
 		if (sscanf_s(pStr, "%lf", &ret) == 1)
+		{
+			if (strchr(pStr, '%%'))
+				ret *= 0.01;
 			return ret;
+		}
 		return nDefault;
 	}
 
