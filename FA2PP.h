@@ -9,6 +9,7 @@
 #include <AFXWIN.H>
 #include <AFXCMN.H>
 #include <AFXEXT.H>
+#include <AFXCVIEW.H>
 #include "FA2PPCore.h"
 
 #include "MFC/ppmfc_include.h"

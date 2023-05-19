@@ -7,10 +7,13 @@
 class CIsoView;
 class CTileSetBrowserFrame;
 
-class CViewObjects : public CTreeCtrl
+class CViewObjects : public CTreeView
 {
 public:
     void Update() { JMP_THIS(0x51CD20); }
+
+    int Unknown_48;
+    BOOL IsInitialUpdated;
 };
 
 class CRightFrame : public ppmfc::CFrameWnd
