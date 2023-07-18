@@ -363,7 +363,7 @@ public:
 	}
 
 	int GetInteger(ppmfc::CString pSection, ppmfc::CString pKey, int nDefault = 0) {
-		ppmfc::CString& pStr = this->GetString(pSection, pKey, "");
+		ppmfc::CString&& pStr = this->GetString(pSection, pKey, "");
 		int ret = 0;
 		if (sscanf_s(pStr, "%d", &ret) == 1)
 			return ret;
@@ -371,7 +371,7 @@ public:
 	}
 
 	int GetInteger(INISection* pSection, ppmfc::CString pKey, int nDefault = 0) {
-		ppmfc::CString& pStr = this->GetString(pSection, pKey, "");
+		ppmfc::CString&& pStr = this->GetString(pSection, pKey, "");
 		int ret = 0;
 		if (sscanf_s(pStr, "%d", &ret) == 1)
 			return ret;
@@ -380,7 +380,7 @@ public:
 
 	CPoint GetPoint(ppmfc::CString pSection, ppmfc::CString pKey, CPoint nDefault = { 0,0 })
 	{
-		ppmfc::CString& pStr = this->GetString(pSection, pKey, "");
+		ppmfc::CString&& pStr = this->GetString(pSection, pKey, "");
 		CPoint ret = { 0,0 };
 		if (sscanf_s(pStr, "%d,%d", &ret.x, &ret.y) == 2)
 			return ret;
@@ -389,7 +389,7 @@ public:
 
 	CPoint GetPoint(INISection* pSection, ppmfc::CString pKey, CPoint nDefault = { 0,0 })
 	{
-		ppmfc::CString& pStr = this->GetString(pSection, pKey, "");
+		ppmfc::CString&& pStr = this->GetString(pSection, pKey, "");
 		CPoint ret = { 0,0 };
 		if (sscanf_s(pStr, "%d,%d", &ret.x, &ret.y) == 2)
 			return ret;
@@ -397,7 +397,7 @@ public:
 	}
 
 	float GetSingle(ppmfc::CString pSection, ppmfc::CString pKey, float nDefault = 0) {
-		ppmfc::CString& pStr = this->GetString(pSection, pKey, "");
+		ppmfc::CString&& pStr = this->GetString(pSection, pKey, "");
 		float ret = 0;
 		if (sscanf_s(pStr, "%f", &ret) == 1)
 		{
@@ -409,7 +409,7 @@ public:
 	}
 
 	float GetSingle(INISection* pSection, ppmfc::CString pKey, float nDefault = 0) {
-		ppmfc::CString& pStr = this->GetString(pSection, pKey, "");
+		ppmfc::CString&& pStr = this->GetString(pSection, pKey, "");
 		float ret = 0;
 		if (sscanf_s(pStr, "%f", &ret) == 1)
 		{
@@ -421,7 +421,7 @@ public:
 	}
 
 	double GetDouble(ppmfc::CString pSection, ppmfc::CString pKey, double nDefault = 0) {
-		ppmfc::CString& pStr = this->GetString(pSection, pKey, "");
+		ppmfc::CString&& pStr = this->GetString(pSection, pKey, "");
 		double ret = 0;
 		if (sscanf_s(pStr, "%lf", &ret) == 1)
 		{
@@ -433,7 +433,7 @@ public:
 	}
 
 	double GetDouble(INISection* pSection, ppmfc::CString pKey, double nDefault = 0) {
-		ppmfc::CString& pStr = this->GetString(pSection, pKey, "");
+		ppmfc::CString&& pStr = this->GetString(pSection, pKey, "");
 		double ret = 0;
 		if (sscanf_s(pStr, "%lf", &ret) == 1)
 		{
@@ -445,7 +445,7 @@ public:
 	}
 
 	bool GetBool(ppmfc::CString pSection, ppmfc::CString pKey, bool nDefault = false) {
-		ppmfc::CString& pStr = this->GetString(pSection, pKey, "");
+		ppmfc::CString&& pStr = this->GetString(pSection, pKey, "");
 		switch (toupper(static_cast<unsigned char>(*pStr)))
 		{
 		case '1':
@@ -462,7 +462,7 @@ public:
 	}
 
 	bool GetBool(INISection* pSection, ppmfc::CString pKey, bool nDefault = false) {
-		ppmfc::CString& pStr = this->GetString(pSection, pKey, "");
+		ppmfc::CString&& pStr = this->GetString(pSection, pKey, "");
 		switch (toupper(static_cast<unsigned char>(*pStr)))
 		{
 		case '1':
@@ -479,18 +479,16 @@ public:
 	}
 
 	COLORREF GetColor(ppmfc::CString pSection, ppmfc::CString pKey, COLORREF nDefault = 0xFFFFFF) {
-		ppmfc::CString& pStr = this->GetString(pSection, pKey, "");
-		struct { byte R, G, B, Zero; } ret;
-		ret.Zero = 0;
+		ppmfc::CString&& pStr = this->GetString(pSection, pKey, "");
+		struct { byte R, G, B, Zero; } ret{ 0 };
 		if (sscanf_s(pStr, "%hhu,%hhu,%hhu", &ret.R, &ret.G, &ret.B) == 3)
 			return *reinterpret_cast<COLORREF*>(&ret);
 		return nDefault;
 	}
 
 	COLORREF GetColor(INISection* pSection, ppmfc::CString pKey, COLORREF nDefault = 0xFFFFFF) {
-		ppmfc::CString& pStr = this->GetString(pSection, pKey, "");
-		struct { byte R, G, B, Zero; } ret;
-		ret.Zero = 0;
+		ppmfc::CString&& pStr = this->GetString(pSection, pKey, "");
+		struct { byte R, G, B, Zero; } ret{ 0 };
 		if (sscanf_s(pStr, "%hhu,%hhu,%hhu", &ret.R, &ret.G, &ret.B) == 3)
 			return *reinterpret_cast<COLORREF*>(&ret);
 		return nDefault;
@@ -499,14 +497,14 @@ public:
 	std::map<unsigned int, ppmfc::CString> ParseIndiciesData(ppmfc::CString pSection)
 	{
 		std::map<unsigned int, ppmfc::CString> ret;
-		auto& section = Dict.find(pSection);
+		auto&& section = Dict.find(pSection);
 		if (section == Dict.end())
 			return ret;
 		std::map<unsigned int, ppmfc::CString> tmp;
 		for (auto& ent : section->second.GetEntities())
 		{
 			auto& indexDict = section->second.GetIndices();
-			auto& idxitr = indexDict.find(ent.first);
+			auto&& idxitr = indexDict.find(ent.first);
 			if (idxitr != indexDict.end())
 				tmp[idxitr->second] = idxitr->first;
 		}

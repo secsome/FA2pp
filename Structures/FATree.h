@@ -146,11 +146,11 @@
             FATreeNode* _Ptr;
         };;
 
-        using _Pairib = std::pair<iterator, bool>;
-        using _Pairii = std::pair<iterator, iterator>;
+        using _Pairib = typename std::pair<iterator, bool>;
+        using _Pairii = typename std::pair<iterator, iterator>;
 
         explicit FATree(const comparator_type& _Parg, bool _Marg = true,
-            const allocator_type& _Al = _A())
+            const allocator_type& _Al = allocator_type())
             : _Allocator(_Al),
             _Comparator(_Parg), _Multi(_Marg)
         {
@@ -158,7 +158,7 @@
         }
         FATree(const value_type* _F, const value_type* _L,
             const comparator_type& _Parg, bool _Marg = true,
-            const allocator_type& _Al = _A())
+            const allocator_type& _Al = allocator_type())
             : _Allocator(_Al),
             _Comparator(_Parg), _Multi(_Marg)
         {

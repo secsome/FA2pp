@@ -129,7 +129,7 @@ void* CLoading::ReadWholeFile(const char* filename, DWORD* pDwSize)
 		fin.seekg(0, std::ios::end);
 		const int size = static_cast<int>(fin.tellg());
 		if (size == 0)
-			return false;
+			return nullptr;
 
 		fin.seekg(0, std::ios::beg);
 		auto pBuffer = GameCreateArray<unsigned char>(size);

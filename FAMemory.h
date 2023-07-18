@@ -4,6 +4,7 @@
 
 #include <exception>
 #include <type_traits>
+#include <memory>
 
 namespace FAMemory {
 	// both functions are naked, which means neither prolog nor epilog are

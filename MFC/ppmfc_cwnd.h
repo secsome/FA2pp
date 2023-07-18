@@ -429,13 +429,13 @@ public:
     void UnlockWindowUpdate()
         { ASSERT(::IsWindow(m_hWnd)); ::LockWindowUpdate(NULL); }
 
-    void CWnd::GetWindowRect(LPRECT lpRect) const
+    void GetWindowRect(LPRECT lpRect) const
         { ASSERT(::IsWindow(m_hWnd)); ::GetWindowRect(m_hWnd, lpRect); }
 
-    void CWnd::GetClientRect(LPRECT lpRect) const
+    void GetClientRect(LPRECT lpRect) const
         { ASSERT(::IsWindow(m_hWnd)); ::GetClientRect(m_hWnd, lpRect); }
 
-    BOOL CWnd::RedrawWindow(LPCRECT lpRectUpdate, CRgn* prgnUpdate, UINT flags)
+    BOOL RedrawWindow(LPCRECT lpRectUpdate, CRgn* prgnUpdate, UINT flags)
         { ASSERT(::IsWindow(m_hWnd)); return ::RedrawWindow(m_hWnd, lpRectUpdate, (HRGN)prgnUpdate->GetSafeHandle(), flags); }
 
     void UpdateWindow()

@@ -27,13 +27,13 @@ public:
     CString(LPCWSTR lpsz) _PPMFC_THISCALL(0x555FCF);
     ~CString() _PPMFC_THISCALL(0x555F0F);
 
-    CStringData* CString::GetData() const
+    CStringData* GetData() const
         { ASSERT(m_pchData != NULL); return ((CStringData*)m_pchData) - 1; }
-    int CString::GetLength() const
+    int GetLength() const
         { return GetData()->nDataLength; }
-    int CString::GetAllocLength() const
+    int GetAllocLength() const
         { return GetData()->nAllocLength; }
-    BOOL CString::IsEmpty() const
+    BOOL IsEmpty() const
         { return GetData()->nDataLength == 0; }
 
     const CString& operator=(TCHAR ch)
@@ -217,12 +217,12 @@ public:
 public:
     // Extra implements not contained in FA2
 
-    CString CString::Mid(int nFirst) const
+    CString Mid(int nFirst) const
     {
         return Mid(nFirst, GetData()->nDataLength - nFirst);
     }
 
-    CString CString::Mid(int nFirst, int nCount) const
+    CString Mid(int nFirst, int nCount) const
     {
         // out-of-bounds requests return sensible things
         if (nFirst < 0)
@@ -267,7 +267,7 @@ private:
 		JMP_STD(0x43D960);
 	}
 
-	void CString::FormatV(LPCTSTR lpszFormat, va_list argList)
+	void FormatV(LPCTSTR lpszFormat, va_list argList)
 	{
 		constexpr int FORCE_ANSI = 0x10000;
 		constexpr int FORCE_UNICODE = 0x20000;
@@ -505,7 +505,7 @@ private:
 		va_end(argListSave);
 	}
 public:
-    void AFX_CDECL CString::Format(LPCTSTR lpszFormat, ...)
+    void AFX_CDECL Format(LPCTSTR lpszFormat, ...)
     {
         ASSERT(AfxIsValidString(lpszFormat, FALSE));
 
@@ -515,7 +515,7 @@ public:
         va_end(argList);
     }
 
-    void AFX_CDECL CString::Format(UINT nFormatID, ...)
+    void AFX_CDECL Format(UINT nFormatID, ...)
     {
         CString strFormat;
         VERIFY(strFormat.LoadString(nFormatID) != 0);

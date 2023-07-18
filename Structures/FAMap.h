@@ -47,16 +47,16 @@ struct binary_function {
 					: comp(_Pred) {}
 				_Pr comp;
 			};
-			using key_type = _K;
-			using referent_type = _Ty;
-			using key_compare = _Pr;
-			using allocator_type = _A;
-			using _Tref = _Ty&;
-			using _Imp = FATree<_K, value_type, _Kfn, _Pr, _A, nil_addr, nilrefs_addr>;
-			using size_type = size_t;
-			using difference_type = ptrdiff_t;
-			using reference = value_type&;
-			using const_reference = const value_type&;
+			using key_type = typename _K;
+			using referent_type = typename _Ty;
+			using key_compare = typename _Pr;
+			using allocator_type = typename _A;
+			using _Tref = typename  _Ty&;
+			using _Imp = typename FATree<_K, value_type, _Kfn, _Pr, _A, nil_addr, nilrefs_addr>;
+			using size_type = typename size_t;
+			using difference_type = typename ptrdiff_t;
+			using reference = typename value_type&;
+			using const_reference = typename const value_type&;
 
 			using iterator = typename _Imp::iterator;
 			
@@ -104,12 +104,12 @@ struct binary_function {
 			}
 			_Pairib insert(const value_type& _X)
 			{
-				_Imp::_Pairib _Ans = _Tr.insert(_X);
+				typename _Imp::_Pairib _Ans = _Tr.insert(_X);
 				return (_Pairib(_Ans.first, _Ans.second));
 			}
 			iterator insert(iterator _P, const value_type& _X)
 			{
-				return (_Tr.insert((_Imp::iterator&)_P, _X));
+				return (_Tr.insert((typename _Imp::iterator&)_P, _X));
 			}
 			void insert(_It _F, _It _L)
 			{
@@ -118,16 +118,16 @@ struct binary_function {
 			}
 			iterator erase(iterator _P)
 			{
-				return (_Tr.erase((_Imp::iterator&)_P));
+				return (_Tr.erase((typename _Imp::iterator&)_P));
 			}
 			void manual_erase(iterator _P)
 			{
-				_Tr.manual_erase((_Imp::iterator&)_P);
+				_Tr.manual_erase((typename _Imp::iterator&)_P);
 			}
 			iterator erase(iterator _F, iterator _L)
 			{
-				return (_Tr.erase((_Imp::iterator&)_F,
-					(_Imp::iterator&)_L));
+				return (_Tr.erase((typename _Imp::iterator&)_F,
+					(typename _Imp::iterator&)_L));
 			}
 			size_type erase(const _K& _Kv)
 			{
