@@ -211,6 +211,19 @@ public:
 		return &itr.first->second;
 	}
 
+	INISection* AddOrGetSection(ppmfc::CString pSectionName)
+	{
+		auto pSection = GetSection(pSectionName);
+		if (pSection)
+			return pSection;
+
+		pSection = GameCreate<INISection>();
+
+		auto itr = InsertSection(pSectionName, pSection);
+
+		return &itr.first->second;
+	}
+
 	/// <summary>
 	/// Write a string to the ini dict.
 	/// </summary>
