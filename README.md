@@ -1,0 +1,1 @@
+> NOTICE: As EA has released the source code of FA2, this project will be archived.
